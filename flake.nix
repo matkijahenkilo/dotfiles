@@ -1,22 +1,30 @@
 {
+  description = "My personal NixOS and dotfiles configurations";
 
-  description = "owo";
   inputs = {
-    nixpkgs = {
-      url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    stylix.url = "github:danth/stylix";
+
+    nixgl.url = "github:nix-community/nixGL";
   };
 
-  outputs = { self, nixpkgs, ... }:
-    let
-      lib = nixpkgs.lib;
-    in {
+  outputs = inputs@{ ... }:
+  let
+    libs = import ./libs/default.nix { inherit inputs; };
+    mkHost = libs.mkHost;
+    mkHome = libs.mkHome;
+  in {
     nixosConfigurations = {
-      nixos = lib.nixosSystem {
-        system = "x86_64-linux";
-	modules = [ ./configuration.nix ];
-      };
+      gamma = mkHost ./hosts/gamma/configuration.nix;
+    };
+    homeConfigurations = {
+      "marisa@gamma" = mkHome "x86_64-linux" "marisa";
     };
   };
-
 }
