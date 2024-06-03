@@ -6,6 +6,6 @@
     ./kitty.nix
     ./fish.nix
     ./fastfetch.nix
-    # ./stylix.nix
+    ./stylix.nix
   ];
 }

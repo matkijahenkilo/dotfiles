@@ -1,9 +1,8 @@
-{ pkgs, inputs, ... }: {
-  imports = [ inputs.stylix.homeManagerModules.stylix ];
+{ pkgs, ... }: {
   stylix = {
     autoEnable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/summercamp.yaml";
-    image = ./../assets/bg;
+    image = ./../../assets/bg;
     polarity = "dark";
 
     cursor = {

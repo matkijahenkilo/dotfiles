@@ -38,6 +38,7 @@
       marisa = inputs.home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [
+          inputs.stylix.homeManagerModules.stylix
           ./modules/home
           {
             programs.home-manager.enable = true;
