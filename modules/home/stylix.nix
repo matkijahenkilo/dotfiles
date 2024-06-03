@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   stylix = {
     autoEnable = true;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/summercamp.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/3024.yaml";
     image = ./../../assets/bg;
     polarity = "dark";
 
@@ -13,8 +13,8 @@
     fonts = {
       sizes = {
         applications = 10;
-        terminal = 11;
-        desktop = 9;
+        terminal = 12;
+        desktop = 10;
         popups = 9;
       };
 
@@ -41,7 +41,7 @@
 
     opacity = {
       applications = 1.0;
-      terminal = 0.85;
+      terminal = 1.0;
       desktop = 1.0;
       popups = 1.0;
     };
