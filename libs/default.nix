@@ -2,7 +2,7 @@
 let
   libs = ( import ./default.nix ) { inherit inputs; };
   outputs = inputs.self.outputs;
-in rec {
+in {
 
   pkgsFor = sys: inputs.nixpkgs.legacyPackages.${sys};
 
@@ -16,33 +16,25 @@ in rec {
       ];
     };
 
-  mkHome = sys: username:
-  let
-    homeDirectory = "/home/${username}";
-  in {
-    inputs.home-manager.lib.homeManagerConfiguration = {
-      pkgs = pkgsFor sys;
-      extraSpecialArgs = {
-        inherit inputs libs outputs;
-      };
-      modules = [
-        {
-          home-manager = {
-            extraSpecialArgs = { inherit inputs; };
-            backupFileExtension = "backup";
-            users = {
-              username = import ./../modules/home;
-            };
-          };
-          home = {
-            inherit username homeDirectory;
-            stateVersion = "23.11";
-          };
-          programs.home-manager = {
-            enable = true;
-          };
-        }
-      ];
-    };
-  };
+  # mkHome = pkgs: username:
+  # let
+  #   homeDirectory = "/home/${username}";
+  # in {
+  #   inputs.home-manager.lib.homeManagerConfiguration = {
+  #     inherit pkgs;
+  #     extraSpecialArgs = {
+  #       inherit inputs libs outputs;
+  #     };
+  #     modules = [
+  #       ./../modules/home
+  #       {
+  #         programs.home-manager.enable = true;
+  #         home = {
+  #           inherit username homeDirectory;
+  #           stateVersion = "23.11";
+  #         };
+  #       }
+  #     ];
+  #   };
+  # };
 }

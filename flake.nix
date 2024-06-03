@@ -18,13 +18,26 @@
   let
     libs = import ./libs/default.nix { inherit inputs; };
     mkHost = libs.mkHost;
-    mkHome = libs.mkHome;
+    pkgsFor = libs.pkgsFor;
   in {
     nixosConfigurations = {
       gamma = mkHost ./hosts/gamma/configuration.nix;
     };
     homeConfigurations = {
-      "marisa@gamma" = mkHome "x86_64-linux" "marisa";
+      marisa = inputs.home-manager.lib.homeManagerConfiguration {
+        pkgs = pkgsFor "x86_64-linux";
+        modules = [
+          ./modules/home
+          {
+            programs.home-manager.enable = true;
+            home = {
+              username = "marisa";
+              homeDirectory = "/home/marisa";
+              stateVersion = "23.11";
+            };
+          }
+        ];
+      };
     };
   };
 }
