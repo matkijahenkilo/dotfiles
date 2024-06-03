@@ -1,5 +1,5 @@
 { pkgs, lib, ... }: {
-  programs.kitty = { # requires nixGL which I'm too dumb to make it work
+  programs.kitty = {
     enable = true;
     package = pkgs.writeShellScriptBin "kitty" ''
       #!/bin/sh
