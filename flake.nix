@@ -11,21 +11,32 @@
 
     stylix.url = "github:danth/stylix";
 
-    nixgl.url = "github:nix-community/nixGL";
+    nixgl = {
+      url = "github:nix-community/nixgl";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ ... }:
+  outputs = inputs@{ nixpkgs, nixgl, ... }:
   let
     libs = import ./libs/default.nix { inherit inputs; };
     mkHost = libs.mkHost;
-    pkgsFor = libs.pkgsFor;
+    pkgs = import nixpkgs {
+      system = "x86_64-linux";
+      overlays = [
+        nixgl.overlay
+      ];
+      config = {
+        allowUnfree = true;
+      };
+    };
   in {
     nixosConfigurations = {
       gamma = mkHost ./hosts/gamma/configuration.nix;
     };
     homeConfigurations = {
       marisa = inputs.home-manager.lib.homeManagerConfiguration {
-        pkgs = pkgsFor "x86_64-linux";
+        inherit pkgs;
         modules = [
           ./modules/home
           {
