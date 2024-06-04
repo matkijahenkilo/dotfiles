@@ -21,6 +21,7 @@
   let
     libs = import ./libs/default.nix { inherit inputs; };
     mkHost = libs.mkHost;
+    mkHome = libs.mkHome;
     pkgs = import nixpkgs {
       system = "x86_64-linux";
       overlays = [
@@ -35,21 +36,7 @@
       gamma = mkHost ./hosts/gamma/configuration.nix;
     };
     homeConfigurations = {
-      marisa = inputs.home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [
-          inputs.stylix.homeManagerModules.stylix
-          ./modules/home
-          {
-            programs.home-manager.enable = true;
-            home = {
-              username = "marisa";
-              homeDirectory = "/home/marisa";
-              stateVersion = "23.11";
-            };
-          }
-        ];
-      };
+      marisa = mkHome pkgs "marisa";
     };
   };
 }
