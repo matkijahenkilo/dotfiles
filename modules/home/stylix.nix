@@ -1,7 +1,8 @@
-{ pkgs, ... }: {
+{ pkgs, inputs, ... }: {
+  imports = [ inputs.stylix.homeManagerModules.stylix ];
   stylix = {
     autoEnable = true;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/3024.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/pop.yaml";
     image = ./../../assets/bg;
     polarity = "dark";
 

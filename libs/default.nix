@@ -26,7 +26,6 @@ in {
         inherit inputs libs outputs;
       };
       modules = [
-        inputs.stylix.homeManagerModules.stylix
         ./../modules/home
         {
           programs.home-manager.enable = true;
