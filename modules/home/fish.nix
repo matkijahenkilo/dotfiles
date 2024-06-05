@@ -4,7 +4,9 @@
     functions = {
       asd = {
         body = "yt-dlp -f mp4 $argv[1]";
-        onEvent = "Ran yt-dlp";
+      };
+      qwe = {
+        body = "gallery-dl -D ./ $argv[1]";
       };
     };
   };
