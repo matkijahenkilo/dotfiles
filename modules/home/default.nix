@@ -7,5 +7,6 @@
     ./fish.nix
     ./fastfetch.nix
     ./stylix.nix
+    ./syncthing.nix
   ];
 }
