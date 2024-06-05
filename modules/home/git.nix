@@ -21,6 +21,12 @@
       ".vscode"
       ".direnv"
     ];
+    aliases = {
+      s = "status";
+      d = "diff";
+      a = "add";
+      c = "commit";
+    };
     signing = {
       key = "A1F1B36F06AB29ECA2C85BA2523C357756BA411C";
       signByDefault = true;
