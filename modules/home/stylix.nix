@@ -1,7 +1,8 @@
 { pkgs, inputs, ... }: {
   imports = [ inputs.stylix.homeManagerModules.stylix ];
+  xdg.systemDirs.config = [ "/etc/xdg" ]; # Workaround (https://github.com/danth/stylix/issues/412)
   stylix = {
-    autoEnable = true;
+    enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/pop.yaml";
     image = ./../../assets/bg;
     polarity = "dark";
