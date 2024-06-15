@@ -3,9 +3,26 @@
   xdg.systemDirs.config = [ "/etc/xdg" ]; # Workaround (https://github.com/danth/stylix/issues/412)
   stylix = {
     enable = true;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/pop.yaml";
     image = ./../../assets/bg;
     polarity = "dark";
+    base16Scheme = {
+      base00 = "201010";
+      base01 = "302020";
+      base02 = "403030";
+      base03 = "908080";
+      base04 = "b0a0a0";
+      base05 = "c0b0b0";
+      base06 = "e0d0d0";
+      base07 = "ffdfdf";
+      base08 = "eb008a";
+      base09 = "f29333";
+      base0A = "f8ca12";
+      base0B = "37b349";
+      base0C = "d40047";
+      base0D = "b41b1b"; # accent color
+      base0E = "b31e8d";
+      base0F = "7a2d00";
+    };
 
     cursor = {
       package = pkgs.banana-cursor;
