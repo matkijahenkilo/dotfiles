@@ -26,6 +26,8 @@
       d = "diff";
       a = "add";
       c = "commit";
+      ca = "commit --amend";
+      can = "commit --amend --no-edit";
     };
     signing = {
       key = "A1F1B36F06AB29ECA2C85BA2523C357756BA411C";
