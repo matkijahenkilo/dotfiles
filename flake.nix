@@ -56,8 +56,9 @@
       gamma = mkHost ./hosts/gamma/configuration.nix;
     };
     homeConfigurations = {
-      gamma = mkHome homePkgs "marisa";
-      quirera = mkHome nixosPkgs "marisa";
+      gamma = mkHome homePkgs "marisa" "gamma.nix";
+      quirera = mkHome homePkgs "marisa" "quirera.nix";
+      tau = mkHome homePkgs "marisa" "tau.nix";
     };
   };
 }

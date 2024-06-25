@@ -16,7 +16,7 @@ in {
       ];
     };
 
-  mkHome = pkgs: username:
+  mkHome = pkgs: username: module:
   let
     homeDirectory = "/home/${username}";
   in 
@@ -26,7 +26,7 @@ in {
         inherit inputs libs outputs;
       };
       modules = [
-        ./../modules/home
+        ./../modules/home/users/${module}
         {
           programs.home-manager.enable = true;
           home = {
