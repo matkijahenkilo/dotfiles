@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   imports = [
     ./nix.nix
     ./git.nix
@@ -8,5 +8,9 @@
     ./fastfetch.nix
     ./stylix.nix
     ./syncthing.nix
+  ];
+
+  home.packages = with pkgs; [
+    vesktop
   ];
 }

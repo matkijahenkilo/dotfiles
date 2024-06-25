@@ -22,21 +22,42 @@
     libs = import ./libs/default.nix { inherit inputs; };
     mkHost = libs.mkHost;
     mkHome = libs.mkHome;
-    pkgs = import nixpkgs {
+    nixosPkgs = import nixpkgs {
       system = "x86_64-linux";
-      overlays = [
-        nixgl.overlay
-      ];
       config = {
         allowUnfree = true;
       };
+    };
+    homePkgs = import nixpkgs {
+      system = "x86_64-linux";
+      config = {
+        allowUnfree = true;
+      };
+      overlays = [
+        nixgl.overlay
+        (
+          final: prev: {
+            kitty = (homePkgs.writeShellScriptBin "kitty" ''
+              ${final.nixgl.nixGLIntel}/bin/nixGLIntel ${prev.kitty}/bin/kitty "$@"
+            '');
+          }
+        )
+        (
+          final: prev: {
+            vesktop = (homePkgs.writeShellScriptBin "vesktop" ''
+              ${final.nixgl.nixGLIntel}/bin/nixGLIntel ${prev.vesktop}/bin/vesktop "$@"
+            '');
+          }
+        )
+      ];
     };
   in {
     nixosConfigurations = {
       gamma = mkHost ./hosts/gamma/configuration.nix;
     };
     homeConfigurations = {
-      marisa = mkHome pkgs "marisa";
+      gamma = mkHome homePkgs "marisa";
+      quirera = mkHome nixosPkgs "marisa";
     };
   };
 }
