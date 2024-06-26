@@ -1,4 +1,3 @@
-# not tested lol
 { pkgs, ... }:
   let
     path = ./../../assets/fcitx5;
@@ -16,8 +15,9 @@
         words = path + /words.mb;
       };
 
-      settings = {
+      waylandFrontend = true;
 
+      settings = {
         inputMethod = {
           "Groups/0" = {
             Name = "Nice";
@@ -112,40 +112,12 @@
             AutoSavePeriod = 30;
           };
         };
-
-        mozc = {
-          # Initial Mode
-          InitialMode = "Hiragana";
-          # Vertical candidate list
-          Vertical = true;
-          # Expand Usage (Requires vertical candidate list)
-          ExpandMode = "Always";
-          # Fix embedded preedit cursor at the beginning of the preedit
-          PreeditCursorPositionAtBeginning = false;
-          # Hotkey to expand usage
-          ExpandKey = "Control+Alt+H";
-        };
-
-        quickphrase = {
-          # Choose key modifier
-          "Choose Modifier" = "None";
-          # Enable Spell check
-          Spell = true;
-          # Fallback Spell check language
-          FallbackSpellLanguage = "en";
-
-          TriggerKey = {
-            "0" = "Super+grave";
-            "1" = "Super+semicolon";
-            "2" = "Super+dead_acute";
-            "3" = "Super+period";
-          };
-        };
       };
     };
   };
   environment.variables = {
     GTK_IM_MODULE = "fcitx";
     QT_IM_MODULE = "fcitx";
+    QT_QPA_PLATFORM="xcb";
   };
 }

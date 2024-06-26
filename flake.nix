@@ -54,10 +54,11 @@
   in {
     nixosConfigurations = {
       gamma = mkHost ./hosts/gamma/configuration.nix;
+      quirera = mkHost ./hosts/quirera/configuration.nix;
     };
     homeConfigurations = {
       gamma = mkHome homePkgs "marisa" "gamma.nix";
-      quirera = mkHome homePkgs "marisa" "quirera.nix";
+      quirera = mkHome nixosPkgs "marisa" "quirera.nix";
       tau = mkHome homePkgs "marisa" "tau.nix";
     };
   };
