@@ -8,6 +8,7 @@
     ../fastfetch.nix
     ../stylix.nix
     ../syncthing.nix
+    ../fcitx5.nix
   ];
 
   home.packages = with pkgs; [

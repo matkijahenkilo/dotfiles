@@ -1,3 +1,4 @@
+# not tested lol
 { pkgs, ... }:
   let
     path = ./../../assets/fcitx5;
@@ -20,14 +21,22 @@
         inputMethod = {
           "Groups/0" = {
             Name = "Nice";
+            # Layout
             "Default Layout" = "br";
+            # Default Input Method
             DefaultIM = "mozc";
           };
           "Groups/0/Items/0" = {
+            # Name
             Name = "keyboard-br";
+            # Layout
+            #Layout=
           };
           "Groups/0/Items/1" = {
+            # Name
             Name = "mozc";
+            # Layout
+            #Layout=
           };
           GroupOrder = {
             "0" = "Nice";
@@ -45,8 +54,91 @@
           "Hotkey/AltTriggerKeys" = {
             "0" = "Shift_L";
           };
+          "Hotkey/EnumerateGroupForwardKeys" = {
+            "0" = "Super+space";
+          };
+          "Hotkey/EnumerateGroupBackwardKeys" = {
+            "0" = "Shift+Super+space";
+          };
+          "Hotkey/PrevPage" = {
+            "0" = "Up";
+          };
+          "Hotkey/NextPage" = {
+            "0" = "Down";
+          };
+          "Hotkey/PrevCandidate" = {
+            "0" = "Shift+Tab";
+          };
+          "Hotkey/NextCandidate" = {
+            "0" = "Tab";
+          };
+          "Hotkey/TogglePreedit" = {
+            "0" = "Control+Alt+P";
+          };
           Behavior = {
+            # Active By Default
+            ActiveByDefault = true;
+            # Reset state on Focus In
+            resetStateWhenFocusIn = "No";
+            # Share Input State
+            ShareInputState = "All";
+            # Show preedit in application
+            PreeditEnabledByDefault = true;
+            # Show Input Method Information when switch input method
+            ShowInputMethodInformation = true;
+            # Show Input Method Information when changing focus
+            showInputMethodInformationWhenFocusIn = false;
+            # Show compact input method information
+            CompactInputMethodInformation = true;
+            # Show first input method information
+            ShowFirstInputMethodInformation = true;
+            # Default page size
             DefaultPageSize = 5;
+            # Override Xkb Option
+            OverrideXkbOption = false;
+            # Custom Xkb Option
+            #CustomXkbOption=
+            # Force Enabled Addons
+            #EnabledAddons=
+            # Force Disabled Addons
+            #DisabledAddons=
+            # Preload input method to be used by default
+            PreloadInputMethod = true;
+            # Allow input method in the password field
+            AllowInputMethodForPassword = false;
+            # Show preedit text when typing password
+            ShowPreeditForPassword = false;
+            # Interval of saving user data in minutes
+            AutoSavePeriod = 30;
+          };
+        };
+
+        mozc = {
+          # Initial Mode
+          InitialMode = "Hiragana";
+          # Vertical candidate list
+          Vertical = true;
+          # Expand Usage (Requires vertical candidate list)
+          ExpandMode = "Always";
+          # Fix embedded preedit cursor at the beginning of the preedit
+          PreeditCursorPositionAtBeginning = false;
+          # Hotkey to expand usage
+          ExpandKey = "Control+Alt+H";
+        };
+
+        quickphrase = {
+          # Choose key modifier
+          "Choose Modifier" = "None";
+          # Enable Spell check
+          Spell = true;
+          # Fallback Spell check language
+          FallbackSpellLanguage = "en";
+
+          TriggerKey = {
+            "0" = "Super+grave";
+            "1" = "Super+semicolon";
+            "2" = "Super+dead_acute";
+            "3" = "Super+period";
           };
         };
       };
