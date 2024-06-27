@@ -2,6 +2,12 @@
   let
     path = ./../../assets/fcitx5;
   in {
+  # pretty jp font
+  fonts.packages = with pkgs; [
+    source-han-sans
+    source-han-mono
+    source-han-serif
+  ];
   i18n.inputMethod = {
     enabled = "fcitx5";
     fcitx5 = {
