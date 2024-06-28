@@ -52,10 +52,6 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "sudo" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.fish;
-    packages = with pkgs; [
-      firefox
-      tree
-    ];
   };
 
   # Enable the OpenSSH daemon.
