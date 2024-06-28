@@ -1,4 +1,9 @@
-{ lib, ... }: {
+{ lib, ... }:
+let
+  preferences = {
+    "widget.use-xdg-desktop-portal.file-picker" = 1;
+  };
+in {
   programs.firefox = {
     enable = true;
     nativeMessagingHosts = [  ];
@@ -7,10 +12,12 @@
         id = 0;
         search.default = "Google";
         isDefault = true;
+        settings = preferences;
       };
       nanako = {
         id = 1;
         search.default = "Google";
+        settings = preferences;
       };
     };
     policies = {
