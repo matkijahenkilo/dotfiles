@@ -6,12 +6,8 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./../../modules/nixos
+      ../../modules/nixos
     ];
-
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "quirera"; # Define your hostname.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.

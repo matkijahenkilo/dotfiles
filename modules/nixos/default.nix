@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   imports = [
+    ./boot.nix
     ./nix.nix
     ./gnupg-agent.nix
     ./ssh.nix
