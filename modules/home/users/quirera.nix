@@ -10,6 +10,8 @@
     ../syncthing.nix
     ../fcitx5.nix
     ../firefox.nix
+    ../yt-dlp.nix
+    ../gallery-dl.nix
   ];
 
   home.packages = with pkgs; [
