@@ -53,13 +53,13 @@
     };
   in {
     nixosConfigurations = {
-      gamma = mkHost ./hosts/gamma/configuration.nix;
-      quirera = mkHost ./hosts/quirera/configuration.nix;
+      gamma   = mkHost nixosPkgs ./hosts/gamma/configuration.nix;
+      quirera = mkHost nixosPkgs ./hosts/quirera/configuration.nix;
     };
     homeConfigurations = {
-      gamma = mkHome homePkgs "marisa" "gamma.nix";
+      gamma   = mkHome homePkgs "marisa" "gamma.nix";
       quirera = mkHome nixosPkgs "marisa" "quirera.nix";
-      tau = mkHome homePkgs "marisa" "tau.nix";
+      tau     = mkHome homePkgs "marisa" "tau.nix";
     };
   };
 }

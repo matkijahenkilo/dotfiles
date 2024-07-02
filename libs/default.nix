@@ -6,10 +6,10 @@ in {
 
   pkgsFor = sys: inputs.nixpkgs.legacyPackages.${sys};
 
-  mkHost = config:
+  mkHost = pkgs: config:
     inputs.nixpkgs.lib.nixosSystem {
       specialArgs = {
-        inherit inputs outputs libs;
+        inherit inputs outputs libs pkgs;
       };
       modules = [
         config
