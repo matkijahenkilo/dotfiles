@@ -23,10 +23,9 @@
   #   useXkbConfig = true; # use xkb.options in tty.
   # };
 
-  # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  programs.hyprland.enable = true;
   
   # Configure keymap in X11
   services.xserver.xkb.layout = "br";

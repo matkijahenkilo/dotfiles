@@ -6,6 +6,8 @@
     ../kitty.nix
     ../fish.nix
     ../fastfetch.nix
+
+    ../session-hyprland.nix
     ../stylix.nix
     ../syncthing.nix
     ../fcitx5.nix
