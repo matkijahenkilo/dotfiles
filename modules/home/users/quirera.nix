@@ -11,6 +11,7 @@
     ../stylix.nix
     ../syncthing.nix
     ../fcitx5.nix
+    ../vscode.nix
     ../firefox.nix
     ../yt-dlp.nix
     ../gallery-dl.nix
