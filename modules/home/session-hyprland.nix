@@ -1,7 +1,4 @@
 { pkgs, lib, ... }: {
-  home.packages = with pkgs; [
-    hyprpaper
-  ];
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -50,7 +47,7 @@
 
       "$mainMod" = "SUPER";
       bind = [  
-          # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
+        # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
         "$mainMod, Return, exec, kitty"
         "$mainMod SHIFT, C, killactive, "
         # "$mainMod SHIFT, Q, exec, wlogout -p layer-shell"
@@ -110,17 +107,11 @@
         "$mainMod, mouse_up, workspace, e-1"
       ];
       binde = [
-        ", XF86AudioRaiseVolume, exec, ${pkgs.writeShellScriptBin "volume-increase" ''
-          wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+
-          ${pkgs.mpv} ${pkgs.sound-theme-freedesktop}/stereo/audio-volume-change.oga
-        ''}"
-        ", XF86AudioLowerVolume, exec, ${pkgs.writeShellScriptBin "volume-decrease" ''
-          wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-
-          ${pkgs.mpv} ${pkgs.sound-theme-freedesktop}/stereo/audio-volume-change.oga
-        ''}"
-        #", XF86AudioMute, exec, ${pkgs.wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle"
-        ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl} set +5%"
-        ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl} set 5%-"
+        ", XF86AudioRaiseVolume, exec, volume-increase"
+        ", XF86AudioLowerVolume, exec, volume-decrease"
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl set +5%"
+        ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-"
       ];
       bindm = [
         # Move/resize windows with mainMod + LMB/RMB and dragging
@@ -219,6 +210,21 @@
       };
     };
   };
+
+  home.packages = with pkgs; [
+    hyprpaper
+    blueman
+
+    # Volume controls
+    (pkgs.writeShellScriptBin "volume-decrease" ''
+      wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-
+      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
+    '')
+    (pkgs.writeShellScriptBin "volume-increase" ''
+      wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+
+      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
+    '')
+  ];
 
   services = {
     mako = {
