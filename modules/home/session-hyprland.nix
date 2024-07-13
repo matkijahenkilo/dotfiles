@@ -155,6 +155,7 @@
 
   imports = [
     ./waybar.nix
+    ./xdg.nix
   ];
 
   programs = {
