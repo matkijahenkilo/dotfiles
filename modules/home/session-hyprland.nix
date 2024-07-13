@@ -162,6 +162,10 @@
     };
   };
 
+  imports = [
+    ./waybar.nix
+  ];
+
   programs = {
     rofi = {
       enable = true;
@@ -211,161 +215,6 @@
           position = "0, -20";
           halign = "center";
           valign = "center";
-        };
-      };
-    };
-    waybar = {
-      enable = true;
-      settings = {
-        mainBar = {
-            "layer" = "top";
-            "position" = "top";
-            "spacing" = 0;
-            "height" = 44;
-            "modules-left" = [
-                "custom/logo"
-                "hyprland/workspaces"
-            ];
-            "modules-center" = [
-                "clock"
-            ];
-            "modules-right" = [
-                "tray"
-                "network"
-                "memory"
-                "pulseaudio"
-                "backlight"
-                "battery"
-                "custom/power"
-            ];
-            "wlr/taskbar" = {
-                "format" = "{icon}";
-                "on-click" = "activate";
-                "on-click-right" = "fullscreen";
-                "icon-theme" = "WhiteSur";
-                "icon-size" = 25;
-                "tooltip-format" = "{title}";
-            };
-            "hyprland/workspaces" = {
-                "on-click" = "activate";
-                "format" = "{icon}";
-                "format-icons" = {
-                    "default" = "";
-                    "1" = "一";
-                    "2" = "二";
-                    "3" = "三";
-                    "4" = "四";
-                    "5" = "五";
-                    "6" = "六";
-                    "7" = "七";
-                    "8" = "八";
-                    "9" = "九";
-                    "10" ="十";
-                    "active" = "(˵ •̀ ᴗ - ˵ ) ✧";
-                    "urgent" = "( ｡ •̀ ᴖ •́ ｡)";
-                };
-                "persistent_workspaces" = {
-                    "1" = [];
-                    "2" = [];
-                    "3" = [];
-                    "4" = [];
-                    "5" = [];
-                };
-            };
-            "memory" = {
-                "interval" = 5;
-                "format" = "󰍛 {}%";
-                "max-length" = 10;
-            };
-            "tray" = {
-                "spacing" = 10;
-            };
-            "clock" = {
-                "tooltip-format" = "<tt>{calendar}</tt>";
-                "format" = "　{:%a, %d %b %Y ・ %I:%M %p}　なのら~";
-            };
-            "network" = {
-                "format-wifi"  = "{icon}";
-                "format-icons" = [ "󰤯" "󰤟" "󰤢" "󰤥" "󰤨" ];
-                "format-ethernet" = "󰀂";
-                "format-disconnected"  = "󰖪";
-                "tooltip-format-wifi" = "{icon} {essid}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}";
-                "tooltip-format-ethernet" = "󰀂  {ifname}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}";
-                "tooltip-format-disconnected" = "Disconnected";
-                "interval" = 5;
-                "nospacing" = 1;
-            };
-            "pulseaudio" = {
-                "format" = "{icon} {volume}%";
-                "format-bluetooth" = "󰂰";
-                "nospacing" = 1;
-                "tooltip-format" = "Volume  = {volume}%";
-                "format-muted" = "󰝟";
-                "format-icons" = {
-                    "headphone" = "";
-                    "default" = [ "󰖀" "󰕾" "" ];
-                };
-                "on-click" = "pavucontrol";
-                "scroll-step" = 1;
-            };
-            "custom/logo" = {
-                "format" = " ᗜ˰ᗜ ";
-                "tooltip" = false;
-            };
-            "backlight" = {
-                "format" = "{icon} {percent}%";
-                "format-icons" = [
-                    ""
-                    ""
-                    ""
-                    ""
-                    ""
-                    ""
-                    ""
-                    ""
-                    ""
-                ];
-            };
-            "battery" = {
-                "format" = "{capacity}% {icon}";
-                "format-icons" = {
-                    "charging" = [
-                        "󰢜"
-                        "󰂆"
-                        "󰂇"
-                        "󰂈"
-                        "󰢝"
-                        "󰂉"
-                        "󰢞"
-                        "󰂊"
-                        "󰂋"
-                        "󰂅"
-                    ];
-                    "default" = [
-                        "󰁺"
-                        "󰁻"
-                        "󰁼"
-                        "󰁽"
-                        "󰁾"
-                        "󰁿"
-                        "󰂀"
-                        "󰂁"
-                        "󰂂"
-                        "󰁹"
-                    ];
-                };
-                "format-full" = "Charged ";
-                "interval" = 5;
-                "states" = {
-                    "warning" = 20;
-                    "critical" = 10;
-                };
-                "tooltip" = false;
-            };
-            "custom/power" = {
-                "format" = "󰤆";
-                "tooltip" = false;
-            };
         };
       };
     };
