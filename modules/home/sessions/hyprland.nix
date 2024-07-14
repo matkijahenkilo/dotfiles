@@ -1,4 +1,10 @@
 { pkgs, lib, ... }: {
+  imports = [
+    ./wayland.nix
+    ./waybar.nix
+    ./xdg.nix
+  ];
+
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -63,9 +69,7 @@
         "$mainMod, backslash, exec, kitty -e ranger"
         "$mainMod, E, exec, thunar"
         "$mainMod, V, togglefloating, "
-        # "$mainMod, R, exec, rofi --show drun"
-        # "$mainMod, D, exec, $HOME/.config/rofi/launcher.sh"
-        "$mainMod, P, exec, rofi -show run"
+        "$mainMod, D, exec, wofi --show run"
         "$mainMod, S, togglesplit"
 
         # Move focus and windows almost like awesomewm
@@ -134,7 +138,6 @@
         "maximize,title:^(nvim)$"
         "size 60% 80%,class:^(org.telegram.desktop|vlc)$"
         "size 60% 80%,title:^(Open Files|ranger)$"
-        "float,class:^(rofi)$"
         "center,class:^(org.telegram.desktop|Open Files|ranger|vlc)$"
         "fullscreen,class:^(firefox)$$"
         "fullscreen,class:^(discord)$$"
@@ -150,121 +153,6 @@
         "workspaces,       1, 1.5, default"
         "specialWorkspace, 1, 5,   myBezier, slidevert"
       ];
-    };
-  };
-
-  imports = [
-    ./waybar.nix
-    ./xdg.nix
-  ];
-
-  programs = {
-    rofi = {
-      enable = true;
-      extraConfig = {
-        modi = "run,drun,window,ssh";
-        show-icons = true;
-        scroll-method = 1;
-      };
-    };
-    hyprlock = {
-      enable = true;
-      settings = {
-        background = {
-          path = "screenshot";
-          blur_passes = 3;
-          blur_size = 8;
-        };
-
-        label = {
-          text = "(∩´∀｀)∩";
-          text_align = "center";
-          font_size = 35;
-          position = "0, 80";
-          halign = "center";
-          valign = "center";
-        };
-
-        input-field = {
-          size = "200, 50";
-          outline_thickness = 3;
-          dots_size = 0.33;
-          dots_spacing = 0.15;
-          dots_center = false;
-          dots_rounding = -1;
-          fade_on_empty = true;
-          fade_timeout = 1000;
-          placeholder_text = "<i>Input Password...</i>";
-          hide_input = false;
-          rounding = -1;
-          fail_text = "<i>$FAIL <b>($ATTEMPTS)</b></i>";
-          fail_transition = 300;
-          capslock_color = -1;
-          numlock_color = -1;
-          bothlock_color = -1;
-          invert_numlock = false;
-          swap_font_color = false;
-          position = "0, -20";
-          halign = "center";
-          valign = "center";
-        };
-      };
-    };
-  };
-
-  home.packages = with pkgs; [
-    hyprpaper
-    blueman
-
-    # Volume controls
-    (pkgs.writeShellScriptBin "volume-decrease" ''
-      wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-
-      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
-    '')
-    (pkgs.writeShellScriptBin "volume-increase" ''
-      wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+
-      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
-    '')
-  ];
-
-  services = {
-    mako = {
-      enable = true;
-      extraConfig = ''
-        default-timeout = timeout
-        ignore-timeout = 1
-      '';
-    };
-    hypridle = {
-      enable = true;
-      settings = {
-        general = {
-          before_sleep_cmd = "loginctl lock-session";
-          after_sleep_cmd = "hyprctl dispatch dpms on";
-          ignore_dbus_inhibit = "hyprctl dispatch dpms on";
-        };
-
-        listener = [
-          {
-            timeout = 150;
-            on-timeout = "${pkgs.brightnessctl} -s set 10";
-            on-resume = "${pkgs.brightnessctl} -r";
-          }
-          {
-            timeout = 270;
-            on-timeout = "${pkgs.libnotify}/bin/notify-send 'Hypridle' 'Idling in 30 seconds.'";
-          }
-          {
-            timeout = 300;
-            on-timeout = "hyprlock";
-            on-resume = "${pkgs.libnotify}/bin/notify-send 'Welcome back!'";
-          }
-          {
-            timeout = 600;
-            on-timeout = "systemctl suspend";
-          }
-        ];
-      };
     };
   };
 }

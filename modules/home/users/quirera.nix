@@ -7,7 +7,7 @@
     ../fish.nix
     ../fastfetch.nix
 
-    ../session-hyprland.nix
+    ../sessions/hyprland.nix
     ../stylix.nix
     ../syncthing.nix
     ../fcitx5.nix
