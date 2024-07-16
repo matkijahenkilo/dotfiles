@@ -18,6 +18,5 @@
   environment.systemPackages = with pkgs; [
     wget
     pavucontrol
-    obsidian
   ];
 }
