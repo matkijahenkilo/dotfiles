@@ -4,6 +4,7 @@
     ./nix.nix
     ./gnupg-agent.nix
     ./ssh.nix
+    ./nh.nix
 
     ./fcitx5.nix
     ./pipewire.nix
