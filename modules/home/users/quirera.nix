@@ -1,20 +1,24 @@
 { pkgs, ... }: {
   imports = [
+    # Essentials
     ../nix.nix
     ../git.nix
-    ../neovim.nix
-    ../kitty.nix
     ../fish.nix
+    ../syncthing.nix
+
+    # CLI
+    ../neovim.nix
+    ../yt-dlp.nix
+    ../gallery-dl.nix
     ../fastfetch.nix
 
+    # GUI
     ../sessions/hyprland.nix
     ../stylix.nix
-    ../syncthing.nix
+    ../kitty.nix
     ../fcitx5.nix
     ../vscode.nix
     ../firefox.nix
-    ../yt-dlp.nix
-    ../gallery-dl.nix
   ];
 
   home.packages = with pkgs; [
