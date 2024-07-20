@@ -26,7 +26,8 @@
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
   programs.hyprland.enable = true;
-  
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
+
   # Configure keymap in X11
   services.xserver.xkb.layout = "br";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
