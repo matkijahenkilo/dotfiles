@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: {
+{lib, pkgs, ... }: {
   home.packages = with pkgs; [
     cliphist
     dolphin
@@ -15,13 +15,13 @@
     blueman
 
     # Volume controls
-    (pkgs.writeShellScriptBin "volume-decrease" ''
+    (writeShellScriptBin "volume-decrease" ''
       wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-
-      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
+      ${mpv}/bin/mpv ${sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
     '')
-    (pkgs.writeShellScriptBin "volume-increase" ''
+    (writeShellScriptBin "volume-increase" ''
       wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+
-      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
+      ${mpv}/bin/mpv ${sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
     '')
   ];
 
