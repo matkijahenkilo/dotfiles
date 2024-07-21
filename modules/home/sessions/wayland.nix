@@ -1,4 +1,4 @@
-{lib, pkgs, ... }: {
+{ inputs, lib, pkgs, ... }: {
   home.packages = with pkgs; [
     cliphist
     dolphin
@@ -157,5 +157,19 @@
     };
   };
 
+  imports = [
+    inputs.wayland-pipewire-idle-inhibit.homeModules.default
+  ];
+  services.wayland-pipewire-idle-inhibit = {
+    enable = true;
+    settings = {
+      verbosity = "INFO";
+      media_minimum_duration = 10;
+      node_blacklist = [
+        { name = "spotify"; }
+        { app_name = "Music Player Daemon"; }
+      ];
+    };
+  };
   systemd.user.services.wayland-pipewire-idle-inhibit.Install.WantedBy = lib.mkForce [ "hyprland-session.target" ];
 }

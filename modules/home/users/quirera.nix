@@ -25,5 +25,6 @@
     vesktop
     vlc
     obsidian
+    bluedevil
   ];
 }
