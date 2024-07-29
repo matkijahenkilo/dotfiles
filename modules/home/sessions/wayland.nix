@@ -3,6 +3,7 @@ let
   HOME = config.home.homeDirectory;
 in {
   home.packages = (with pkgs; [
+    wl-clipboard
     dolphin
     libnotify
     mako
@@ -24,15 +25,17 @@ in {
       FILE_NAME="screenshot-$(date +%F_%H-%M-%S).png"
       FILE_PATH="${HOME}/Pictures/screenshots/$FILE_NAME"
       ${pkgs.grim}/bin/grim -t png "$FILE_PATH"
-      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/complete.oga
+      wl-copy < $FILE_PATH
       notify-send 'Screenshot' -i "$FILE_PATH" "$FILE_NAME"
+      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/complete.oga
     '')
     (pkgs.writeShellScriptBin "script-screenshot-selection" ''
       FILE_NAME="screenshot-$(date +%F_%H-%M-%S).png"
       FILE_PATH="${HOME}/Pictures/screenshots/$FILE_NAME"
       ${pkgs.grim}/bin/grim -t png -g "$(${pkgs.slurp}/bin/slurp)" "$FILE_PATH"
-      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/complete.oga
+      wl-copy < $FILE_PATH
       notify-send 'Screenshot' -i "$FILE_PATH" "$FILE_NAME"
+      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/complete.oga
     '')
   ];
 
