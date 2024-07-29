@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }: {
+{ pkgs, ... }: {
   imports = [
     ./wayland.nix
     ./waybar.nix
@@ -60,8 +60,8 @@
         "$mainMod SHIFT, Q, exit, "
         "$mainMod, F, fullscreen, 0"
         "$mainMod, G, togglegroup, "
-        "CTRL SHIFT, 3, exec, $HOME/.config/hypr/scripts/screenshot.sh"
-        "CTRL SHIFT, 2, exec, $HOME/.config/hypr/scripts/screenshot-selection.sh"
+        "CTRL SHIFT, 3, exec, script-screenshot"
+        "CTRL SHIFT, 2, exec, script-screenshot-selection"
         "$mainMod, tab, togglespecialworkspace"
         "$mainMod SHIFT, N, exec, kitty -e nvim"
         "$mainMod SHIFT, tab, movetoworkspace, special"
@@ -111,8 +111,8 @@
         "$mainMod, mouse_up, workspace, e-1"
       ];
       binde = [
-        ", XF86AudioRaiseVolume, exec, volume-increase"
-        ", XF86AudioLowerVolume, exec, volume-decrease"
+        ", XF86AudioRaiseVolume, exec, script-volume-increase"
+        ", XF86AudioLowerVolume, exec, script-volume-decrease"
         ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
         ", XF86MonBrightnessUp, exec, ${pkgs.brightnessctl}/bin/brightnessctl set +5%"
         ", XF86MonBrightnessDown, exec, ${pkgs.brightnessctl}/bin/brightnessctl set 5%-"

@@ -1,27 +1,38 @@
-{ inputs, lib, pkgs, ... }: {
-  home.packages = with pkgs; [
-    cliphist
+{ config, inputs, lib, pkgs, ... }:
+let
+  HOME = config.home.homeDirectory;
+in {
+  home.packages = (with pkgs; [
     dolphin
-    glfw-wayland
-    grim
-    imv
     libnotify
     mako
-    slurp
-    waylogout
-    wdisplays
-    wl-clipboard
     hyprpaper
     blueman
-
+  ]) ++ [
     # Volume controls
-    (writeShellScriptBin "volume-decrease" ''
+    (pkgs.writeShellScriptBin "script-volume-decrease" ''
       wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-
-      ${mpv}/bin/mpv ${sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
+      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
     '')
-    (writeShellScriptBin "volume-increase" ''
+    (pkgs.writeShellScriptBin "script-volume-increase" ''
       wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+
-      ${mpv}/bin/mpv ${sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
+      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
+    '')
+
+    # Screenshots
+    (pkgs.writeShellScriptBin "script-screenshot" ''
+      FILE_NAME="screenshot-$(date +%F_%H-%M-%S).png"
+      FILE_PATH="${HOME}/Pictures/screenshots/$FILE_NAME"
+      ${pkgs.grim}/bin/grim -t png "$FILE_PATH"
+      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/complete.oga
+      notify-send 'Screenshot' -i "$FILE_PATH" "$FILE_NAME"
+    '')
+    (pkgs.writeShellScriptBin "script-screenshot-selection" ''
+      FILE_NAME="screenshot-$(date +%F_%H-%M-%S).png"
+      FILE_PATH="${HOME}/Pictures/screenshots/$FILE_NAME"
+      ${pkgs.grim}/bin/grim -t png -g "$(${pkgs.slurp}/bin/slurp)" "$FILE_PATH"
+      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/complete.oga
+      notify-send 'Screenshot' -i "$FILE_PATH" "$FILE_NAME"
     '')
   ];
 
