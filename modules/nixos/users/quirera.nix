@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, pkgs, ... }: {
   imports = [
     ../boot.nix
     ../nix.nix
@@ -17,6 +17,10 @@
   programs = {
     neovim.enable = true;
     git.enable = true;
+    nh = {
+      enable = true;
+      flake = "${config.users.users.marisa.home}/.dotfiles";
+    };
   };
 
   environment.systemPackages = with pkgs; [

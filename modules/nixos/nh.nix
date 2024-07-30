@@ -1,6 +1,3 @@
-{ ... }: {
-  programs.nh = {
-    enable = true;
-    flake = "/home/marisa/.dotfiles"; # not ideal
-  };
+{ config, ... }: {
+  programs.nh.clean.enable = config.programs.nh.enable;
 }
