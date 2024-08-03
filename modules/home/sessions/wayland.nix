@@ -3,12 +3,22 @@ let
   HOME = config.home.homeDirectory;
 in {
   home.packages = (with pkgs; [
-    wl-clipboard
+    # File manager
     dolphin
+    ffmpegthumbnailer # doesn't work
+
+    # Clipboard
+    wl-clipboard
+
+    # Notification
     libnotify
     mako
-    hyprpaper
+
+    # Extra
     blueman
+
+    # Hyprstuff
+    hyprpaper
   ]) ++ [
     # Volume controls
     (pkgs.writeShellScriptBin "script-volume-decrease" ''
