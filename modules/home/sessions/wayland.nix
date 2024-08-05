@@ -35,17 +35,25 @@ in {
       FILE_NAME="screenshot-$(date +%F_%H-%M-%S).png"
       FILE_PATH="${HOME}/Pictures/screenshots/$FILE_NAME"
       ${pkgs.grim}/bin/grim -t png "$FILE_PATH"
+      if [[ $? != 0 ]]; then
+        ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/dialog-error.oga
+        exit 1
+      fi
       wl-copy < $FILE_PATH
       notify-send 'Screenshot' -i "$FILE_PATH" "$FILE_NAME"
-      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/complete.oga
+      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/screen-capture.oga
     '')
     (pkgs.writeShellScriptBin "script-screenshot-selection" ''
       FILE_NAME="screenshot-$(date +%F_%H-%M-%S).png"
       FILE_PATH="${HOME}/Pictures/screenshots/$FILE_NAME"
       ${pkgs.grim}/bin/grim -t png -g "$(${pkgs.slurp}/bin/slurp)" "$FILE_PATH"
+      if [[ $? != 0 ]]; then
+        ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/dialog-error.oga
+        exit 1
+      fi
       wl-copy < $FILE_PATH
       notify-send 'Screenshot' -i "$FILE_PATH" "$FILE_NAME"
-      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/complete.oga
+      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/screen-capture.oga 
     '')
   ];
 
@@ -95,11 +103,6 @@ in {
       };
     };
   };
-
-  #home.file."${config.xdg.userDirs.pictures}/Wallpapers" = {
-  #  recursive = true;
-  #  source = ./imgs/wallpapers;
-  #};
 
   xdg.configFile."waylogout/config".text = ''
     fade-in=1
