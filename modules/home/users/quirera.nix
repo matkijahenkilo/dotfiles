@@ -25,6 +25,6 @@
     vesktop
     vlc
     obsidian
-    bluedevil
+    xivlauncher
   ];
 }

@@ -16,7 +16,6 @@
   time.timeZone = "Brazil/East";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
   # console = {
   #   font = "Lat2-Terminus16";
   #   keyMap = "en";
@@ -25,7 +24,9 @@
 
   services.xserver.enable = true;
   services.displayManager.sddm.enable = true;
+  # Yo, bloat
   programs.hyprland.enable = true;
+  services.desktopManager.plasma6.enable = true;
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Configure keymap in X11

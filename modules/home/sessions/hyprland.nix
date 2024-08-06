@@ -13,7 +13,7 @@
         "QT_QPA_PLATFORMTHEME,qt5ct"
       ];
       monitor = [
-        ",preferred,auto,1"
+        ",preferred,auto,1.2"
       ];
       general = {
         gaps_in = 5;
