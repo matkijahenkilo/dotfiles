@@ -26,7 +26,7 @@ in {
         inherit inputs libs outputs;
       };
       modules = [
-        ./../modules/home/users/${module}
+        ../modules/home/users/${module}
         {
           programs.home-manager.enable = true;
           home = {

@@ -3,7 +3,7 @@
   xdg.systemDirs.config = [ "/etc/xdg" ]; # Workaround (https://github.com/danth/stylix/issues/412)
   stylix = {
     enable = true;
-    image = ./../../assets/bg;
+    image = ../../assets/bg;
     polarity = "dark";
     base16Scheme = {
       base00 = "201010";

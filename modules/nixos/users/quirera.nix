@@ -6,7 +6,6 @@
 
     # CLI
     ../ssh.nix
-    ../nh.nix
 
     # GUI
     ../fcitx5.nix
