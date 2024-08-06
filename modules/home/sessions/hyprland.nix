@@ -9,6 +9,9 @@
     enable = true;
     xwayland.enable = true;
     settings = {
+      env = [
+        "QT_QPA_PLATFORMTHEME,qt5ct"
+      ];
       monitor = [
         ",preferred,auto,1"
       ];

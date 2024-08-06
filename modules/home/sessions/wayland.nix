@@ -5,7 +5,6 @@ in {
   home.packages = (with pkgs; [
     # File manager
     dolphin
-    ffmpegthumbnailer # doesn't work
 
     # Clipboard
     wl-clipboard
@@ -19,6 +18,13 @@ in {
 
     # Hyprstuff
     hyprpaper
+
+    # Styling
+    nwg-look
+    qt5ct
+    qt6ct
+    breeze-icons
+
   ]) ++ [
     # Volume controls
     (pkgs.writeShellScriptBin "script-volume-decrease" ''
