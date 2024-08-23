@@ -26,5 +26,6 @@
     vlc
     obsidian
     xivlauncher
+    telegram-desktop
   ];
 }
