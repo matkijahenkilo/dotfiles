@@ -27,5 +27,6 @@
     obsidian
     xivlauncher
     telegram-desktop
+    qbittorrent
   ];
 }

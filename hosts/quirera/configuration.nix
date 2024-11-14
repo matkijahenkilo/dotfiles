@@ -11,6 +11,10 @@
 
   networking.hostName = "quirera"; # Define your hostname.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.hosts = {
+    "127.0.0.1" = [ "quirera" ];
+    "192.168.0.75" = [ "quirera" ];
+  };
 
   # Set your time zone.
   time.timeZone = "Brazil/East";
@@ -26,7 +30,7 @@
   services.displayManager.sddm.enable = true;
   # Yo, bloat
   programs.hyprland.enable = true;
-  services.desktopManager.plasma6.enable = true;
+  # services.desktopManager.plasma6.enable = true;
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Configure keymap in X11

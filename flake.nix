@@ -9,6 +9,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+
     stylix.url = "github:danth/stylix";
 
     nixgl = {
@@ -22,7 +24,7 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, nixgl, ... }:
+  outputs = inputs@{ nixpkgs, nixgl, nixos-hardware, ... }:
   let
     libs = import ./libs/default.nix { inherit inputs; };
     mkHost = libs.mkHost;
@@ -58,8 +60,8 @@
     };
   in {
     nixosConfigurations = {
-      gamma   = mkHost nixosPkgs ./hosts/gamma/configuration.nix;
-      quirera = mkHost nixosPkgs ./hosts/quirera/configuration.nix;
+      gamma   = mkHost nixosPkgs ./hosts/gamma/configuration.nix [  ];
+      quirera = mkHost nixosPkgs ./hosts/quirera/configuration.nix [ nixos-hardware.nixosModules.common-cpu-amd ];
     };
     homeConfigurations = {
       gamma   = mkHome homePkgs "marisa" "gamma.nix";
