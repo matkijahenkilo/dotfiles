@@ -13,7 +13,9 @@
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
   networking.hosts = {
     "127.0.0.1" = [ "quirera" ];
-    "192.168.0.75" = [ "quirera" ];
+    "192.168.0.75"  = [ "tau" ];
+    "192.168.0.128" = [ "quirera" ];
+    "192.168.0.138" = [ "gamma" ];
   };
 
   # Set your time zone.
