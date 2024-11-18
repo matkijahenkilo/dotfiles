@@ -28,25 +28,26 @@
         inputMethod = {
           "Groups/0" = {
             Name = "Nice";
-            # Layout
             "Default Layout" = "br";
-            # Default Input Method
             DefaultIM = "mozc";
           };
           "Groups/0/Items/0" = {
-            # Name
             Name = "keyboard-br";
-            # Layout
-            #Layout=
           };
           "Groups/0/Items/1" = {
-            # Name
             Name = "mozc";
-            # Layout
-            #Layout=
           };
           GroupOrder = {
             "0" = "Nice";
+          };
+        };
+
+        addons = {
+          quickphrase.globalSection = {
+            "Choose Modifier" = "None";
+            Spell = true;
+            FallbackSpellLanguage = "en";
+            TriggerKey = "Super+period";
           };
         };
 
@@ -123,7 +124,10 @@
     };
   };
   environment.variables = {
-    QT_IM_MODULE = "fcitx";
     QT_QPA_PLATFORM="xcb";
+    SDL_IM_MODULE="fcitx";
+    GLFW_IM_MODULE="ibus";
+    # GTK_IM_MODULE="fcitx";
+    # QT_IM_MODULE="fcitx";
   };
 }
