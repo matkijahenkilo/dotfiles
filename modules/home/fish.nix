@@ -18,5 +18,9 @@
       qwe = "gallery-dl -D ./ $argv[1]";
       nanakofetch = "command fastfetch --logo-width 42 --logo-height 25 --logo ~/Pictures/.fastfetch.jpg";
     };
+    loginShellInit = ''
+      set QT_IM_MODULE
+      set GTK_IM_MODULE
+    '';
   };
 }

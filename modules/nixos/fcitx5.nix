@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
   let
     path = ./../../assets/fcitx5;
   in {
@@ -124,10 +124,10 @@
     };
   };
   environment.variables = {
-    QT_QPA_PLATFORM="xcb";
-    SDL_IM_MODULE="fcitx";
-    GLFW_IM_MODULE="ibus";
-    # GTK_IM_MODULE="fcitx";
-    # QT_IM_MODULE="fcitx";
+    QT_QPA_PLATFORM = "wayland;xcb";
+    SDL_IM_MODULE = "fcitx";
+    GLFW_IM_MODULE = "ibus";
+    GTK_IM_MODULE = lib.mkForce "";
+    QT_IM_MODULE = lib.mkForce "";
   };
 }
