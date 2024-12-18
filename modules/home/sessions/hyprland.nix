@@ -5,6 +5,8 @@
     ./xdg.nix
   ];
 
+  home.sessionVariables.NIXOS_OZONE_WL = "1";
+
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -23,9 +25,9 @@
       };
       decoration = {
         rounding = 5;
-        drop_shadow = "yes";
-        shadow_range = 4;
-        shadow_render_power = 3;
+        # drop_shadow = "yes";
+        # shadow_range = 4;
+        # shadow_render_power = 3;
         blur = {
           enabled = "yes";
           size = 7;
