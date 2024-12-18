@@ -5,6 +5,7 @@ in {
   home.packages = (with pkgs; [
     # File manager
     dolphin
+    ark
 
     # Clipboard
     wl-clipboard
@@ -15,9 +16,6 @@ in {
 
     # Extra
     blueman
-
-    # Hyprstuff
-    hyprpaper
 
     # Styling
     nwg-look
@@ -69,7 +67,7 @@ in {
       enable = true;
       settings = {
         background = {
-          path = "screenshot";
+          path = lib.mkDefault "screenshot";
           blur_passes = 3;
           blur_size = 8;
         };
@@ -156,6 +154,9 @@ in {
       icons = true;
       defaultTimeout = 7000; # 7s
       ignoreTimeout = true;
+    };
+    hyprpaper = {
+      enable = true;
     };
     hypridle = {
       enable = true;

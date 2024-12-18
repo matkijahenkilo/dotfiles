@@ -32,9 +32,9 @@
     fonts = {
       sizes = {
         applications = 10;
-        terminal = 12;
+        terminal = 14;
         desktop = 10;
-        popups = 9;
+        popups = 10;
       };
 
       serif = {
@@ -43,8 +43,8 @@
       };
 
       monospace = {
-        package = pkgs.nerdfonts;
-        name = "Fira Code nerd Font Mono";
+        package = pkgs.nerd-fonts.fira-code;
+        name = "FiraCode Nerd Font Mono";
       };
 
       sansSerif = {
