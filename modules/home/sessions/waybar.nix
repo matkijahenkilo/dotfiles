@@ -81,7 +81,7 @@
               "nospacing" = 1;
           };
           "pulseaudio" = {
-              "format" = "{icon} {volume}%";
+              "format" = "{icon}  {volume}%";
               "format-bluetooth" = "󰂰";
               "nospacing" = 1;
               "tooltip-format" = "Volume  = {volume}%";
