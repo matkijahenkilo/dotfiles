@@ -13,7 +13,8 @@
   ];
 
   home.packages = with pkgs; [
-    # vesktop
+    vesktop
     bottles
+    archipelago
   ];
 }
