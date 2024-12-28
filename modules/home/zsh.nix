@@ -13,9 +13,9 @@
     };
 
     shellAliases = {
-      asd = "yt-dlp -f mp4 $argv[1]";
-      asdx = "yt-dlp -x --audio-format mp3 $argv[1]";
-      qwe = "gallery-dl -D ./ --ugoira-conv $argv[1]";
+      asd = "yt-dlp -f mp4 $argv[$]";
+      asdx = "yt-dlp -x --audio-format mp3 $argv[$]";
+      qwe = "gallery-dl -D ./ --ugoira-conv $argv[$]";
       nanakofetch = "command fastfetch --logo-width 42 --logo-height 25 --logo ~/Pictures/.fastfetch.jpg";
     };
 
