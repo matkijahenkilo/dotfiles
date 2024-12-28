@@ -30,6 +30,16 @@
         file = "zshrc.sh";
         src = "${zsh-git-prompt}/share/zsh-git-prompt";
       }
+      {
+        name = "zsh-syntax-highlighting";
+        file = "zsh-syntax-highlighting.zsh";
+        src = "${zsh-syntax-highlighting}/share/zsh-syntax-highlighting";
+      }
+      {
+        name = "zsh-history-substring-search";
+        file = "zsh-history-substring-search.zsh";
+        src = "${zsh-history-substring-search}/share/zsh-history-substring-search";
+      }
     ];
 
     initExtraBeforeCompInit = ''
@@ -37,6 +47,10 @@
     '';
 
     initExtra = ''
+      # History binds
+      bindkey '^[[A' history-substring-search-up
+      bindkey '^[[B' history-substring-search-down
+
       # Fix home/end/delete
       bindkey "^[[H" beginning-of-line
       bindkey "^[[F" end-of-line
