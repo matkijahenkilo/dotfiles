@@ -41,6 +41,10 @@
         file = "zsh-history-substring-search.zsh";
         src = "${zsh-history-substring-search}/share/zsh-history-substring-search";
       }
+      {
+        name = "zsh-fzf-history-search";
+        src = "${zsh-fzf-history-search}/share/zsh-fzf-history-search";
+      }
     ];
 
     initExtraBeforeCompInit = ''
