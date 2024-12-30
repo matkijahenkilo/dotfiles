@@ -49,8 +49,8 @@
 
     initExtra = ''
       # History binds
-      bindkey '^[[A' history-substring-search-up
-      bindkey '^[[B' history-substring-search-down
+      bindkey "^[[A" history-substring-search-up
+      bindkey "^[[B" history-substring-search-down
 
       # Fix home/end/delete
       bindkey "^[[H" beginning-of-line
@@ -60,6 +60,10 @@
       # Prompt
       PROMPT='%F{green}%n%f%F{white}@%m%f %F{green}%1~%f$(git_super_status) $ '
       RPROMPT="%(?..%B%F{red}<FAIL>%b %?)%f "
+
+      # Don't delete an entire path with Alt + Backspace
+      autoload -U select-word-style
+      select-word-style bash
     '';
   };
 }
