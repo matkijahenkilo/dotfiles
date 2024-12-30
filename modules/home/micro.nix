@@ -1,4 +1,4 @@
-{ ... }: {
+{ lib, ... }: {
   programs.micro = {
     enable = true;
     settings = {
@@ -26,5 +26,8 @@
         }
       '';
     };
+  };
+  home.sessionVariables = {
+    EDITOR = lib.mkDefault "micro";
   };
 }
