@@ -17,6 +17,7 @@
       asdx = "yt-dlp -x --audio-format mp3 $argv[$]";
       qwe = "gallery-dl -D ./ --ugoira-conv $argv[$]";
       nanakofetch = "command fastfetch --logo-width 42 --logo-height 25 --logo ~/Pictures/.fastfetch.jpg";
+      m = "micro";
     };
 
     plugins = with pkgs; [

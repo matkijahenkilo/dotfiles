@@ -3,6 +3,7 @@
     ../nix.nix
     ../git.nix
     ../neovim.nix
+    ../micro.nix
     ../kitty.nix
     ../fish.nix
     ../zsh.nix
