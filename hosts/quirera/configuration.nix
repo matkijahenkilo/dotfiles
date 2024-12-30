@@ -46,16 +46,16 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
 
-  programs.fish.enable = true;
+  programs.zsh.enable = true;
   environment = {
-    shells = [ pkgs.fish ];
-    pathsToLink = [ "/share/fish" ];
+    shells = [ pkgs.zsh ];
+    pathsToLink = [ "/share/zsh" ];
   };
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.marisa = {
     isNormalUser = true;
     extraGroups = [ "wheel" "sudo" ]; # Enable ‘sudo’ for the user.
-    shell = pkgs.fish;
+    shell = pkgs.zsh;
   };
 
   # Enable the OpenSSH daemon.

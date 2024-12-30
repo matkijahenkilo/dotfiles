@@ -3,7 +3,7 @@
     # Essentials
     ../nix.nix
     ../git.nix
-    ../fish.nix
+    ../zsh.nix
     ../syncthing.nix
 
     # CLI
