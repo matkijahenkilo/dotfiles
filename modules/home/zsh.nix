@@ -61,6 +61,10 @@
       bindkey "^[[F" end-of-line
       bindkey "^[[3~" delete-char
 
+      # Fix Ctrl+left/right
+      bindkey "^[[1;5C" forward-word
+      bindkey "^[[1;5D" backward-word
+
       # Prompt
       PROMPT='%F{green}%n%f%F{white}@%m%f %F{green}%1~%f$(git_super_status) $ '
       RPROMPT="%(?..%B%F{red}<FAIL>%b %?)%f "
