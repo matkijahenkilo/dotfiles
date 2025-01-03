@@ -17,5 +17,6 @@
     vesktop
     bottles
     archipelago
+    krita
   ];
 }
