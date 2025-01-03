@@ -7,7 +7,7 @@
     ../syncthing.nix
 
     # CLI
-    ../neovim.nix
+    ../micro.nix
     ../yt-dlp.nix
     ../gallery-dl.nix
     ../fastfetch.nix
