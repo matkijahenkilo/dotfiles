@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-discord-canary.url = "github:nixos/nixpkgs/d3c42f187194c26d9f0309a8ecc469d6c878ce33";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -25,7 +24,7 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, nixpkgs-discord-canary, nixgl, nixos-hardware, ... }:
+  outputs = inputs@{ nixpkgs, nixgl, nixos-hardware, ... }:
   let
     libs = import ./libs/default.nix { inherit inputs; };
     mkHost = libs.mkHost;
@@ -55,14 +54,6 @@
             vesktop = (homePkgs.writeShellScriptBin "vesktop" ''
               ${final.nixgl.nixGLIntel}/bin/nixGLIntel ${prev.vesktop}/bin/vesktop "$@"
             '');
-          }
-        )
-        (
-          final: prev: {
-            discord-canary = (import nixpkgs-discord-canary {
-              system = final.system;
-              config = { allowUnfree = true; };
-            }).discord-canary;
           }
         )
       ];

@@ -11,7 +11,6 @@
     ../syncthing.nix
     ../fcitx5.nix
     ../vscode.nix
-    ../discord.nix
   ];
 
   home.packages = with pkgs; [
