@@ -11,12 +11,18 @@
     ../syncthing.nix
     ../fcitx5.nix
     ../vscode.nix
+    ../discord.nix
   ];
 
-  home.packages = with pkgs; [
+  home.packages = (
+   let
+     krisp-patcher = pkgs.callPackage ../krisp-patcher { };
+   in [
+    krisp-patcher
+  ]) ++ (with pkgs; [
     vesktop
     bottles
     archipelago
     krita
-  ];
+  ]);
 }
