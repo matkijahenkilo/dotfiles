@@ -13,7 +13,7 @@
     ../fastfetch.nix
 
     # GUI
-    ../sessions/hyprland.nix
+    # ../sessions/hyprland.nix
     ../stylix.nix
     ../kitty.nix
     ../fcitx5.nix
