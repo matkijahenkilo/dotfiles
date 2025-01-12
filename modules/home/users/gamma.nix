@@ -4,7 +4,6 @@
     ../git.nix
     ../micro.nix
     ../kitty.nix
-    ../fish.nix
     ../zsh.nix
     ../fastfetch.nix
     ../stylix.nix
