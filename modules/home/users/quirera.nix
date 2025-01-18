@@ -19,6 +19,7 @@
     ../fcitx5.nix
     ../vscode.nix
     ../firefox.nix
+    ../obs-studio.nix
   ];
 
   home.packages = with pkgs; [
