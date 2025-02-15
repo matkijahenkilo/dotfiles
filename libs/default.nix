@@ -8,8 +8,9 @@ in {
 
   mkHost = pkgs: config: extraModules:
     inputs.nixpkgs.lib.nixosSystem {
+      inherit pkgs;
       specialArgs = {
-        inherit inputs outputs libs pkgs;
+        inherit inputs outputs libs;
       };
       modules = [
         config
