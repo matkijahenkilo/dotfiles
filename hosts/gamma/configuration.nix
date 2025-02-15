@@ -11,6 +11,12 @@
 
   networking.hostName = "gamma"; # Define your hostname.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.hosts = {
+    "127.0.0.1" = [ "gamma" ];
+    "192.168.0.75"  = [ "tau" ];
+    "192.168.0.128" = [ "quirera" ];
+    "192.168.0.138" = [ "gamma" ];
+  };
 
   # Set your time zone.
   time.timeZone = "Brazil/East";
