@@ -4,6 +4,7 @@
     ../nix.nix
     ../gnupg-agent.nix
     ../pipewire.nix
+    ../zerotierone.nix
 
     # CLI
     ../ssh.nix
