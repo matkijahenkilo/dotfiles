@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ pkgs, libs, ... }: {
   imports = [
     # Essentials
     ../nix.nix
@@ -22,12 +22,15 @@
   ];
 
   home.packages = (
-   let
-     krisp-patcher = pkgs.callPackage ../krisp-patcher { };
-     wxedid = pkgs.callPackage ../wxedid { };
-   in [
-    krisp-patcher
+  let
+    path = ../../../pkgs;
+  in
+  let
+    krisp-patcher = pkgs.callPackage (path + /krisp-patcher) { };
+    wxedid = pkgs.callPackage (path + /wxedid) { };
+  in [
     wxedid
+    krisp-patcher
   ]) ++ (with pkgs; [
     vesktop
     bottles
