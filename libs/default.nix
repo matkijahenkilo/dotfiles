@@ -19,7 +19,7 @@ in {
   mkHome = pkgs: username: module:
   let
     homeDirectory = "/home/${username}";
-  in 
+  in
     inputs.home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       extraSpecialArgs = {
