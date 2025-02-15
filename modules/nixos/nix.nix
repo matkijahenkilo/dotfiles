@@ -21,6 +21,7 @@
       auto-optimise-store = lib.mkDefault true;
       max-jobs = "auto";
       cores = 0;
+      download-buffer-size = 8000000000; # 8 GB
     };
 
     gc = {
