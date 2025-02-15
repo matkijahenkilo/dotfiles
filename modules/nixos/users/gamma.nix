@@ -28,9 +28,7 @@
     pavucontrol
   ];
 
-  # boot.kernelParams = [
-  #   "drm.edid_firmware=HDMI-A-1:edid/edid.bin"
-  # ];
-
-
+  boot.kernelParams = [
+    "drm.edid_firmware=HDMI-A-1:edid/edid.bin"
+  ];
 }
