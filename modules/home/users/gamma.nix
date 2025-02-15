@@ -17,6 +17,7 @@
     # GUI
     ../stylix.nix
     ../fcitx5.nix
+    ../flameshot.nix
     ../vscode.nix
     ../discord.nix
   ];
@@ -34,10 +35,15 @@
   ]) ++ (with pkgs; [
     vesktop
     bottles
-    archipelago
     krita
+    vlc
+
     wine
+    archipelago
     lutris
+    suyu
+    xivlauncher
+
     qbittorrent
     wl-clipboard
   ]);
