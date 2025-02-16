@@ -1,4 +1,7 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+let
+  assets = ../../../assets;
+in {
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;
@@ -34,8 +37,10 @@
     };
     kitty = {
       name = "Kitty";
+      genericName = "Terminal emulator";
       exec = "kitty";
-      terminal = true;
+      icon = assets + /cat.png;
+      terminal = false;
     };
   };
 }
