@@ -1,7 +1,4 @@
-{ pkgs, ... }:
-let
-  assets = ../../../assets;
-in {
+{ pkgs, ... }: {
   xdg.portal = {
     enable = true;
     xdgOpenUsePortal = true;
@@ -25,22 +22,6 @@ in {
           "kde"
         ];
       };
-    };
-  };
-
-  xdg.desktopEntries = {
-    vesktop = {
-      name = "Vesktop";
-      exec = "vesktop";
-      terminal = false;
-      categories = [ "Application" "Network" ];
-    };
-    kitty = {
-      name = "Kitty";
-      genericName = "Terminal emulator";
-      exec = "kitty";
-      icon = assets + /cat.png;
-      terminal = false;
     };
   };
 }

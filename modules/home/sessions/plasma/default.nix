@@ -1,6 +1,7 @@
 { pkgs, ... }: {
   imports = [
-    ../xdg.nix
+    ../xdg-portals.nix
+    ../xdg-desktopEntries.nix
   ];
 
   home.packages = with pkgs.kdePackages; [
