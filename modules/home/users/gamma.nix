@@ -15,12 +15,14 @@
     ../fastfetch.nix
 
     # GUI
+    ../sessions/plasma
     ../stylix.nix
     ../fcitx5.nix
+    ../thunderbird.nix
+    ../firefox.nix
     ../flameshot.nix
     ../vscode.nix
     ../discord.nix
-    ../sessions/plasma
   ];
 
   home.packages = (
@@ -38,14 +40,14 @@
     bottles
     krita
     vlc
+    telegram-desktop
+    qbittorrent
+    wl-clipboard
 
     wine
     archipelago
     lutris
     suyu
     xivlauncher
-
-    qbittorrent
-    wl-clipboard
   ]);
 }
