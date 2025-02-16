@@ -20,6 +20,7 @@
     ../flameshot.nix
     ../vscode.nix
     ../discord.nix
+    ../sessions/plasma
   ];
 
   home.packages = (

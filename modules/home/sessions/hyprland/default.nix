@@ -2,7 +2,7 @@
   imports = [
     ./wayland.nix
     ./waybar.nix
-    ./xdg.nix
+    ../xdg.nix
   ];
 
   home.sessionVariables.NIXOS_OZONE_WL = "1";
@@ -57,7 +57,7 @@
       ];
 
       "$mainMod" = "SUPER";
-      bind = [  
+      bind = [
         # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
         "$mainMod, Return, exec, kitty"
         "$mainMod SHIFT, C, killactive, "
