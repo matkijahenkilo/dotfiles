@@ -5,6 +5,7 @@
     ../gnupg-agent.nix
     ../pipewire.nix
     ../zerotierone.nix
+    ../amdgpu-fullrgb-patcher.nix
 
     # CLI
     ../ssh.nix
@@ -27,9 +28,5 @@
   environment.systemPackages = with pkgs; [
     wget
     pavucontrol
-  ];
-
-  boot.kernelParams = [
-    "drm.edid_firmware=HDMI-A-1:edid/edid.bin"
   ];
 }

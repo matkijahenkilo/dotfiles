@@ -22,6 +22,11 @@
       url = "github:rafaelrc7/wayland-pipewire-idle-inhibit";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    amdgpu-fullrgb-patch = {
+      url = "git+https://gist.github.com/rafaelrc7/0270037dbe86205365ec8b7a4f339f82";
+      flake = false;
+    };
   };
 
   outputs = inputs@{ nixpkgs, nixgl, nixos-hardware, ... }:
