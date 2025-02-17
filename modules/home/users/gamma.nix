@@ -22,7 +22,7 @@
     ../firefox.nix
     ../flameshot.nix
     ../vscode.nix
-    ../discord.nix
+    ../discord
   ];
 
   home.packages = (
@@ -38,7 +38,6 @@
     krisp-patcher
     dtkit-patch
   ]) ++ (with pkgs; [
-    vesktop
     bottles
     krita
     vlc
