@@ -39,6 +39,13 @@
       config = {
         allowUnfree = true;
       };
+      overlays = [
+        (
+          final: prev: {
+            flameshot = prev.flameshot.override { enableWlrSupport = true; };
+          }
+        )
+      ];
     };
     homePkgs = import nixpkgs {
       system = "x86_64-linux";
@@ -69,7 +76,7 @@
       quirera = mkHost nixosPkgs ./hosts/quirera/configuration.nix [ nixos-hardware.nixosModules.common-cpu-amd ];
     };
     homeConfigurations = {
-      gamma   = mkHome homePkgs "marisa" "gamma.nix";
+      gamma   = mkHome nixosPkgs "marisa" "gamma.nix";
       quirera = mkHome nixosPkgs "marisa" "quirera.nix";
       tau     = mkHome homePkgs "marisa" "tau.nix";
     };
