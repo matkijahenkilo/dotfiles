@@ -32,9 +32,11 @@
   let
     krisp-patcher = pkgs.callPackage (path + /krisp-patcher) { };
     wxedid = pkgs.callPackage (path + /wxedid) { };
+    dtkit-patch = pkgs.callPackage (path + /dtkit-patch) { };
   in [
     wxedid
     krisp-patcher
+    dtkit-patch
   ]) ++ (with pkgs; [
     vesktop
     bottles
