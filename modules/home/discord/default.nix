@@ -7,14 +7,22 @@ let
     in
     import ./template.nix { inherit colors fonts; };
 in {
-  home.packages = with pkgs; [
+  home.packages = (
+    let
+      path = ../../../pkgs;
+    in
+    let
+      krisp-patcher = pkgs.callPackage (path + /krisp-patcher) { };
+    in [
+      krisp-patcher
+  ]) ++ (with pkgs; [
     (discord-canary.override {
       withOpenASAR = true;
     })
     (discord.override {
       withOpenASAR = true;
     })
-  ];
+  ]);
   xdg.configFile = {
     "discordcanary/settings.json".text = ''
       {

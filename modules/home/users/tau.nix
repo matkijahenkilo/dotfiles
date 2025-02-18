@@ -1,10 +1,7 @@
 { pkgs, ... }: {
   imports = [
-    ../nix.nix
-    ../git.nix
-    ../micro.nix
-    ../kitty.nix
-    ../zsh.nix
+    ../groups/essentials.nix
+    ../groups/cli.nix
     ../fastfetch.nix
     ../syncthing.nix
   ];
