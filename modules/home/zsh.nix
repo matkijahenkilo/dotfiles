@@ -10,6 +10,8 @@
     history = {
       size = 10000;
       expireDuplicatesFirst = true;
+      ignoreAllDups = true;
+      saveNoDups = true;
     };
 
     shellAliases = {
