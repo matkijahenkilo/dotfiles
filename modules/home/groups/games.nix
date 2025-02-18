@@ -10,6 +10,7 @@
   ]) ++ (with pkgs; [
     suyu
     wine
+    pyfa
     lutris
     bottles
     r2modman
