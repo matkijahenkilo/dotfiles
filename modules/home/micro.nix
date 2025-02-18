@@ -13,6 +13,7 @@
       hltaberrors = true;
       hltrailingws = true;
       rmtrailingws = true;
+      mkparents = true;
     };
   };
   xdg.configFile = {

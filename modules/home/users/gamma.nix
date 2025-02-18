@@ -50,5 +50,6 @@
     lutris
     suyu
     xivlauncher
+    r2modman
   ]);
 }
