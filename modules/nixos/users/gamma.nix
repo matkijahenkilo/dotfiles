@@ -9,6 +9,7 @@
 
     # CLI
     ../ssh.nix
+    ../gpu-screen-recorder.nix
 
     # GUI
     ../fcitx5.nix
