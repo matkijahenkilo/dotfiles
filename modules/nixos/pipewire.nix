@@ -1,7 +1,7 @@
 { lib, ... }: {
   services.pulseaudio.enable = lib.mkForce false;
-  # dl alsa-utils and use alsamixer
-  # to disable automute (￣ ￣|||)
+
+  security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
