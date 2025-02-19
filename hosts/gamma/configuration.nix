@@ -3,6 +3,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../modules/nixos/users/gamma.nix
+      ./gpu.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
