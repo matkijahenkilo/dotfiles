@@ -31,25 +31,25 @@
 
     fonts = {
       sizes = {
-        applications = 10;
-        terminal = 14;
         desktop = 10;
+        applications = 12;
+        terminal = 14;
         popups = 10;
       };
 
+      sansSerif = {
+        package = pkgs.noto-fonts;
+        name = "Noto Sans";
+      };
+
       serif = {
-        package = pkgs.dejavu_fonts;
-        name = "DejaVu Serif";
+        package = pkgs.noto-fonts;
+        name = "Noto Serif";
       };
 
       monospace = {
         package = pkgs.nerd-fonts.fira-code;
         name = "FiraCode Nerd Font Mono";
-      };
-
-      sansSerif = {
-        package = pkgs.dejavu_fonts;
-        name = "DejaVu Sans";
       };
 
       emoji = {
