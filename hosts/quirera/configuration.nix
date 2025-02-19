@@ -9,8 +9,6 @@
       ../../modules/nixos/users/quirera.nix
     ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
   networking.hostName = "quirera"; # Define your hostname.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
   networking.hosts = {
