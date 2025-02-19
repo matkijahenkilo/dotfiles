@@ -1,4 +1,8 @@
 { pkgs, ... }: {
+  imports = [
+    ../mangohud.nix
+  ];
+
   home.packages = (
   let
     path = ../../../pkgs;
