@@ -3,6 +3,7 @@
     ../boot.nix
     ../nix.nix
     ../gnupg-agent.nix
+    ../fonts.nix
 
     # CLI
     ../ssh.nix

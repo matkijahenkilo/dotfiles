@@ -6,6 +6,7 @@
     ../pipewire.nix
     ../zerotierone.nix
     ../amdgpu-fullrgb-patcher.nix
+    ../fonts.nix
 
     # CLI
     ../ssh.nix
