@@ -6,10 +6,8 @@
       nerd-fonts.fira-code
 
       source-han-sans
-      symbola
       dejavu_fonts
       font-awesome
-      open-dyslexic
       roboto
       roboto-serif
       roboto-mono
