@@ -14,7 +14,7 @@
     ../flameshot.nix
   ];
 
-  home.packages =
+  home.packages = (
   let
     path = ../../../pkgs;
   in
@@ -22,5 +22,7 @@
     wxedid = pkgs.callPackage (path + /wxedid) { };
   in [
     wxedid
-  ];
+  ]) ++ (with pkgs.kdePackages; [
+    kdenlive
+  ]);
 }

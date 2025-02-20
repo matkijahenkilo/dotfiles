@@ -7,7 +7,6 @@
   home.packages = (with pkgs.kdePackages; [
     kalk
     bluedevil
-    kdenlive
   ]) ++ (with pkgs; [
     wl-clipboard
   ]);
