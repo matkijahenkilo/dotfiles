@@ -38,13 +38,13 @@
       };
 
       sansSerif = {
-        package = pkgs.noto-fonts;
-        name = "Noto Sans";
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Sans";
       };
 
       serif = {
-        package = pkgs.noto-fonts;
-        name = "Noto Serif";
+        package = pkgs.dejavu_fonts;
+        name = "DejaVu Serif";
       };
 
       monospace = {
