@@ -14,5 +14,6 @@
     wget
     killall
     pavucontrol
+    ffmpeg
   ];
 }
