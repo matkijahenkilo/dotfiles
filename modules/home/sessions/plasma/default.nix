@@ -5,8 +5,9 @@
   ];
 
   home.packages = (with pkgs.kdePackages; [
-    kalk
     bluedevil
+    kalk
+    ktimer
   ]) ++ (with pkgs; [
     wl-clipboard
   ]);
