@@ -7,6 +7,7 @@
     ../fastfetch.nix
 
     ../groups/gui.nix
+    ../groups/games.nix
     ../sessions/plasma
     ../fcitx5.nix
   ];
