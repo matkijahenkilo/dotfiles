@@ -10,5 +10,6 @@
     ktimer
   ]) ++ (with pkgs; [
     wl-clipboard
+    strawberry
   ]);
 }

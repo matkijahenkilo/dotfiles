@@ -10,6 +10,7 @@
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     plasma-browser-integration
     konsole
+    elisa
   ];
 
   hardware.bluetooth.enable = true;
