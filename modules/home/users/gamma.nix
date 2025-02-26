@@ -10,6 +10,7 @@
     ../groups/gui.nix
     ../sessions/plasma
     ../groups/games.nix
+    ../steamcmd.nix
     ../fcitx5.nix
     ../flameshot.nix
   ];
