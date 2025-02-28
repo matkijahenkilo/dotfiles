@@ -1,8 +1,17 @@
 { pkgs, ... }:
 {
-  boot.initrd.kernelModules = [ "amdgpu" ];
   services.xserver.videoDrivers = [ "amdgpu" ];
   hardware = {
+    amdgpu = {
+      initrd.enable = true;
+      opencl.enable = true;
+      amdvlk = {
+        enable = true;
+        supportExperimental.enable = true;
+        support32Bit.enable = true;
+      };
+    };
+
     graphics = {
       enable = true;
       enable32Bit = true;
