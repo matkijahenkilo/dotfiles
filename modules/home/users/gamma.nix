@@ -13,6 +13,7 @@
     ../steamcmd.nix
     ../fcitx5.nix
     ../flameshot.nix
+    ../idea.nix
   ];
 
   home.packages = (
