@@ -22,8 +22,10 @@
   in
   let
     wxedid = pkgs.callPackage (path + /wxedid) { };
+    etterna = pkgs.callPackage (path + /etterna) { };
   in [
     wxedid
+    etterna
   ]) ++ (with pkgs.kdePackages; [
     kdenlive
   ]);
