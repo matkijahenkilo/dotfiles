@@ -7,7 +7,7 @@
       opencl.enable = true;
       amdvlk = {
         enable = true;
-        supportExperimental.enable = true;
+        package = pkgs.amdvlk-latest;
         support32Bit.enable = true;
       };
     };
@@ -16,14 +16,10 @@
       enable = true;
       enable32Bit = true;
       extraPackages = with pkgs; [
-        amdvlk
-
         libvdpau-va-gl
         libva-vdpau-driver
       ];
       extraPackages32 = with pkgs.driversi686Linux; [
-        amdvlk
-
         libvdpau-va-gl
         libva-vdpau-driver
       ];

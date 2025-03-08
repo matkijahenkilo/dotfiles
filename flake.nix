@@ -3,13 +3,12 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-amdvlk.url = "github:nixos/nixpkgs/9b8a2204c4ff7c591fd81e8eb624296c97456128";
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
     stylix.url = "github:danth/stylix";
 
@@ -29,7 +28,7 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, nixgl, nixos-hardware, ... }:
+  outputs = inputs@{ nixpkgs, nixpkgs-amdvlk, nixgl, nixos-hardware, ... }:
   let
     libs = import ./libs/default.nix { inherit inputs; };
     mkHost = libs.mkHost;
@@ -43,6 +42,13 @@
         (
           final: prev: {
             flameshot = prev.flameshot.override { enableWlrSupport = true; };
+          }
+        )
+        (
+          final: prev: {
+            amdvlk-latest = (import nixpkgs-amdvlk {
+              system = final.system;
+            }).amdvlk;
           }
         )
       ];
@@ -73,7 +79,7 @@
   in {
     nixosConfigurations = {
       gamma   = mkHost nixosPkgs ./hosts/gamma/configuration.nix [  ];
-      quirera = mkHost nixosPkgs ./hosts/quirera/configuration.nix [ nixos-hardware.nixosModules.common-cpu-amd ];
+      quirera = mkHost nixosPkgs ./hosts/quirera/configuration.nix [  ];
     };
     homeConfigurations = {
       gamma   = mkHome nixosPkgs "marisa" "gamma.nix";
