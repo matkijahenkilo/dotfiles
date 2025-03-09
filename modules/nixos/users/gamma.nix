@@ -9,5 +9,7 @@
     ../amdgpu-fullrgb-patcher.nix
     ../zerotierone.nix
     ../gnupg-agent.nix
+
+    ../kf2server.nix
   ];
 }

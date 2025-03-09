@@ -10,7 +10,6 @@
     ../groups/gui.nix
     ../sessions/plasma
     ../groups/games.nix
-    ../steamcmd.nix
     ../fcitx5.nix
     ../flameshot.nix
     ../idea.nix
@@ -26,7 +25,7 @@
   in [
     wxedid
     etterna
-  ]) ++ (with pkgs.kdePackages; [
-    kdenlive
+  ]) ++ (with pkgs; [
+    kdePackages.kdenlive
   ]);
 }
