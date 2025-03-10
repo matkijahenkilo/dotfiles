@@ -7,4 +7,6 @@
       default-cache-ttl = 86400;
     };
   };
+  networking.firewall.allowedTCPPorts = [ 11371 ];
+  networking.firewall.allowedUDPPorts = [ 11371 ];
 }
