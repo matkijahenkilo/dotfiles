@@ -1,6 +1,6 @@
 { lib, pkgs, ... }:
   let
-    path = ./../../assets/fcitx5;
+    path = ../../assets/fcitx5;
   in {
   # pretty jp font
   fonts.packages = with pkgs; [
@@ -16,6 +16,8 @@
       addons = with pkgs; [
         fcitx5-mozc
         fcitx5-lua
+        fcitx5-gtk
+        kdePackages.fcitx5-qt
       ];
 
       quickPhraseFiles = {
@@ -122,12 +124,5 @@
         };
       };
     };
-  };
-  environment.variables = {
-    QT_QPA_PLATFORM = "wayland;xcb";
-    SDL_IM_MODULE = "fcitx";
-    GLFW_IM_MODULE = "ibus";
-    GTK_IM_MODULE = lib.mkForce "";
-    QT_IM_MODULE = lib.mkForce "";
   };
 }
