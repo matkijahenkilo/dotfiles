@@ -13,6 +13,7 @@ let
     "'"
     "KF-BurningParis"
     "?Mutator=UnofficialKFPatch.UKFPMutator"
+    "?Mutator=CTI.Mut"
     "?LinuxCrashHack=1"
     "?BroadcastPickups=1"
     "?DisableTraderLocking=1"
