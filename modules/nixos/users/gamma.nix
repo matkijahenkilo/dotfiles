@@ -11,5 +11,6 @@
     ../gnupg-agent.nix
 
     ../kf2server.nix
+    ../llm.nix
   ];
 }

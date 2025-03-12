@@ -25,8 +25,28 @@
     };
   };
 
+  systemd.tmpfiles.rules =
+    let
+      rocmEnv = pkgs.symlinkJoin {
+        name = "rocm-combined";
+        paths = with pkgs.rocmPackages; [
+          rocblas
+          hipblas
+          clr
+        ];
+      };
+    in
+    [
+      "L+    /opt/rocm   -    -    -     -    ${rocmEnv}"
+    ];
+
   environment.systemPackages = with pkgs; [
     libva-utils
     glxinfo
   ];
+
+  services.ollama = {
+    acceleration = "rocm";
+    rocmOverrideGfx = "11.0.2";
+  };
 }
