@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   programs.vscode = {
     enable = true;
-    extensions = with pkgs.vscode-extensions; [
+    profiles.marisa.extensions = with pkgs.vscode-extensions; [
       bbenoist.nix
     ];
   };

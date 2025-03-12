@@ -23,23 +23,22 @@ in {
       withOpenASAR = true;
     })
   ]);
-  xdg.configFile = {
-    "discordcanary/settings.json".text = ''
-      {
-        "SKIP_HOST_UPDATE": true
-      }
-    '';
-    "discord/settings.json".text = ''
-      {
-        "SKIP_HOST_UPDATE": true,
-        "BACKGROUND_COLOR": "#2b2d31",
-        "openasar": {
-          "setup": true,
-          "quickstart": true,
-          "css": "${template}"
-        },
-        "chromiumSwitches": {}
-      }
-    '';
-  };
+  xdg.configFile =
+    let
+      customSettings = ''
+        {
+          "SKIP_HOST_UPDATE": true,
+          "BACKGROUND_COLOR": "#2b2d31",
+          "openasar": {
+            "setup": true,
+            "quickstart": true,
+            "css": "${template}"
+          },
+          "chromiumSwitches": {}
+        }
+      '';
+    in {
+      "discordcanary/settings.json".text = customSettings;
+      "discord/settings.json".text = customSettings;
+    };
 }

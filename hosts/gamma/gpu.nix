@@ -7,7 +7,6 @@
       opencl.enable = true;
       amdvlk = {
         enable = true;
-        package = pkgs.amdvlk-latest;
         support32Bit.enable = true;
       };
     };

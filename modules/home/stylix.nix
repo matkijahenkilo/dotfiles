@@ -67,6 +67,11 @@
 
     targets = {
       mangohud.enable = false;
+      vscode.profileNames = [ "marisa" ];
+      firefox.profileNames = [
+        "tsih"
+        "nanako"
+      ];
     };
   };
 }

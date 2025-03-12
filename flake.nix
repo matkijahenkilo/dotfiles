@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-amdvlk.url = "github:nixos/nixpkgs/9b8a2204c4ff7c591fd81e8eb624296c97456128";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -11,6 +10,7 @@
     };
 
     stylix.url = "github:danth/stylix";
+    # stylix.url = "github:danth/stylix/b00c9f46ae6c27074d24d2db390f0ac5ebcc329f";
 
     nixgl = {
       url = "github:nix-community/nixgl";
@@ -28,7 +28,7 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, nixpkgs-amdvlk, nixgl, nixos-hardware, ... }:
+  outputs = inputs@{ nixpkgs, nixgl, nixos-hardware, ... }:
   let
     libs = import ./libs/default.nix { inherit inputs; };
     mkHost = libs.mkHost;
@@ -42,13 +42,6 @@
         (
           final: prev: {
             flameshot = prev.flameshot.override { enableWlrSupport = true; };
-          }
-        )
-        (
-          final: prev: {
-            amdvlk-latest = (import nixpkgs-amdvlk {
-              system = final.system;
-            }).amdvlk;
           }
         )
       ];
