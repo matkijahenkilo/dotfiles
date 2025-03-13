@@ -2,7 +2,10 @@
   services = {
     printing = {
       enable = true;
-      # drivers = [ pkgs.samsung-m2020w ]; # 💀
+      drivers = with pkgs; [
+        samsung-unified-linux-driver
+        splix
+      ];
       browsing = true;
       startWhenNeeded = true;
     };
