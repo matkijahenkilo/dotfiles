@@ -2,6 +2,7 @@
   imports = [
     ../xdg-portals.nix
     ../xdg-desktopEntries.nix
+    ../../flameshot.nix
   ];
 
   home.packages = (with pkgs.kdePackages; [
