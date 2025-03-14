@@ -34,5 +34,10 @@
     pavucontrol
     ffmpeg
     tree
+
+    zip
+    p7zip
+    rar
+    unrar
   ];
 }
