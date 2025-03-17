@@ -11,17 +11,26 @@ let
   steam-run-args = lib.concatStrings [
     "./Binaries/Win64/KFGameSteamServer.bin.x86_64 "
     "'"
-    "KF-BurningParis"
-    "?Mutator=UnofficialKFPatch.UKFPMutator"
-    "?Mutator=CTI.Mut"
+    "KF-Nuked"
+    # mutators separated by comma
+    "?Mutator=UnofficialKFPatch.UKFPMutator,LTI.Mut"
     "?LinuxCrashHack=1"
-    "?BroadcastPickups=1"
+
+    # enabling LTI settings
     "?DisableTraderLocking=1"
+
+    # customize the rest of the game
+    "?BroadcastPickups=1"
     "?DropAllWepsOnDeath=1"
     "?NoEDARs=1"
+
+    # admin options
     " -AdminName=nanako"
     "'"
   ];
+
+  user-name = "marisa";
+  user-group = "users";
 in {
   systemd.services = {
     # Main server service
@@ -32,6 +41,8 @@ in {
       };
 
       serviceConfig = {
+        User = user-name;
+        Group = user-group;
         WorkingDirectory = kf2server_path;
         ExecStart = "${pkgs.steam-run}/bin/steam-run ${steam-run-args}";
         Restart = "always";
@@ -47,6 +58,8 @@ in {
       };
 
       serviceConfig = {
+        User = user-name;
+        Group = user-group;
         Type = "oneshot";
         WorkingDirectory = kf2server_path;
         ExecStart = "${kf2server_update}/bin/kf2server_update";
@@ -54,12 +67,12 @@ in {
     };
   };
 
-  # if your isp absolutely stinks and you prefer to use zerotier-one,
+  # if your isp doesn't allow you to open ports and you prefer to use zerotier-one,
   # friends can connect to the host with console command "open [zerotier ip]"
-  # as the server won't appear in LAN tab...............,,,,,,,,,;;..,
+  # as the server won't appear in LAN tab for them...
   networking.firewall.allowedUDPPorts = [
     7777  # main game port
-    20560 # Steam Port
+    20560 # Steam port
     123   # ntp for weekly outbreaks
   ];
 
