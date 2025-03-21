@@ -73,6 +73,7 @@
     nixosConfigurations = {
       gamma   = mkHost nixosPkgs ./hosts/gamma/configuration.nix [  ];
       quirera = mkHost nixosPkgs ./hosts/quirera/configuration.nix [  ];
+      generic = mkHost nixosPkgs ./hosts/generic/configuration.nix [  ];
     };
     homeConfigurations = {
       gamma   = mkHome nixosPkgs "marisa" "gamma.nix";
