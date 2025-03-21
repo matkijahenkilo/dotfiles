@@ -13,5 +13,6 @@
 
     ../kf2server.nix
     ../llm.nix
+    ../virtualbox.nix
   ];
 }
