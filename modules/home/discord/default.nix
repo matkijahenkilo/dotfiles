@@ -16,9 +16,6 @@ in {
     in [
       krisp-patcher
   ]) ++ (with pkgs; [
-    (discord-canary.override {
-      withOpenASAR = true;
-    })
     (discord.override {
       withOpenASAR = true;
     })
@@ -38,7 +35,6 @@ in {
         }
       '';
     in {
-      "discordcanary/settings.json".text = customSettings;
       "discord/settings.json".text = customSettings;
     };
 }
