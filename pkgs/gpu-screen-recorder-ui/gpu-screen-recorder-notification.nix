@@ -1,63 +1,57 @@
 {
-  stdenv,
-  fetchurl,
   lib,
-
+  stdenv,
+  fetchgit,
   pkg-config,
-  libX11,
-  libXext,
-  libXrandr,
-  libXrender,
-  libglvnd,
   meson,
   ninja,
-  makeWrapper,
-  wrapperDir ? "/run/wrappers/bin",
-  addDriverRunpath,
+  libX11,
+  libXrender,
+  libXrandr,
+  libXext,
+  libglvnd,
+  gitUpdater,
 }:
-stdenv.mkDerivation (finalAttrs: {
-  pname="gpu-screen-recorder-notification";
-  version = "1.0.3";
 
-  src = fetchurl {
-    url = "https://dec05eba.com/snapshot/gpu-screen-recorder-notification.git.${finalAttrs.version}.tar.gz";
-    hash = "sha256-s4LTKP/eFwC6lwAsQKOTBjtaJoZ0yQTUTdfFtMM4saE=";
+stdenv.mkDerivation rec {
+  pname = "gpu-screen-recorder-notification";
+  version = "1.0.4";
+
+  src = fetchgit {
+    url = "https://repo.dec05eba.com/${pname}";
+    tag = version;
+    hash = "sha256-8nftekHFI07oDdOGhUgSQoMIFYflFDU/unsPrWvURTw=";
   };
 
-  sourceRoot = ".";
+  postPatch = ''
+    substituteInPlace depends/mglpp/depends/mgl/src/gl.c \
+      --replace-fail "libGL.so.1" "${lib.getLib libglvnd}/lib/libGL.so.1" \
+      --replace-fail "libGLX.so.0" "${lib.getLib libglvnd}/lib/libGLX.so.0" \
+      --replace-fail "libEGL.so.1" "${lib.getLib libglvnd}/lib/libEGL.so.1"
+  '';
 
   nativeBuildInputs = [
-    meson
     pkg-config
+    meson
     ninja
-    libX11
-    libXext
-    libXrandr
-    libXrender
-    libglvnd
-    makeWrapper
   ];
 
-  postInstall = ''
-    mkdir $out/bin/.wrapped
-    mv $out/bin/gsr-notify $out/bin/.wrapped/
-    makeWrapper "$out/bin/.wrapped/gsr-notify" "$out/bin/gsr-notify" \
-      --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [
-          libglvnd
-          addDriverRunpath.driverLink
-        ]
-      }" \
-      --prefix PATH : "${wrapperDir}" \
-      --suffix PATH : "$out/bin"
-  '';
+  buildInputs = [
+    libX11
+    libXrender
+    libXrandr
+    libXext
+    libglvnd
+  ];
+
+  passthru.updateScript = gitUpdater { };
 
   meta = {
     description = "Notification in the style of ShadowPlay";
-    homepage = "https://git.dec05eba.com/gpu-screen-recorder-notification/about/";
+    homepage = "https://git.dec05eba.com/${pname}/about/";
     license = lib.licenses.gpl3Only;
-    mainProgram = "gpu-screen-recorder-notification";
-    maintainers = with lib.maintainers; [ matkijahenkilo ];
-    platforms = [ "x86_64-linux" ];
+    mainProgram = "gsr-notify";
+    maintainers = with lib.maintainers; [ js6pak ];
+    platforms = lib.platforms.linux;
   };
-})
+}

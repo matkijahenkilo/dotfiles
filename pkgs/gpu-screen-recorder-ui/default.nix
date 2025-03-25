@@ -1,84 +1,93 @@
 {
-  stdenv,
   lib,
-  fetchurl,
+  stdenv,
+  fetchgit,
+  pkg-config,
   meson,
   ninja,
-  pkg-config,
+  makeWrapper,
+  gpu-screen-recorder,
+  gpu-screen-recorder-notification,
   libX11,
-  libXrandr,
   libXrender,
+  libXrandr,
   libXcomposite,
-  libXfixes,
   libXi,
   libXcursor,
   libglvnd,
-  linuxHeaders,
   libpulseaudio,
-  gpu-screen-recorder,
-  gpu-screen-recorder-notification,
-  makeWrapper,
   wrapperDir ? "/run/wrappers/bin",
-  addDriverRunpath,
+  gitUpdater,
 }:
-stdenv.mkDerivation (finalAttrs: {
-  pname = "gpu-screen-recorder-ui";
-  version = "1.1.7";
 
-  src = fetchurl {
-    url = "https://dec05eba.com/snapshot/gpu-screen-recorder-ui.git.${finalAttrs.version}.tar.gz";
-    hash = "sha256-Py0jID3WC657ojPxpkqW8OJqX2pPUOkDez1RsdaLy60=";
+stdenv.mkDerivation rec {
+  pname = "gpu-screen-recorder-ui";
+  version = "1.2.1";
+
+  src = fetchgit {
+    url = "https://repo.dec05eba.com/${pname}";
+    tag = version;
+    hash = "sha256-RROgvuq6Z05M4aClEpGSI+pYhdMSTU1EXaJvmpMQgaE=";
   };
 
-  sourceRoot = ".";
+  postPatch = ''
+    substituteInPlace depends/mglpp/depends/mgl/src/gl.c \
+      --replace-fail "libGL.so.1" "${lib.getLib libglvnd}/lib/libGL.so.1" \
+      --replace-fail "libGLX.so.0" "${lib.getLib libglvnd}/lib/libGLX.so.0" \
+      --replace-fail "libEGL.so.1" "${lib.getLib libglvnd}/lib/libEGL.so.1"
+
+    substituteInPlace extra/gpu-screen-recorder-ui.service \
+      --replace-fail "ExecStart=${meta.mainProgram}" "ExecStart=$out/bin/${meta.mainProgram}"
+  '';
 
   nativeBuildInputs = [
-    meson
     pkg-config
+    meson
     ninja
     makeWrapper
-    libglvnd
-    libX11
-    libXrandr
-    libXrender
-    libXcomposite
-    libXfixes
-    libXi
-    libXcursor
-    linuxHeaders
-    libpulseaudio
   ];
 
   buildInputs = [
-    gpu-screen-recorder
-    gpu-screen-recorder-notification
+    libX11
+    libXrender
+    libXrandr
+    libXcomposite
+    libXi
+    libXcursor
+    libglvnd
+    libpulseaudio
   ];
 
   mesonFlags = [
-    # Handle by the module
+    # Handled by the module
     (lib.mesonBool "capabilities" false)
   ];
 
-  postInstall = ''
-    mkdir $out/bin/.wrapped
-    mv $out/bin/gsr-ui $out/bin/.wrapped/
-    makeWrapper "$out/bin/.wrapped/gsr-ui" "$out/bin/gsr-ui" \
-      --prefix LD_LIBRARY_PATH : "${
-        lib.makeLibraryPath [
-          libglvnd
-          addDriverRunpath.driverLink
-        ]
-      }" \
-      --prefix PATH : "${wrapperDir}" \
-      --suffix PATH : "$out/bin"
-  '';
+  postInstall =
+    let
+      gpu-screen-recorder-wrapped = gpu-screen-recorder.override {
+        inherit wrapperDir;
+      };
+    in
+    ''
+      wrapProgram "$out/bin/${meta.mainProgram}" \
+        --prefix PATH : "${wrapperDir}" \
+        --suffix PATH : "${
+          lib.makeBinPath [
+            gpu-screen-recorder-wrapped
+            gpu-screen-recorder-notification
+          ]
+        }"
+    '';
+
+  passthru.updateScript = gitUpdater { };
 
   meta = {
-    description = "A fullscreen overlay UI for GPU Screen Recorder in the style of ShadowPlay";
-    homepage = "https://git.dec05eba.com/gpu-screen-recorder-ui/about/";
+    description = "Fullscreen overlay UI for GPU Screen Recorder in the style of ShadowPlay";
+    homepage = "https://git.dec05eba.com/${pname}/about/";
     license = lib.licenses.gpl3Only;
-    mainProgram = "gpu-screen-recorder-ui";
-    maintainers = with lib.maintainers; [ matkijahenkilo ];
-    platforms = [ "x86_64-linux" ];
+    mainProgram = "gsr-ui";
+    maintainers = with lib.maintainers; [ js6pak ];
+    platforms = lib.platforms.linux;
   };
-})
+}
