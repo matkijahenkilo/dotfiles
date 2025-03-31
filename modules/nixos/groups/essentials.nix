@@ -33,6 +33,7 @@
     killall
     pavucontrol
     ffmpeg
+    imagemagick
     tree
 
     zip
