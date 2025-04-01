@@ -25,6 +25,7 @@
     };
 
     cursor = {
+      size = 32;
       package = pkgs.banana-cursor;
       name = "Banana";
     };

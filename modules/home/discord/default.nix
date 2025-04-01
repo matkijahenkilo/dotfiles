@@ -16,9 +16,7 @@ in {
     in [
       krisp-patcher
   ]) ++ (with pkgs; [
-    (discord.override {
-      withOpenASAR = true;
-    })
+    discord
   ]);
   xdg.configFile =
     let

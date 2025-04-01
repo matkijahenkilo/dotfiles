@@ -10,13 +10,13 @@ in {
     profiles = {
       tsih = {
         id = 0;
-        search.default = "Google";
+        search.default = "google";
         isDefault = true;
         settings = preferences;
       };
       nanako = {
         id = 1;
-        search.default = "Google";
+        search.default = "google";
         settings = preferences;
       };
     };

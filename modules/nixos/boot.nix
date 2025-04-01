@@ -2,7 +2,7 @@
   boot = {
     loader = {
       efi.canTouchEfiVariables = true;
-      systemd-boot.enable = true;
+      limine.enable = true;
     };
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
   };

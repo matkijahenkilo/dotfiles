@@ -60,13 +60,6 @@
             '');
           }
         )
-        (
-          final: prev: {
-            vesktop = (homePkgs.writeShellScriptBin "vesktop" ''
-              ${final.nixgl.nixGLIntel}/bin/nixGLIntel ${prev.vesktop}/bin/vesktop "$@"
-            '');
-          }
-        )
       ];
     };
   in {
