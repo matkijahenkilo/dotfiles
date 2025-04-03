@@ -76,6 +76,10 @@
       PROMPT='%F{green}%n%f%F{white}@%m%f %F{green}%1~%f$(git_super_status) $ '
       RPROMPT="%(?..%B%F{red}<FAIL>%b %?)%f "
 
+      # Functions
+      # chbr [value] [input file] [output file]
+      chbr () ${pkgs.ffmpeg}/bin/ffmpeg -i $2 -c:v libx264 -crf $1 $3
+
       # Don't delete an entire path with Alt + Backspace
       autoload -U select-word-style
       select-word-style bash
