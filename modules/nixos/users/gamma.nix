@@ -13,6 +13,6 @@
 
     ../kf2server.nix
     ../llm.nix
-    # ../virtualization.nix
+    ../virtualization.nix
   ];
 }
