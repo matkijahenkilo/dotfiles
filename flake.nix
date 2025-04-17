@@ -26,6 +26,8 @@
       url = "git+https://gist.github.com/rafaelrc7/0270037dbe86205365ec8b7a4f339f82";
       flake = false;
     };
+
+    polymc.url = "github:PolyMC/PolyMC";
   };
 
   outputs = inputs@{ nixpkgs, nixgl, nixos-hardware, ... }:
@@ -39,6 +41,7 @@
         allowUnfree = true;
       };
       overlays = [
+        inputs.polymc.overlay
         (
           final: prev: {
             flameshot = prev.flameshot.override { enableWlrSupport = true; };
@@ -53,6 +56,7 @@
       };
       overlays = [
         nixgl.overlay
+        inputs.polymc.overlay
         (
           final: prev: {
             kitty = (homePkgs.writeShellScriptBin "kitty" ''

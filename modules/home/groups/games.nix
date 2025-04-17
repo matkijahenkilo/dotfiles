@@ -20,5 +20,6 @@
     r2modman
     archipelago
     xivlauncher
+    polymc # https://github.com/PolyMC/PolyMC/blob/develop/nix/NIX.md
   ]);
 }
