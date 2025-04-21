@@ -10,5 +10,7 @@
     ../groups/games.nix
     ../sessions/plasma
     ../fcitx5.nix
+
+    ../idea.nix
   ];
 }
