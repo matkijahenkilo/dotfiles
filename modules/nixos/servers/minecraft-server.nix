@@ -30,6 +30,7 @@ in
 {
   # Minecraft default port
   networking.firewall.allowedTCPPorts = [ 25565 ];
+  networking.firewall.allowedUDPPorts = [ 24454 ]; # https://modrepo.de/minecraft/voicechat/wiki/server_setup
 
   # User/Group
   users.users.minecraft = {
