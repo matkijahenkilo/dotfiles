@@ -31,7 +31,6 @@
   environment.systemPackages = with pkgs; [
     wget
     killall
-    pavucontrol
     ffmpeg
     imagemagick
     tree
@@ -40,5 +39,7 @@
     p7zip
     rar
     unrar
+
+    micro
   ];
 }

@@ -62,6 +62,13 @@ in
         ''${lib.getExe pkgs.papermc} -server -Xms''${MEM} -Xmx''${MEM} $JVM_OPTS''
       ];
     };
+    "minecraft-server@forge" = {
+      overrideStrategy = "asDropin";
+      serviceConfig.ExecStart = [
+        ""
+        "${lib.getExe pkgs.jre} @user_jvm_args.txt @libraries/net/minecraftforge/forge/1.20.1-47.4.0/unix_args.txt '$@' nogui"
+      ];
+    };
   };
 
   systemd.timers = {
