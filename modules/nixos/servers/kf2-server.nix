@@ -1,6 +1,6 @@
-{ lib, pkgs, ... }:
+{ lib, pkgs, config, ... }:
 let
-  kf2server_path = "/media/WD/servers/KF2Server";
+  kf2server_path = "/srv/KF2Server";
   kf2server_update = pkgs.writeShellScriptBin "kf2server_update" ''
     set -eo pipefail
     ${pkgs.steamcmd}/bin/steamcmd +force_install_dir ${kf2server_path} +login anonymous +app_update 232130 validate +quit
@@ -28,10 +28,21 @@ let
     " -AdminName=nanako"
     "'"
   ];
-
-  user-name = "marisa";
-  user-group = "users";
 in {
+  # User/Group
+  users.users.kf2 = {
+    description = "Killing Floor 2 server service user";
+    home = kf2server_path;
+    createHome = true;
+    isSystemUser = true;
+    group = config.users.groups.minecraft.name;
+    shell = "${pkgs.shadow}/bin/nologin";
+  };
+
+  users.groups.kf2 = {
+    gid = config.users.users.kf2.uid;
+  };
+
   systemd.services = {
     # Main server service
     kf2server = {
@@ -41,8 +52,8 @@ in {
       };
 
       serviceConfig = {
-        User = user-name;
-        Group = user-group;
+        User = config.users.users.kf2.name;
+        Group = config.users.users.kf2.group;
         WorkingDirectory = kf2server_path;
         ExecStart = "${pkgs.steam-run}/bin/steam-run ${steam-run-args}";
         Restart = "always";
@@ -58,8 +69,8 @@ in {
       };
 
       serviceConfig = {
-        User = user-name;
-        Group = user-group;
+        User = config.users.users.kf2.name;
+        Group = config.users.users.kf2.group;
         Type = "oneshot";
         WorkingDirectory = kf2server_path;
         ExecStart = "${kf2server_update}/bin/kf2server_update";
