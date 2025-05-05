@@ -47,6 +47,10 @@
       fsType = "btrfs";
     };
 
+  fileSystems."/media/WD2" =
+    { device = "/dev/disk/by-uuid/bbde4bd2-4545-4fe6-a9d3-2d33430f12db";
+      fsType = "btrfs";
+    };
 
   swapDevices =
     [ { device = "/dev/disk/by-uuid/e218fba6-4b87-43dd-96db-d86ef589e011"; }
@@ -57,8 +61,11 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
+  # networking.interfaces.docker0.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp6s0.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp9s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.vboxnet0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.ztr4nztlof.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
