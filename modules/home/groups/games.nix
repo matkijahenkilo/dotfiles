@@ -10,13 +10,14 @@
   let
     dtkit-patch = pkgs.callPackage (path + /dtkit-patch) { };
   in [
-    dtkit-patch
+    dtkit-patch # for darktide mods
   ]) ++ (with pkgs; [
     suyu
     wine
     pyfa
     lutris
     bottles
+    etterna
     r2modman
     archipelago
     xivlauncher

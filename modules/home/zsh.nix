@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ lib, pkgs, ... }: {
   home.packages = with pkgs; [
     fzf
   ];
@@ -54,11 +54,9 @@
       }
     ];
 
-    initExtraBeforeCompInit = ''
+    initContent = lib.mkOrder 550 ''
       zstyle ':completion:*' menu select
-    '';
 
-    initExtra = ''
       # History binds
       bindkey "^[[A" history-substring-search-up
       bindkey "^[[B" history-substring-search-down
