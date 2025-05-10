@@ -3,7 +3,6 @@
     ../discord
     ../firefox.nix
     ../kitty.nix
-    ../obs-studio.nix
     ../stylix.nix
     ../thunderbird.nix
     ../vscode.nix
