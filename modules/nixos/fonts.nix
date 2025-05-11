@@ -18,6 +18,11 @@
       noto-fonts-lgc-plus
       noto-fonts-cjk-sans
       noto-fonts-cjk-serif
+
+      # jp fonts
+      source-han-sans
+      source-han-mono
+      source-han-serif
     ];
   };
 }

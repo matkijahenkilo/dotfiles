@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }: {
+{ pkgs, config, inputs, ... }: {
   imports = [ inputs.stylix.homeManagerModules.stylix ];
   xdg.systemDirs.config = [ "/etc/xdg" ]; # Workaround (https://github.com/danth/stylix/issues/412)
   stylix = {
@@ -73,6 +73,7 @@
         "tsih"
         "nanako"
       ];
+      fcitx5.enable = false; # disabled until options to customize it specifically are made
     };
   };
 }
