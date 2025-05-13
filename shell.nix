@@ -1,5 +1,5 @@
 {
-  pkgs ? <nixpkgs> { },
+  pkgs ? import <nixpkgs> { },
   ...
 }:
 pkgs.mkShell {
