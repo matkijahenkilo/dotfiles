@@ -73,5 +73,8 @@
       quirera = mkHome nixosPkgs "marisa" "quirera.nix";
       tau     = mkHome homePkgs "marisa" "tau.nix";
     };
+    devShells.${nixosPkgs.system} = {
+      default = let pkgs = nixosPkgs; in import ./shell.nix { inherit pkgs; };
+    };
   };
 }
