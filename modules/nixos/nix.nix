@@ -1,4 +1,5 @@
-{ lib, pkgs, ... }:{
+{ lib, pkgs, ... }:
+{
   nix = {
     package = pkgs.nixVersions.latest;
 

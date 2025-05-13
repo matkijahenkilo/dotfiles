@@ -1,4 +1,9 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   kf2server_path = "/srv/KF2Server";
   kf2server_update = pkgs.writeShellScriptBin "kf2server_update" ''
@@ -28,7 +33,8 @@ let
     " -AdminName=nanako"
     "'"
   ];
-in {
+in
+{
   # User/Group
   users.users.kf2 = {
     description = "Killing Floor 2 server service user";
@@ -48,7 +54,9 @@ in {
     kf2server = {
       unitConfig = {
         Description = "Killing Floor 2 Server";
-        Documentation = [ "https://wiki.killingfloor2.com/index.php?title=Dedicated_Server_(Killing_Floor_2)" ];
+        Documentation = [
+          "https://wiki.killingfloor2.com/index.php?title=Dedicated_Server_(Killing_Floor_2)"
+        ];
       };
 
       serviceConfig = {
@@ -65,7 +73,9 @@ in {
     kf2server-update = {
       unitConfig = {
         Description = "Killing Floor 2 Server Update";
-        Documentation = [ "https://wiki.killingfloor2.com/index.php?title=Dedicated_Server_(Killing_Floor_2)" ];
+        Documentation = [
+          "https://wiki.killingfloor2.com/index.php?title=Dedicated_Server_(Killing_Floor_2)"
+        ];
       };
 
       serviceConfig = {
@@ -82,9 +92,9 @@ in {
   # friends can connect to the host with console command "open [zerotier ip]"
   # as the server won't appear in LAN tab for them...
   networking.firewall.allowedUDPPorts = [
-    7777  # main game port
+    7777 # main game port
     20560 # Steam port
-    123   # ntp for weekly outbreaks
+    123 # ntp for weekly outbreaks
   ];
 
   programs.steam = {

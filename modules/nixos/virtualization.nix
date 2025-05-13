@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   # its mini toolbar can stop your interaction with
   # the entire virtualbox program once you go fullscreen
   # run this after installing it

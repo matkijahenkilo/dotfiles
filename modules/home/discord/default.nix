@@ -6,18 +6,23 @@ let
       inherit (config.stylix) fonts;
     in
     import ./template.nix { inherit colors fonts; };
-in {
-  home.packages = (
-    let
-      path = ../../../pkgs;
-    in
-    let
-      krisp-patcher = pkgs.callPackage (path + /krisp-patcher) { };
-    in [
-      krisp-patcher
-  ]) ++ (with pkgs; [
-    discord
-  ]);
+in
+{
+  home.packages =
+    (
+      let
+        path = ../../../pkgs;
+      in
+      let
+        krisp-patcher = pkgs.callPackage (path + /krisp-patcher) { };
+      in
+      [
+        krisp-patcher
+      ]
+    )
+    ++ (with pkgs; [
+      discord
+    ]);
   xdg.configFile =
     let
       customSettings = ''
@@ -32,7 +37,8 @@ in {
           "chromiumSwitches": {}
         }
       '';
-    in {
+    in
+    {
       "discord/settings.json".text = customSettings;
     };
 }

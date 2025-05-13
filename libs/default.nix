@@ -1,12 +1,14 @@
 { inputs }:
 let
-  libs = ( import ./default.nix ) { inherit inputs; };
+  libs = (import ./default.nix) { inherit inputs; };
   outputs = inputs.self.outputs;
-in {
+in
+{
 
   pkgsFor = sys: inputs.nixpkgs.legacyPackages.${sys};
 
-  mkHost = pkgs: config: extraModules:
+  mkHost =
+    pkgs: config: extraModules:
     inputs.nixpkgs.lib.nixosSystem {
       inherit pkgs;
       specialArgs = {
@@ -17,10 +19,11 @@ in {
       ] ++ extraModules;
     };
 
-  mkHome = pkgs: username: module:
-  let
-    homeDirectory = "/home/${username}";
-  in
+  mkHome =
+    pkgs: username: module:
+    let
+      homeDirectory = "/home/${username}";
+    in
     inputs.home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       extraSpecialArgs = {

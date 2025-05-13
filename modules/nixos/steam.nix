@@ -1,14 +1,16 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
     package = pkgs.steam.override {
-      extraPkgs = p: with p; [
-        jdk
-        mangohud
-      ];
-      extraLibraries = p: [  ];
+      extraPkgs =
+        p: with p; [
+          jdk
+          mangohud
+        ];
+      extraLibraries = p: [ ];
       extraEnv = {
         SDL_VIDEODRIVER = "";
         QT_QPA_PLATFORM = "";

@@ -10,7 +10,8 @@
     };
 
     stylix.url = "github:danth/stylix";
-    # stylix.url = "github:danth/stylix/b00c9f46ae6c27074d24d2db390f0ac5ebcc329f";
+
+    treefmt-nix.url = "github:numtide/treefmt-nix";
 
     nixgl = {
       url = "github:nix-community/nixgl";
@@ -28,53 +29,76 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, nixgl, nixos-hardware, ... }:
-  let
-    libs = import ./libs/default.nix { inherit inputs; };
-    mkHost = libs.mkHost;
-    mkHome = libs.mkHome;
-    nixosPkgs = import nixpkgs {
-      system = "x86_64-linux";
-      config = {
-        allowUnfree = true;
-      };
-      overlays = [
-        (
-          final: prev: {
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      systems,
+      treefmt-nix,
+      nixgl,
+      nixos-hardware,
+      ...
+    }:
+    let
+      libs = import ./libs/default.nix { inherit inputs; };
+      mkHost = libs.mkHost;
+      mkHome = libs.mkHome;
+
+      eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
+      treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
+
+      nixosPkgs = import nixpkgs {
+        system = "x86_64-linux";
+        config = {
+          allowUnfree = true;
+        };
+        overlays = [
+          (final: prev: {
             flameshot = prev.flameshot.override { enableWlrSupport = true; };
-          }
-        )
-      ];
-    };
-    homePkgs = import nixpkgs {
-      system = "x86_64-linux";
-      config = {
-        allowUnfree = true;
+          })
+        ];
       };
-      overlays = [
-        nixgl.overlay
-        (
-          final: prev: {
-            kitty = (homePkgs.writeShellScriptBin "kitty" ''
-              ${final.nixgl.nixGLIntel}/bin/nixGLIntel ${prev.kitty}/bin/kitty "$@"
-            '');
-          }
-        )
-      ];
+      homePkgs = import nixpkgs {
+        system = "x86_64-linux";
+        config = {
+          allowUnfree = true;
+        };
+        overlays = [
+          nixgl.overlay
+          (final: prev: {
+            kitty = (
+              homePkgs.writeShellScriptBin "kitty" ''
+                ${final.nixgl.nixGLIntel}/bin/nixGLIntel ${prev.kitty}/bin/kitty "$@"
+              ''
+            );
+          })
+        ];
+      };
+    in
+    {
+      nixosConfigurations = {
+        default = mkHost nixosPkgs ./hosts/default/configuration.nix [ ];
+        gamma = mkHost nixosPkgs ./hosts/gamma/configuration.nix [ ];
+        quirera = mkHost nixosPkgs ./hosts/quirera/configuration.nix [ ];
+      };
+
+      homeConfigurations = {
+        gamma = mkHome nixosPkgs "marisa" "gamma.nix";
+        quirera = mkHome nixosPkgs "marisa" "quirera.nix";
+        tau = mkHome homePkgs "marisa" "tau.nix";
+      };
+
+      devShells.${nixosPkgs.system} = {
+        default =
+          let
+            pkgs = nixosPkgs;
+          in
+          import ./shell.nix { inherit pkgs; };
+      };
+
+      formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+      checks = eachSystem (pkgs: {
+        formatting = treefmtEval.${pkgs.system}.config.build.check self;
+      });
     };
-  in {
-    nixosConfigurations = {
-      default = mkHost nixosPkgs ./hosts/default/configuration.nix [  ];
-      gamma   = mkHost nixosPkgs ./hosts/gamma/configuration.nix [  ];
-      quirera = mkHost nixosPkgs ./hosts/quirera/configuration.nix [  ];
-    };
-    homeConfigurations = {
-      gamma   = mkHome nixosPkgs "marisa" "gamma.nix";
-      quirera = mkHome nixosPkgs "marisa" "quirera.nix";
-      tau     = mkHome homePkgs "marisa" "tau.nix";
-    };
-    devShells.${nixosPkgs.system} = {
-      default = let pkgs = nixosPkgs; in import ./shell.nix { inherit pkgs; };
-    };
-  };
 }

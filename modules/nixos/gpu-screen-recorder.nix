@@ -20,24 +20,31 @@ let
   '';
 
   path = ../../pkgs;
-  notification = pkgs.callPackage (path + /gpu-screen-recorder-ui/gpu-screen-recorder-notification.nix) { };
-in {
+  notification = pkgs.callPackage (
+    path + /gpu-screen-recorder-ui/gpu-screen-recorder-notification.nix
+  ) { };
+in
+{
   programs.gpu-screen-recorder.enable = true;
-  environment.systemPackages = (
-  let
-    gpu-screen-recorder-ui = pkgs.callPackage (path + /gpu-screen-recorder-ui) {
-      gpu-screen-recorder-notification = notification;
-    };
-    gpu-screen-recorder-notification = notification;
-  in [
-    gpu-screen-recorder-ui
-    gpu-screen-recorder-notification
-  ]) ++ (with pkgs; [
-    gpu-screen-recorder
-    gpu-screen-recorder-gtk
-    gsr-toggle-show
-    gsr-toggle-record
-    gsr-toggle-replay
-    gsr-replay-save
-  ]);
+  environment.systemPackages =
+    (
+      let
+        gpu-screen-recorder-ui = pkgs.callPackage (path + /gpu-screen-recorder-ui) {
+          gpu-screen-recorder-notification = notification;
+        };
+        gpu-screen-recorder-notification = notification;
+      in
+      [
+        gpu-screen-recorder-ui
+        gpu-screen-recorder-notification
+      ]
+    )
+    ++ (with pkgs; [
+      gpu-screen-recorder
+      gpu-screen-recorder-gtk
+      gsr-toggle-show
+      gsr-toggle-record
+      gsr-toggle-replay
+      gsr-replay-save
+    ]);
 }

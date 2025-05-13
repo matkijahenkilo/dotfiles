@@ -1,13 +1,17 @@
 { ... }:
 let
   assets = ../../../assets;
-in {
+in
+{
   xdg.desktopEntries = {
     vesktop = {
       name = "Vesktop";
       exec = "vesktop";
       terminal = false;
-      categories = [ "Application" "Network" ];
+      categories = [
+        "Application"
+        "Network"
+      ];
     };
     kitty = {
       name = "Kitty";

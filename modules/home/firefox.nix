@@ -3,10 +3,11 @@ let
   preferences = {
     "widget.use-xdg-desktop-portal.file-picker" = 1;
   };
-in {
+in
+{
   programs.firefox = {
     enable = true;
-    nativeMessagingHosts = [  ];
+    nativeMessagingHosts = [ ];
     profiles = {
       tsih = {
         id = 0;

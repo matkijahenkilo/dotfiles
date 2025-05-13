@@ -1,4 +1,5 @@
-{ pkgs, ... }: {
+{ pkgs, ... }:
+{
   imports = [
     ../boot.nix
     ../nix.nix
@@ -24,7 +25,10 @@
   # dont fockign forget passwd
   users.users.marisa = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "sudo" ];
+    extraGroups = [
+      "wheel"
+      "sudo"
+    ];
     shell = pkgs.zsh;
   };
 

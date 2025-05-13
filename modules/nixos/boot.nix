@@ -1,4 +1,5 @@
-{ lib, pkgs, ... }: {
+{ lib, pkgs, ... }:
+{
   boot = {
     loader = {
       efi.canTouchEfiVariables = true;

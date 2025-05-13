@@ -1,4 +1,5 @@
-{ pkgs, libs, ... }: {
+{ pkgs, libs, ... }:
+{
   imports = [
     ../groups/essentials.nix
 
@@ -14,16 +15,20 @@
     ../idea.nix
   ];
 
-  home.packages = (
-  let
-    path = ../../../pkgs;
-  in
-  let
-    wxedid = pkgs.callPackage (path + /wxedid) { };
-  in [
-    wxedid
-  ]) ++ (with pkgs; [
-    kdePackages.kdenlive
-    dbeaver-bin
-  ]);
+  home.packages =
+    (
+      let
+        path = ../../../pkgs;
+      in
+      let
+        wxedid = pkgs.callPackage (path + /wxedid) { };
+      in
+      [
+        wxedid
+      ]
+    )
+    ++ (with pkgs; [
+      kdePackages.kdenlive
+      dbeaver-bin
+    ]);
 }

@@ -1,4 +1,5 @@
-{ lib, pkgs, ... }: {
+{ lib, pkgs, ... }:
+{
   i18n.inputMethod = {
     enable = true;
     type = "fcitx5";
@@ -10,11 +11,12 @@
       ];
 
       quickPhraseFiles =
-      let
-        path = ../../assets/fcitx5;
-      in {
-        words = path + /words.mb;
-      };
+        let
+          path = ../../assets/fcitx5;
+        in
+        {
+          words = path + /words.mb;
+        };
 
       waylandFrontend = true;
 
@@ -49,7 +51,8 @@
               };
             };
           };
-          classicui = { # replace with stylix when possible
+          classicui = {
+            # replace with stylix when possible
             globalSection = {
               Font = "DejaVu Sans 18";
               MenuFont = "DejaVu Sans 10";

@@ -27,7 +27,8 @@ let
 
     ${pkgs.mpv}/bin/mpv ~/Documents/sounds/footstep.WAV
   '';
-in {
+in
+{
   services.flameshot = {
     enable = true;
     settings = {

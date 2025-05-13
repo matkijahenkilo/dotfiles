@@ -1,65 +1,74 @@
-{ config, inputs, lib, pkgs, ... }:
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 let
   HOME = config.home.homeDirectory;
-in {
-  home.packages = (with pkgs; [
-    # File manager
-    dolphin
-    ark
+in
+{
+  home.packages =
+    (with pkgs; [
+      # File manager
+      dolphin
+      ark
 
-    # Clipboard
-    wl-clipboard
+      # Clipboard
+      wl-clipboard
 
-    # Notification
-    libnotify
-    mako
+      # Notification
+      libnotify
+      mako
 
-    # Extra
-    blueman
+      # Extra
+      blueman
 
-    # Styling
-    nwg-look
-    libsForQt5.qt5ct
-    qt6ct
-    breeze-icons
+      # Styling
+      nwg-look
+      libsForQt5.qt5ct
+      qt6ct
+      breeze-icons
 
-  ]) ++ [
-    # Volume controls
-    (pkgs.writeShellScriptBin "script-volume-decrease" ''
-      wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-
-      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
-    '')
-    (pkgs.writeShellScriptBin "script-volume-increase" ''
-      wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+
-      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
-    '')
+    ])
+    ++ [
+      # Volume controls
+      (pkgs.writeShellScriptBin "script-volume-decrease" ''
+        wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-
+        ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
+      '')
+      (pkgs.writeShellScriptBin "script-volume-increase" ''
+        wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+
+        ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
+      '')
 
-    # Screenshots
-    (pkgs.writeShellScriptBin "script-screenshot" ''
-      FILE_NAME="screenshot-$(date +%F_%H-%M-%S).png"
-      FILE_PATH="${HOME}/Pictures/screenshots/$FILE_NAME"
-      ${pkgs.grim}/bin/grim -t png "$FILE_PATH"
-      if [[ $? != 0 ]]; then
-        ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/dialog-error.oga
-        exit 1
-      fi
-      wl-copy < $FILE_PATH
-      notify-send 'Screenshot' -i "$FILE_PATH" "$FILE_NAME"
-      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/screen-capture.oga
-    '')
-    (pkgs.writeShellScriptBin "script-screenshot-selection" ''
-      FILE_NAME="screenshot-$(date +%F_%H-%M-%S).png"
-      FILE_PATH="${HOME}/Pictures/screenshots/$FILE_NAME"
-      ${pkgs.grim}/bin/grim -t png -g "$(${pkgs.slurp}/bin/slurp)" "$FILE_PATH"
-      if [[ $? != 0 ]]; then
-        ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/dialog-error.oga
-        exit 1
-      fi
-      wl-copy < $FILE_PATH
-      notify-send 'Screenshot' -i "$FILE_PATH" "$FILE_NAME"
-      ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/screen-capture.oga 
-    '')
-  ];
+      # Screenshots
+      (pkgs.writeShellScriptBin "script-screenshot" ''
+        FILE_NAME="screenshot-$(date +%F_%H-%M-%S).png"
+        FILE_PATH="${HOME}/Pictures/screenshots/$FILE_NAME"
+        ${pkgs.grim}/bin/grim -t png "$FILE_PATH"
+        if [[ $? != 0 ]]; then
+          ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/dialog-error.oga
+          exit 1
+        fi
+        wl-copy < $FILE_PATH
+        notify-send 'Screenshot' -i "$FILE_PATH" "$FILE_NAME"
+        ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/screen-capture.oga
+      '')
+      (pkgs.writeShellScriptBin "script-screenshot-selection" ''
+        FILE_NAME="screenshot-$(date +%F_%H-%M-%S).png"
+        FILE_PATH="${HOME}/Pictures/screenshots/$FILE_NAME"
+        ${pkgs.grim}/bin/grim -t png -g "$(${pkgs.slurp}/bin/slurp)" "$FILE_PATH"
+        if [[ $? != 0 ]]; then
+          ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/dialog-error.oga
+          exit 1
+        fi
+        wl-copy < $FILE_PATH
+        notify-send 'Screenshot' -i "$FILE_PATH" "$FILE_NAME"
+        ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/screen-capture.oga 
+      '')
+    ];
 
   programs = {
     wofi.enable = true;
@@ -205,5 +214,7 @@ in {
       ];
     };
   };
-  systemd.user.services.wayland-pipewire-idle-inhibit.Install.WantedBy = lib.mkForce [ "hyprland-session.target" ];
+  systemd.user.services.wayland-pipewire-idle-inhibit.Install.WantedBy = lib.mkForce [
+    "hyprland-session.target"
+  ];
 }
