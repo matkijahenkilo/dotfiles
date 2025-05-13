@@ -6,6 +6,7 @@
     ../i18n.nix
     ../ssh.nix
     ../hosts.nix
+    ../direnv.nix
   ];
 
   programs = {
