@@ -42,7 +42,7 @@
           quickphrase = {
             globalSection = {
               "Choose Modifier" = "None";
-              Spell = true;
+              Spell = "True";
               FallbackSpellLanguage = "en";
             };
             sections = {
@@ -57,17 +57,21 @@
               Font = "DejaVu Sans 18";
               MenuFont = "DejaVu Sans 10";
               Theme = "plasma";
+              DarkTheme = "plasma";
               TrayFont = "DejaVu Sans 10";
-              UseAccentColor = false;
-              UseDarkTheme = false;
+              UseAccentColor = "False";
+              UseDarkTheme = "False";
+              "Vertical Candidate List" = "True";
+              ForceWaylandDPI = 0;
+              EnableFractionalScale = "True";
             };
           };
         };
 
         globalOptions = {
           Hotkey = {
-            EnumerateWithTriggerKeys = true;
-            EnumerateSkipFirst = false;
+            EnumerateWithTriggerKeys = "True";
+            EnumerateSkipFirst = "False";
           };
           "Hotkey/TriggerKeys" = {
             "0" = "Super+space";
@@ -98,25 +102,25 @@
           };
           Behavior = {
             # Active By Default
-            ActiveByDefault = true;
+            ActiveByDefault = "False";
             # Reset state on Focus In
             resetStateWhenFocusIn = "No";
             # Share Input State
             ShareInputState = "All";
             # Show preedit in application
-            PreeditEnabledByDefault = true;
+            PreeditEnabledByDefault = "True";
             # Show Input Method Information when switch input method
-            ShowInputMethodInformation = true;
+            ShowInputMethodInformation = "True";
             # Show Input Method Information when changing focus
-            showInputMethodInformationWhenFocusIn = false;
+            showInputMethodInformationWhenFocusIn = "False";
             # Show compact input method information
-            CompactInputMethodInformation = true;
+            CompactInputMethodInformation = "True";
             # Show first input method information
-            ShowFirstInputMethodInformation = true;
+            ShowFirstInputMethodInformation = "True";
             # Default page size
             DefaultPageSize = 5;
             # Override Xkb Option
-            OverrideXkbOption = false;
+            OverrideXkbOption = "False";
             # Custom Xkb Option
             #CustomXkbOption=
             # Force Enabled Addons
@@ -124,11 +128,11 @@
             # Force Disabled Addons
             #DisabledAddons=
             # Preload input method to be used by default
-            PreloadInputMethod = true;
+            PreloadInputMethod = "True";
             # Allow input method in the password field
-            AllowInputMethodForPassword = false;
+            AllowInputMethodForPassword = "False";
             # Show preedit text when typing password
-            ShowPreeditForPassword = false;
+            ShowPreeditForPassword = "False";
             # Interval of saving user data in minutes
             AutoSavePeriod = 30;
           };
