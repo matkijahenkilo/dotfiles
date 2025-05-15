@@ -41,7 +41,7 @@ in
     home = kf2server_path;
     createHome = true;
     isSystemUser = true;
-    group = config.users.groups.minecraft.name;
+    group = config.users.groups.kf2.name;
     shell = "${pkgs.shadow}/bin/nologin";
   };
 
