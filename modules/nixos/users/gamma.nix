@@ -12,8 +12,8 @@
     ../gnupg-agent.nix
     ../docker.nix
 
-    ../servers/kf2-server.nix
-    ../servers/minecraft-server.nix
+    ../services/kf2-server.nix
+    ../services/minecraft-server.nix
     ../llm.nix
     ../virtualization.nix
   ];
