@@ -1,5 +1,9 @@
 { pkgs, ... }:
 {
+  console = {
+    font = "${pkgs.terminus_font}/share/consolefonts/ter-124n.psf.gz";
+    packages = [ pkgs.terminus_font ];
+  };
   fonts = {
     fontDir.enable = true;
     enableDefaultPackages = true;
