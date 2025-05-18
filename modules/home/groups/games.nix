@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
   imports = [
     ../mangohud.nix
@@ -17,7 +17,7 @@
       ]
     )
     ++ (with pkgs; [
-      suyu
+      inputs.switch-emulators.packages."x86_64-linux".suyu
       wine
       pyfa
       lutris

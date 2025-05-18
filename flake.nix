@@ -9,9 +9,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:nix-community/stylix";
 
     treefmt-nix.url = "github:numtide/treefmt-nix";
+
+    switch-emulators.url = "github:liberodark/my-flakes";
 
     nixgl = {
       url = "github:nix-community/nixgl";
@@ -24,7 +26,7 @@
     };
 
     amdgpu-fullrgb-patch = {
-      url = "git+https://gist.github.com/rafaelrc7/0270037dbe86205365ec8b7a4f339f82";
+      url = "git+https://gist.github.com/rafaelrc7/0270037dbe86205365ec8b7a4f339f82?ref=refs/tags/v6.14";
       flake = false;
     };
   };
