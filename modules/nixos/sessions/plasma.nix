@@ -14,5 +14,6 @@
     elisa
   ];
 
+  programs.partition-manager.enable = true;
   hardware.bluetooth.enable = true;
 }
