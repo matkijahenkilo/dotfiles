@@ -29,6 +29,8 @@
       url = "git+https://gist.github.com/rafaelrc7/0270037dbe86205365ec8b7a4f339f82?ref=refs/tags/v6.14";
       flake = false;
     };
+
+    tsih-robo-ktx.url = "github:matkijahenkilo/tsih-robo-ktx";
   };
 
   outputs =

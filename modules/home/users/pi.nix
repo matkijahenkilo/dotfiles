@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
   imports = [
     ../groups/essentials.nix
@@ -8,9 +8,6 @@
 
   # dependencies for discord bot
   home.packages = with pkgs; [
-    jdk21
-    gallery-dl
-    yt-dlp
-    ffmpeg
+    inputs.tsih-robo-ktx.packages.aarch64-linux.default
   ];
 }
