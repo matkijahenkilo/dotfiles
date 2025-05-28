@@ -96,8 +96,13 @@
         pi = mkHome piPkgs "marisa" "pi.nix";
       };
 
-      devShells.${nixosPkgs.system} = {
-        default =
+      devShells = {
+        ${nixosPkgs.system}.default =
+          let
+            pkgs = nixosPkgs;
+          in
+          import ./shell.nix { inherit pkgs; };
+        ${piPkgs.system}.pi =
           let
             pkgs = nixosPkgs;
           in
