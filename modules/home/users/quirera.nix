@@ -5,6 +5,7 @@
     ../syncthing.nix
 
     ../groups/cli.nix
+    ../groups/hoardingcli.nix
     ../fastfetch.nix
 
     ../groups/gui.nix
