@@ -76,6 +76,12 @@
           })
         ];
       };
+      piPkgs = import nixpkgs {
+        system = "aarch64-linux";
+        config = {
+          allowUnfree = true;
+        };
+      };
     in
     {
       nixosConfigurations = {
@@ -87,6 +93,7 @@
         gamma = mkHome nixosPkgs "marisa" "gamma.nix";
         quirera = mkHome nixosPkgs "marisa" "quirera.nix";
         tau = mkHome homePkgs "marisa" "tau.nix";
+        pi = mkHome piPkgs "marisa" "pi.nix";
       };
 
       devShells.${nixosPkgs.system} = {
