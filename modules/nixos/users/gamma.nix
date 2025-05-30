@@ -17,4 +17,8 @@
     ../llm.nix
     ../virtualization.nix
   ];
+
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+  ];
 }
