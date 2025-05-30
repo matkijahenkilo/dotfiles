@@ -3,6 +3,7 @@
   imports = [
     ../boot.nix
     ../nix.nix
+    ../git.nix
     ../i18n.nix
     ../ssh.nix
     ../hosts.nix
@@ -42,7 +43,6 @@
 
     zip
     p7zip
-    rar
     unrar
 
     micro

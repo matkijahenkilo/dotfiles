@@ -89,6 +89,9 @@
       nixosConfigurations = {
         gamma = mkHost nixosPkgs ./hosts/gamma/configuration.nix [ ];
         quirera = mkHost nixosPkgs ./hosts/quirera/configuration.nix [ ];
+        pi = mkHost piPkgs ./hosts/pi/configuration.nix [
+          nixos-hardware.nixosModules.raspberry-pi-3
+        ];
       };
 
       homeConfigurations = {
@@ -104,9 +107,9 @@
             pkgs = nixosPkgs;
           in
           import ./shell.nix { inherit pkgs; };
-        ${piPkgs.system}.pi =
+        ${piPkgs.system}.default =
           let
-            pkgs = nixosPkgs;
+            pkgs = piPkgs;
           in
           import ./shell.nix { inherit pkgs; };
       };
