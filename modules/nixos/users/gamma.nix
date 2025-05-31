@@ -2,6 +2,7 @@
 {
   imports = [
     ../groups/essentials.nix
+    ../groups/archivers.nix
     ../groups/desktop.nix
     ../groups/games.nix
 

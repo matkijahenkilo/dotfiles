@@ -809,11 +809,11 @@
         "treefmt-nix": "treefmt-nix_3"
       },
       "locked": {
-        "lastModified": 1748647508,
-        "narHash": "sha256-gcPsQRBYfTpIr5HjsVXUVuqIuNmfzaJoaP9pLXo/nmw=",
+        "lastModified": 1748721207,
+        "narHash": "sha256-daXUPU+dlRhpgiZ1tGryihBWaluFJ5a1H4vCT669xvg=",
         "owner": "matkijahenkilo",
         "repo": "tsih-robo-ktx",
-        "rev": "efe03537f39ea6dce5d867cd18bea552a3e5cf11",
+        "rev": "12ef6aeb3d6f3d2f4e06d920441bb27ae22352ee",
         "type": "github"
       },
       "original": {

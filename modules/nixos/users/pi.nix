@@ -5,7 +5,6 @@
 {
   imports = [
     ../groups/essentials.nix
-    ../gnupg-agent.nix
     ../services/tsih-robo-ktx.nix
   ];
 

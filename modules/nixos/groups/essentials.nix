@@ -22,8 +22,6 @@
 
   time.timeZone = "Brazil/East";
 
-  services.openssh.enable = true;
-
   # dont fockign forget passwd
   users.users.marisa = {
     isNormalUser = true;
@@ -37,14 +35,6 @@
   environment.systemPackages = with pkgs; [
     wget
     killall
-    ffmpeg
-    imagemagick
-    tree
-
-    zip
-    p7zip
-    unrar
-
     micro
   ];
 }
