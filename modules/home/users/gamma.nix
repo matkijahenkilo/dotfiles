@@ -14,6 +14,7 @@
     ../groups/games.nix
     ../fcitx5.nix
     ../idea.nix
+    ../davinci-resolve-studio.nix
   ];
 
   home.packages =
