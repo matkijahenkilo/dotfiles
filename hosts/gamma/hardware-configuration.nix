@@ -51,18 +51,13 @@
     ];
   };
 
-  fileSystems."/media/Seagate" = {
-    device = "/dev/disk/by-uuid/3ce5b29b-f89f-43d5-8ae7-e14791b0b3d3";
-    fsType = "btrfs";
-  };
-
   fileSystems."/media/WD" = {
     device = "/dev/disk/by-uuid/24e8471a-3b52-4693-ab3e-75a9a6b88fbd";
     fsType = "btrfs";
   };
 
-  fileSystems."/media/WD2" = {
-    device = "/dev/disk/by-uuid/bbde4bd2-4545-4fe6-a9d3-2d33430f12db";
+  fileSystems."/media/Seagate" = {
+    device = "/dev/disk/by-uuid/3ce5b29b-f89f-43d5-8ae7-e14791b0b3d3";
     fsType = "btrfs";
   };
 
