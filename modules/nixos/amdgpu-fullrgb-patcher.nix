@@ -52,8 +52,8 @@ let
   };
 in
 {
-  boot.extraModulePackages = [ amdgpu_module ];
-  boot.kernelParams = [
-    "amdgpu.pixel_encoding=rgb"
-  ];
+  # boot.extraModulePackages = [ amdgpu_module ];
+  # boot.kernelParams = [
+  #   "amdgpu.pixel_encoding=rgb"
+  # ];
 }

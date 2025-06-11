@@ -89,5 +89,5 @@ let
     };
 in
 {
-  home.packages = [ davinci-resolve-studio ];
+  # home.packages = [ davinci-resolve-studio ];
 }
