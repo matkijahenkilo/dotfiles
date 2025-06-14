@@ -1,11 +1,6 @@
-{ ... }:
+{ pkgs, ... }:
 {
-  programs.thunderbird = {
-    enable = true;
-    profiles = {
-      matkija = {
-        isDefault = true;
-      };
-    };
-  };
+  home.packages = [
+    pkgs.thunderbird
+  ];
 }
