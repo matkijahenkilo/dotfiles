@@ -33,4 +33,10 @@ align="right" alt="Nix logo" width="150">
 >
 > — [NixOS User's Creed](https://github.com/ners/NixOS)
 
-~under construction~
+#### In case of amnesia:
+
+build in machine A, deploy config to machine B via ssh
+
+```
+nixos-rebuild switch --use-remote-sudo --build-host localhost --target-host remote.server --flake /path/to/flake#that-server-config
+```
