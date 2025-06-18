@@ -1,4 +1,5 @@
 {
+  inputs,
   lib,
   ...
 }:
@@ -12,4 +13,8 @@
     efi.canTouchEfiVariables = lib.mkForce false;
     limine.enable = lib.mkForce false;
   };
+
+  environment.systemPackages = [
+    inputs.tsih-robo-ktx.packages.aarch64-linux.default
+  ];
 }
