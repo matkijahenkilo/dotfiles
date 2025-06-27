@@ -111,6 +111,7 @@
       homeConfigurations = {
         gamma = mkHome nixosPkgs "marisa" "gamma.nix";
         quirera = mkHome nixosPkgs "marisa" "quirera.nix";
+        quireraNana = mkHome nixosPkgs "nanako" "quirera.nix";
         tau = mkHome homePkgs "marisa" "tau.nix";
       };
 

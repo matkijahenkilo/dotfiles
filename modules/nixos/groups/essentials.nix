@@ -31,6 +31,14 @@
     ];
     shell = pkgs.zsh;
   };
+  users.users.nanako = {
+    isNormalUser = true;
+    extraGroups = [
+      "wheel"
+      "sudo"
+    ];
+    shell = pkgs.zsh;
+  };
 
   environment.systemPackages = with pkgs; [
     wget
