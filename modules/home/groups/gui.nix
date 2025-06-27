@@ -14,6 +14,7 @@
     krita
     obsidian
     qbittorrent
+    libreoffice
     telegram-desktop
   ];
 }
