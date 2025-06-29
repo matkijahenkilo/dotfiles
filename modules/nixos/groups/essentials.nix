@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   imports = [
     ../boot.nix
@@ -22,22 +22,28 @@
 
   time.timeZone = "Brazil/East";
 
-  # dont fockign forget passwd
-  users.users.marisa = {
-    isNormalUser = true;
-    extraGroups = [
-      "wheel"
-      "sudo"
-    ];
-    shell = pkgs.zsh;
-  };
-  users.users.nanako = {
-    isNormalUser = true;
-    extraGroups = [
-      "wheel"
-      "sudo"
-    ];
-    shell = pkgs.zsh;
+  users.users = {
+    root = {
+      initialHashedPassword = lib.mkForce "$y$j9T$9jdDe/zfTWRi3sPvuupaX.$W/ALIOufPsH4IROVEjysb7FX126JLoiIINVT3oun9j2";
+    };
+    marisa = {
+      isNormalUser = true;
+      extraGroups = [
+        "wheel"
+        "sudo"
+      ];
+      shell = pkgs.zsh;
+      initialHashedPassword = lib.mkForce "$y$j9T$IV4LoOgL0BxN68.3I53QG/$dfqOGfWwAzredBrXfyJ.O9yQ2XMlBrYzUPlRFQiDn4A";
+    };
+    nanako = {
+      isNormalUser = true;
+      extraGroups = [
+        "wheel"
+        "sudo"
+      ];
+      shell = pkgs.zsh;
+      initialHashedPassword = lib.mkForce "$y$j9T$furlO9PD2uaSqLQPmFhe2.$7J4/hdgt9ZQEgeYNB15Tm.zOs8As5FQrjYgjA.qm8AC";
+    };
   };
 
   environment.systemPackages = with pkgs; [
