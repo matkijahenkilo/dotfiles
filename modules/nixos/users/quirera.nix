@@ -9,6 +9,8 @@
 
     ../gnupg-agent.nix
     ../zerotierone.nix
+
+    ../extra-users.nix
   ];
 
   boot.binfmt.emulatedSystems = [

@@ -35,15 +35,6 @@
       shell = pkgs.zsh;
       initialHashedPassword = lib.mkForce "$y$j9T$IV4LoOgL0BxN68.3I53QG/$dfqOGfWwAzredBrXfyJ.O9yQ2XMlBrYzUPlRFQiDn4A";
     };
-    nanako = {
-      isNormalUser = true;
-      extraGroups = [
-        "wheel"
-        "sudo"
-      ];
-      shell = pkgs.zsh;
-      initialHashedPassword = lib.mkForce "$y$j9T$furlO9PD2uaSqLQPmFhe2.$7J4/hdgt9ZQEgeYNB15Tm.zOs8As5FQrjYgjA.qm8AC";
-    };
   };
 
   environment.systemPackages = with pkgs; [
