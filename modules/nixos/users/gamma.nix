@@ -22,4 +22,7 @@
   boot.binfmt.emulatedSystems = [
     "aarch64-linux"
   ];
+
+  programs.adb.enable = true;
+  users.users.marisa.extraGroups = [ "adbusers" "kvm" ];
 }
