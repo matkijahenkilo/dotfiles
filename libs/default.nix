@@ -16,7 +16,8 @@ in
       };
       modules = [
         config
-      ] ++ extraModules;
+      ]
+      ++ extraModules;
     };
 
   mkHome =
