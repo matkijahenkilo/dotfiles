@@ -9,10 +9,4 @@
       FastConnectable = true;
     };
   };
-
-  # unfuck rumble for xbox controllers
-  hardware.xpadneo.enable = true;
-  environment.variables = {
-    SDL_JOYSTICK_HIDAPI = 0;
-  };
 }
