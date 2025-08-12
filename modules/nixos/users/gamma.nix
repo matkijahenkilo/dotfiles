@@ -24,5 +24,9 @@
   ];
 
   programs.adb.enable = true;
-  users.users.marisa.extraGroups = [ "adbusers" "kvm" ];
+  users.users.marisa.extraGroups = [
+    "adbusers"
+    "kvm"
+  ];
+  virtualisation.waydroid.enable = true;
 }
