@@ -11,6 +11,7 @@
       bluedevil
       kalk
       ktimer
+      filelight
     ])
     ++ (with pkgs; [
       wl-clipboard

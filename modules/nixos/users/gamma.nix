@@ -28,5 +28,4 @@
     "adbusers"
     "kvm"
   ];
-  virtualisation.waydroid.enable = true;
 }
