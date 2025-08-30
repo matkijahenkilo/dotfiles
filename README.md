@@ -38,5 +38,5 @@ align="right" alt="Nix logo" width="150">
 build in machine A, deploy config to machine B via ssh
 
 ```
-nixos-rebuild switch --use-remote-sudo --build-host localhost --target-host remote.server --flake /path/to/flake#that-server-config
+nixos-rebuild switch --sudo --ask-sudo-password --build-host localhost --target-host remote.server --flake /path/to/flake#that-server-config
 ```
