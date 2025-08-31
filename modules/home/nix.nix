@@ -11,7 +11,7 @@
       ];
       warn-dirty = false;
       max-jobs = "auto";
-      cores = 0;
+      cores = 2;
     };
 
     gc = {

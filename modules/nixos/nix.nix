@@ -21,12 +21,13 @@
       warn-dirty = false;
       auto-optimise-store = lib.mkDefault true;
       max-jobs = "auto";
-      cores = 0;
+      cores = 2;
       download-buffer-size = 8000000000; # 8 GB
     };
 
     gc = {
       automatic = true;
+
       options = "--delete-older-than 7d";
     };
   };
