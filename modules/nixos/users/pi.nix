@@ -1,8 +1,4 @@
-{
-  inputs,
-  lib,
-  ...
-}:
+{ inputs, lib, pkgs, ...}:
 {
   imports = [
     ../groups/essentials.nix
@@ -13,6 +9,8 @@
     efi.canTouchEfiVariables = lib.mkForce false;
     limine.enable = lib.mkForce false;
   };
+
+  users.users.marisa.shell = lib.mkDefault pkgs.bash;
 
   environment.systemPackages = [
     inputs.tsih-robo-ktx.packages.aarch64-linux.default
