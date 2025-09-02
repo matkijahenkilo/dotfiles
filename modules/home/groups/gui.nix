@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ../discord
+    ../nixcord.nix
     ../firefox.nix
     ../kitty.nix
     ../stylix.nix
