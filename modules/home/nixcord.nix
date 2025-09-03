@@ -15,6 +15,13 @@
       frameless = false;
       plugins = {
         youtubeAdblock.enable = true;
+        fakeNitro.enable = true;
+        noF1.enable = true;
+        alwaysAnimate.enable = true;
+        favoriteGifSearch.enable = true;
+        whoReacted.enable = true;
+        callTimer.enable = true;
+        petpet.enable = true;
       };
     };
   };
