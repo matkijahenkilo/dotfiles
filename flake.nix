@@ -34,6 +34,11 @@
       url = "github:kaylorben/nixcord";
     };
 
+    winapps = {
+      url = "github:winapps-org/winapps";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     tsih-robo-ktx.url = "github:matkijahenkilo/tsih-robo-ktx";
   };
 
