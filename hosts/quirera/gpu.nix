@@ -5,9 +5,6 @@
     amdgpu = {
       initrd.enable = true;
       opencl.enable = true;
-      amdvlk = {
-        enable = true;
-      };
     };
 
     graphics = {
