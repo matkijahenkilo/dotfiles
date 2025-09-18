@@ -1,4 +1,7 @@
-{ lib, pkgs, ... }:
+{ inputs, lib, pkgs, ... }:
+let
+  pkgZshGitPrompt = inputs.nixpkgs-zsh-git-prompt.legacyPackages.${pkgs.system}.zsh-git-prompt;
+in
 {
   home.packages = with pkgs; [
     fzf
@@ -35,11 +38,6 @@
         src = "${zsh-nix-shell}/share/zsh-nix-shell";
       }
       {
-        name = "zsh-git-prompt";
-        file = "zshrc.sh";
-        src = "${zsh-git-prompt}/share/zsh-git-prompt";
-      }
-      {
         name = "zsh-syntax-highlighting";
         file = "zsh-syntax-highlighting.zsh";
         src = "${zsh-syntax-highlighting}/share/zsh-syntax-highlighting";
@@ -53,14 +51,29 @@
         name = "zsh-fzf-history-search";
         src = "${zsh-fzf-history-search}/share/zsh-fzf-history-search";
       }
+    ] ++ [
+      {
+        name = "zsh-git-prompt";
+        file = "zshrc.sh";
+        src = "${pkgZshGitPrompt}/share/zsh-git-prompt";
+      }
     ];
 
-    initContent = lib.mkOrder 550 ''
+    initContent = ''
+      zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
       zstyle ':completion:*' menu select
+      setopt COMPLETE_ALIASES
+      zmodload zsh/complist
 
       # History binds
-      bindkey "^[[A" history-substring-search-up
-      bindkey "^[[B" history-substring-search-down
+      autoload -U up-line-or-beginning-search
+      autoload -U down-line-or-beginning-search
+      zle -N up-line-or-beginning-search
+      zle -N down-line-or-beginning-search
+      bindkey "^[[A" up-line-or-beginning-search
+      bindkey "^[OA" up-line-or-beginning-search
+      bindkey "^[[B" down-line-or-beginning-search
+      bindkey "^[OB" down-line-or-beginning-search
 
       # Fix home/end/delete
       bindkey "^[[H" beginning-of-line
@@ -72,8 +85,13 @@
       bindkey "^[[1;5D" backward-word
 
       # Prompt
-      PROMPT='%F{green}%n%f%F{white}@%m%f %F{green}%1~%f$(git_super_status) $ '
-      RPROMPT="%(?..%B%F{red}<FAIL>%b %?)%f "
+      autoload -U colors && colors
+      prompt() {
+        [[ -v IN_NIX_SHELL ]] && PS1="%F{blue}(* ^ ω ^) " || PS1=""
+        PS1="''${PS1}%F{green}%n%f%F{white}@%m%f %F{green}%1~%f$(git_super_status) $ "
+        RPROMPT="%(?..%B%F{red}<FAIL>%b %?)%f "
+      }
+      precmd_functions+=prompt
 
       # Functions
       # chbr [value] [input file] [output file]
