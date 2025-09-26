@@ -20,7 +20,10 @@
       inputs.switch-emulators.packages."x86_64-linux".suyu
       wine
       pyfa
+      pcsx2
+      rpcs3
       lutris
+      shadps4
       bottles
       etterna
       r2modman
