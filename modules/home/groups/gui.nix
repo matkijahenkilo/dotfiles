@@ -11,6 +11,7 @@
 
   home.packages = with pkgs; [
     vlc
+    dav1d
     krita
     obsidian
     qbittorrent
