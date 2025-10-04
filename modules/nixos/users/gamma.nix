@@ -15,6 +15,7 @@
 
     ../services/kf2-server.nix
     ../services/minecraft-server.nix
+    ../services/palserver.nix
     ../llm.nix
     ../virtualization.nix
   ];
