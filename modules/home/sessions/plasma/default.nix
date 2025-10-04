@@ -2,7 +2,6 @@
 {
   imports = [
     ../xdg-portals.nix
-    ../xdg-desktopEntries.nix
     ../../flameshot.nix
   ];
 
