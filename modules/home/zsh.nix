@@ -1,4 +1,9 @@
-{ inputs, lib, pkgs, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 let
   pkgZshGitPrompt = inputs.nixpkgs-zsh-git-prompt.legacyPackages.${pkgs.system}.zsh-git-prompt;
 in
@@ -31,33 +36,36 @@ in
       m = "micro";
     };
 
-    plugins = with pkgs; [
-      {
-        name = "zsh-nix-shell";
-        file = "nix-shell.plugin.zsh";
-        src = "${zsh-nix-shell}/share/zsh-nix-shell";
-      }
-      {
-        name = "zsh-syntax-highlighting";
-        file = "zsh-syntax-highlighting.zsh";
-        src = "${zsh-syntax-highlighting}/share/zsh-syntax-highlighting";
-      }
-      {
-        name = "zsh-history-substring-search";
-        file = "zsh-history-substring-search.zsh";
-        src = "${zsh-history-substring-search}/share/zsh-history-substring-search";
-      }
-      {
-        name = "zsh-fzf-history-search";
-        src = "${zsh-fzf-history-search}/share/zsh-fzf-history-search";
-      }
-    ] ++ [
-      {
-        name = "zsh-git-prompt";
-        file = "zshrc.sh";
-        src = "${pkgZshGitPrompt}/share/zsh-git-prompt";
-      }
-    ];
+    plugins =
+      with pkgs;
+      [
+        {
+          name = "zsh-nix-shell";
+          file = "nix-shell.plugin.zsh";
+          src = "${zsh-nix-shell}/share/zsh-nix-shell";
+        }
+        {
+          name = "zsh-syntax-highlighting";
+          file = "zsh-syntax-highlighting.zsh";
+          src = "${zsh-syntax-highlighting}/share/zsh-syntax-highlighting";
+        }
+        {
+          name = "zsh-history-substring-search";
+          file = "zsh-history-substring-search.zsh";
+          src = "${zsh-history-substring-search}/share/zsh-history-substring-search";
+        }
+        {
+          name = "zsh-fzf-history-search";
+          src = "${zsh-fzf-history-search}/share/zsh-fzf-history-search";
+        }
+      ]
+      ++ [
+        {
+          name = "zsh-git-prompt";
+          file = "zshrc.sh";
+          src = "${pkgZshGitPrompt}/share/zsh-git-prompt";
+        }
+      ];
 
     initContent = ''
       zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
