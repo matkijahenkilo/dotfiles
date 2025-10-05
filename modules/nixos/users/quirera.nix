@@ -10,6 +10,8 @@
     ../gnupg-agent.nix
     ../zerotierone.nix
 
+    ../services/palserver.nix
+
     ../extra-users.nix
   ];
 
