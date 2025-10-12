@@ -15,7 +15,7 @@
     limine.enable = lib.mkForce false;
   };
 
-  users.users.marisa.shell = lib.mkDefault pkgs.bash;
+  users.users.marisa.shell = lib.mkForce pkgs.bash;
 
   environment.systemPackages = [
     inputs.tsih-robo-ktx.packages.aarch64-linux.default
