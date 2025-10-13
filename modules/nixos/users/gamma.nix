@@ -18,6 +18,7 @@
     ../services/palserver.nix
     ../llm.nix
     ../virtualization.nix
+    ../davinci-resolve-studio.nix
   ];
 
   boot.binfmt.emulatedSystems = [
