@@ -1,8 +1,47 @@
+# Tested on Davinci 20.0.1. It works for loading videos and exporting in H264/5 & AV1
+# This module doesn't seems to crack Davinci 20.2.1
+# Even if following this guide https://www.reddit.com/r/LinuxCrackSupport/comments/1nfqhld/davinci_resolve_studio_202_fix_linux_crack_guide/
+# nixpkgs rev used for this tests: 59e69648d345d6e8fef86158c555730fa12af9de
+
 { lib, pkgs, ... }:
 let
+  ffmpeg-encoder-plugin = pkgs.stdenv.mkDerivation (finalAttrs: {
+    pname = "ffmpeg-encoder-plugin";
+    version = "1.1.0";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "EdvinNilsson";
+      repo = "ffmpeg_encoder_plugin";
+      tag = "v${finalAttrs.version}";
+      hash = "sha256-orghLIzz9rUnUwka9C71Z2nj+qxHuggrKNlYjLKswQw=";
+    };
+
+    nativeBuildInputs = with pkgs; [
+      cmake
+      ffmpeg-full
+    ];
+
+    buildInputs = with pkgs; [ ffmpeg ];
+
+    installPhase = ''
+      runHook preInstall
+
+      mkdir -p $out
+      cp ffmpeg_encoder_plugin.dvcp $out/
+
+      runHook postInstall
+    '';
+  });
+
   davinci-resolve-studio-cracked =
     let
       davinci-patched = pkgs.davinci-resolve-studio.davinci.overrideAttrs (old: {
+        # script based on https://www.reddit.com/r/LinuxCrackSupport/comments/1nfqhld/davinci_resolve_studio_202_fix_linux_crack_guide/
+        #
+        # Additionally, it will install ffmpeg_encoder_plugin to enable H264/5 & AV1 exports:
+        # https://github.com/EdvinNilsson/ffmpeg_encoder_plugin
+        #
+        # Note: $out IS /opt/resolve
         postInstall = ''
           ${old.postInstall or ""}
           ${lib.getExe pkgs.perl} -pi -e 's/\x74\x11\xe8\x21\x23\x00\x00/\xeb\x11\xe8\x21\x23\x00\x00/g' $out/bin/resolve
@@ -12,9 +51,16 @@ let
           mkdir $out/license
           touch $out/license/blackmagic.lic
           echo -e "LICENSE blackmagic davinciresolvestudio 999999 permanent uncounted\n  hostid=ANY issuer=CGP customer=CGP issued=28-dec-2023\n  akey=0000-0000-0000-0000 _ck=00 sig=\"00\"" > $out/license/blackmagic.lic
+
+          mkdir -p $out/IOPlugins/ffmpeg_encoder_plugin.dvcp.bundle/Contents/Linux-x86-64/
+          cp ${ffmpeg-encoder-plugin}/ffmpeg_encoder_plugin.dvcp $out/IOPlugins/ffmpeg_encoder_plugin.dvcp.bundle/Contents/Linux-x86-64/
         '';
       });
     in
+
+    # the following was copied from davinci's derivation from nixpkgs.
+    # if davinci updates, this should be updated too
+    # but remember to replace "davinci" with "davinci-patched"
     pkgs.buildFHSEnv {
       inherit (davinci-patched) pname version;
 
@@ -130,13 +176,20 @@ in
 
   # following configuration was taken from
   # https://wiki.nixos.org/wiki/DaVinci_Resolve#AMD
+  #
+  # Tested and working with AMD cards.
+  # I don't know any configurations for Nvidia cards!
   environment.variables = {
     RUSTICL_ENABLE = "radeonsi";
   };
   hardware = {
-    amdgpu.opencl.enable = true; # enables hardware.graphics and installs rocmPackages.clr and .clr.icd
+    # this option sets hardware.graphics.enable to true
+    # and installs rocmPackages.clr/.icd
+    amdgpu.opencl.enable = true;
     graphics.extraPackages = with pkgs; [
-      mesa.opencl # Enables Rusticl (OpenCL) support
+      # Enables Rusticl (OpenCL) support
+      # Without this, videos won't load in davinci
+      mesa.opencl
     ];
   };
 }
