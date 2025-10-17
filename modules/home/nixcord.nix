@@ -27,6 +27,6 @@
   };
 
   home.packages = [
-    (pkgs.callPackage (../../pkgs + /krisp-patcher) { })
+    (pkgs.callPackage (../../pkgs/krisp-patcher) { })
   ];
 }
