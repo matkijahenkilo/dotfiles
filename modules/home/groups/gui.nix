@@ -13,6 +13,7 @@
     vlc
     dav1d
     krita
+    ferdium
     obsidian
     qbittorrent
     libreoffice
