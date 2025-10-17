@@ -28,7 +28,8 @@ in
 
     shellAliases = {
       asd = "yt-dlp -t mp4 $argv[$]";
-      asdx = "yt-dlp -t mp3 $argv[$]";
+      asdx = "yt-dlp -f 'ba[acodec^=opus]/ba/b' -x --audio-format opus $argv[$]";
+      asdxx = "yt-dlp -t mp3 $argv[$]";
       qwe = "gallery-dl -D ./ --ugoira-conv $argv[$]";
       nanakofetch = "command fastfetch --logo-width 42 --logo-height 25 --logo ~/Pictures/.fastfetch.jpg";
       ls = "ls -l --color=auto";
