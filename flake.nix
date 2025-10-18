@@ -66,6 +66,7 @@
         system = "x86_64-linux";
         config = {
           allowUnfree = true;
+          rocmSupport = true;
         };
         overlays = [
           (final: prev: {
@@ -87,21 +88,6 @@
               ''
             );
           })
-          # intended for when davinci cannot find your GPU
-          # (final: prev: {
-          #   davinci-resolve-studio = prev.davinci-resolve-studio.override (final: {
-          #     buildFHSEnv =
-          #       a:
-          #       (final.buildFHSEnv (
-          #         a
-          #         // {
-          #           extraBwrapArgs = a.extraBwrapArgs ++ [
-          #             "--bind /run/opengl-driver/etc/OpenCL /etc/OpenCL"
-          #           ];
-          #         }
-          #       ));
-          #   });
-          # })
         ];
       };
       piPkgs = import nixpkgs {
