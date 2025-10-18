@@ -1,50 +1,50 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 let
+  sounds-path = ../../assets/sounds;
+
   gsr-toggle-show = pkgs.writeShellScriptBin "gsr-toggle-show" ''
     gsr-ui-cli toggle-show
   '';
 
   gsr-toggle-record = pkgs.writeShellScriptBin "gsr-toggle-record" ''
     gsr-ui-cli toggle-record
-    ${pkgs.mpv}/bin/mpv ~/Documents/sounds/jump2.wav
+    ${lib.getExe pkgs.mpv} ${sounds-path}/yume-nikki-jump2.wav
   '';
 
   gsr-toggle-replay = pkgs.writeShellScriptBin "gsr-toggle-replay" ''
     gsr-ui-cli toggle-replay
-    ${pkgs.mpv}/bin/mpv ~/Documents/sounds/success2.WAV
+    ${lib.getExe pkgs.mpv} ${sounds-path}/yume-nikki-success2.wav
   '';
 
   gsr-replay-save = pkgs.writeShellScriptBin "gsr-replay-save" ''
     gsr-ui-cli replay-save
-    ${pkgs.mpv}/bin/mpv ~/Documents/sounds/select2.WAV
+    ${lib.getExe pkgs.mpv} ${sounds-path}/yume-nikki-select2.wav
+  '';
+
+  gsr-reminder-on-startup = pkgs.writeShellScriptBin "gsr-reminder-on-startup" ''
+    sleep 10 # wait for DE to fully start up
+    gsr-notify --text 'Instant Replay on~ open menu with ALT+Z! (* ^ ω ^)' --timeout 6.0 --icon record
   '';
 
   path = ../../pkgs;
-  notification = pkgs.callPackage (
+
+  gpu-screen-recorder-notification = pkgs.callPackage (
     path + /gpu-screen-recorder-ui/gpu-screen-recorder-notification.nix
   ) { };
+
+  gpu-screen-recorder-ui = pkgs.callPackage (path + /gpu-screen-recorder-ui) {
+    inherit gpu-screen-recorder-notification;
+  };
 in
 {
   programs.gpu-screen-recorder.enable = true;
-  environment.systemPackages =
-    (
-      let
-        gpu-screen-recorder-ui = pkgs.callPackage (path + /gpu-screen-recorder-ui) {
-          gpu-screen-recorder-notification = notification;
-        };
-        gpu-screen-recorder-notification = notification;
-      in
-      [
-        gpu-screen-recorder-ui
-        gpu-screen-recorder-notification
-      ]
-    )
-    ++ (with pkgs; [
-      gpu-screen-recorder
-      gpu-screen-recorder-gtk
-      gsr-toggle-show
-      gsr-toggle-record
-      gsr-toggle-replay
-      gsr-replay-save
-    ]);
+  environment.systemPackages = [
+    gpu-screen-recorder-notification
+    gpu-screen-recorder-ui
+    gsr-toggle-show
+    gsr-toggle-record
+    gsr-toggle-replay
+    gsr-replay-save
+    gsr-reminder-on-startup
+  ];
 }
