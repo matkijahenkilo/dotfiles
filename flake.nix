@@ -5,6 +5,8 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     # zsh-git-prompt was removed from nixpkgs by accident
     nixpkgs-zsh-git-prompt.url = "github:nixos/nixpkgs/4f0dadbf38ee4cf4cc38cbc232b7708fddf965bc";
+    # recent versions of davinci doesn't work, keep on v20.0.1
+    nixpkgs-davinci.url = "github:nixos/nixpkgs/59e69648d345d6e8fef86158c555730fa12af9de";
 
     home-manager = {
       url = "github:nix-community/home-manager";

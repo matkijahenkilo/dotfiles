@@ -396,6 +396,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-davinci": {
+      "locked": {
+        "lastModified": 1754028485,
+        "narHash": "sha256-IiiXB3BDTi6UqzAZcf2S797hWEPCRZOwyNThJIYhUfk=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "59e69648d345d6e8fef86158c555730fa12af9de",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "59e69648d345d6e8fef86158c555730fa12af9de",
+        "type": "github"
+      }
+    },
     "nixpkgs-lib": {
       "locked": {
         "lastModified": 1753579242,
@@ -586,6 +602,7 @@
         "nixgl": "nixgl",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
+        "nixpkgs-davinci": "nixpkgs-davinci",
         "nixpkgs-zsh-git-prompt": "nixpkgs-zsh-git-prompt",
         "stylix": "stylix",
         "switch-emulators": "switch-emulators",

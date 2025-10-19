@@ -3,7 +3,10 @@
 # Even if following this guide https://www.reddit.com/r/LinuxCrackSupport/comments/1nfqhld/davinci_resolve_studio_202_fix_linux_crack_guide/
 # nixpkgs rev used for this tests: 59e69648d345d6e8fef86158c555730fa12af9de
 
-{ lib, pkgs, ... }:
+{ inputs, lib, pkgs, ... }:
+let
+  pkgs-davinci = inputs.nixpkgs-davinci.legacyPackages.${pkgs.system};
+in
 let
   ffmpeg-encoder-plugin = pkgs.stdenv.mkDerivation (finalAttrs: {
     pname = "ffmpeg-encoder-plugin";
@@ -35,7 +38,7 @@ let
 
   davinci-resolve-studio-cracked =
     let
-      davinci-patched = pkgs.davinci-resolve-studio.davinci.overrideAttrs (old: {
+      davinci-patched = pkgs-davinci.davinci-resolve-studio.davinci.overrideAttrs (old: {
         # script based on https://www.reddit.com/r/LinuxCrackSupport/comments/1nfqhld/davinci_resolve_studio_202_fix_linux_crack_guide/
         #
         # Additionally, it will install ffmpeg_encoder_plugin to enable H264/5 & AV1 exports:
