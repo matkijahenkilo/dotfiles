@@ -9,7 +9,7 @@ let
 in
 {
   home.packages = with pkgs; [
-    fzf
+    fzf # to search stuff with ctrl+r
   ];
   programs.zsh = {
     enable = true;
@@ -93,6 +93,10 @@ in
       bindkey "^[[1;5C" forward-word
       bindkey "^[[1;5D" backward-word
 
+      # Don't delete an entire path with Alt + Backspace
+      autoload -U select-word-style
+      select-word-style bash
+
       # Prompt
       autoload -U colors && colors
       prompt() {
@@ -103,12 +107,14 @@ in
       precmd_functions+=prompt
 
       # Functions
-      # chbr [value] [input file] [output file]
-      chbr () ${pkgs.ffmpeg}/bin/ffmpeg -i $2 -c:v libx264 -crf $1 $3
+      # change bitrate
+      # chbr [input file] [value]
+      # (higher the value = less bitrate)
+      chbr () ${lib.getExe pkgs.ffmpeg} -i $1 -c:v libsvtav1 -crf $2 "''${1}-lowbr.mp4"
 
-      # Don't delete an entire path with Alt + Backspace
-      autoload -U select-word-style
-      select-word-style bash
+      # cutvid [input file] [cut from 00:00] [to 00:00]
+      # e.g. cutvid porras.mp4 20 40
+      cutvid () ${lib.getExe pkgs.ffmpeg} -ss $2 -to $3 -i $1 -c copy "''${1}-cut.mp4"
     '';
   };
 }
