@@ -30,7 +30,6 @@
       ]
     )
     ++ (with pkgs; [
-      kdePackages.kdenlive
       dbeaver-bin
     ]);
 }
