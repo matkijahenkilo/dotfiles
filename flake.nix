@@ -6,7 +6,8 @@
     # zsh-git-prompt was removed from nixpkgs by accident
     nixpkgs-zsh-git-prompt.url = "github:nixos/nixpkgs/4f0dadbf38ee4cf4cc38cbc232b7708fddf965bc";
     # recent versions of davinci doesn't work, keep on v20.0.1
-    nixpkgs-davinci.url = "github:nixos/nixpkgs/59e69648d345d6e8fef86158c555730fa12af9de";
+    nixpkgs-davinci.url = "github:nixos/nixpkgs/d457818da697aa7711ff3599be23ab8850573a46";
+    switch-emulators.url = "github:liberodark/my-flakes";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -16,8 +17,6 @@
     stylix.url = "github:nix-community/stylix";
 
     treefmt-nix.url = "github:numtide/treefmt-nix";
-
-    switch-emulators.url = "github:liberodark/my-flakes";
 
     nixgl = {
       url = "github:nix-community/nixgl";
@@ -116,16 +115,8 @@
       };
 
       devShells = {
-        ${nixosPkgs.system}.default =
-          let
-            pkgs = nixosPkgs;
-          in
-          import ./shell.nix { inherit pkgs; };
-        ${piPkgs.system}.default =
-          let
-            pkgs = piPkgs;
-          in
-          import ./shell.nix { inherit pkgs; };
+        ${nixosPkgs.system}.default = import ./shell.nix { pkgs = nixosPkgs; };
+        ${piPkgs.system}.default = import ./shell.nix { pkgs = piPkgs; };
       };
 
       formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);

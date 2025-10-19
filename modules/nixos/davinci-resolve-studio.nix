@@ -3,7 +3,12 @@
 # Even if following this guide https://www.reddit.com/r/LinuxCrackSupport/comments/1nfqhld/davinci_resolve_studio_202_fix_linux_crack_guide/
 # nixpkgs rev used for this tests: 59e69648d345d6e8fef86158c555730fa12af9de
 
-{ inputs, lib, pkgs, ... }:
+{
+  inputs,
+  lib,
+  pkgs,
+  ...
+}:
 let
   pkgs-davinci = inputs.nixpkgs-davinci.legacyPackages.${pkgs.system};
 in

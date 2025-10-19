@@ -5,19 +5,13 @@
   ];
 
   home.packages =
-    (
-      let
-        path = ../../../pkgs;
-      in
-      let
-        dtkit-patch = pkgs.callPackage (path + /dtkit-patch) { };
-      in
-      [
-        dtkit-patch # for darktide mods
-      ]
-    )
-    ++ (with pkgs; [
-      inputs.switch-emulators.packages."x86_64-linux".suyu
+    let
+      path = ../../../pkgs;
+    in
+    with pkgs;
+    [
+      (pkgs.callPackage (path + /dtkit-patch) { }) # for darktide mods
+      inputs.switch-emulators.packages.${pkgs.system}.suyu
       wine
       pyfa
       pcsx2
@@ -30,5 +24,5 @@
       archipelago
       xivlauncher
       prismlauncher
-    ]);
+    ];
 }
