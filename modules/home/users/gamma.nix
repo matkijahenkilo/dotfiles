@@ -17,19 +17,7 @@
     ../winapps.nix
   ];
 
-  home.packages =
-    (
-      let
-        path = ../../../pkgs;
-      in
-      let
-        wxedid = pkgs.callPackage (path + /wxedid) { };
-      in
-      [
-        wxedid
-      ]
-    )
-    ++ (with pkgs; [
-      dbeaver-bin
-    ]);
+  home.packages = with pkgs; [
+    dbeaver-bin
+  ];
 }
