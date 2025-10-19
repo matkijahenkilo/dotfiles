@@ -10,8 +10,7 @@
   ];
 
   home.packages = with pkgs; [
-    vlc
-    dav1d
+    mpv
     krita
     ferdium
     obsidian
