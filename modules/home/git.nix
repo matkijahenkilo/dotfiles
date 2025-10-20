@@ -8,12 +8,43 @@
         email = "matkija.henkilo@gmail.com";
         editor = "micro";
       };
-      diff.algorithm = "histogram";
+      branch.sort = "-committerdate";
+      column.ui = "auto";
+      commit.verbose = true;
+      core = {
+        fsmonitor = true;
+        untrackedcache = true;
+      };
+      diff = {
+        algorithm = "histogram";
+        colorMoved = "plain";
+        mnemonicPrefix = true;
+        renames = true;
+      };
+      fetch = {
+        all = true;
+        pruneTags = true;
+        prune = true;
+      };
+      help.autocorrect = "prompt";
       init.defaultBranch = "master";
       merge.conflictStyle = "zdiff3";
       pull.rebase = true;
-      rebase.autosquash = true;
-      rerere.enabled = true;
+      push = {
+        autoSetupRemote = true;
+        default = "simple";
+        followTags = true;
+      };
+      rebase = {
+        autoSquash = true;
+        autoStash = true;
+        updateRefs = true;
+      };
+      rerere = {
+        autoupdate = true;
+        enabled = true;
+      };
+      tag.sort = "version:refname";
       alias = {
         s = "status";
         d = "diff";
