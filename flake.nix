@@ -69,11 +69,6 @@
           allowUnfree = true;
           rocmSupport = true;
         };
-        overlays = [
-          (final: prev: {
-            flameshot = prev.flameshot.override { enableWlrSupport = true; };
-          })
-        ];
       };
       homePkgs = import nixpkgs {
         system = "x86_64-linux";
