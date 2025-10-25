@@ -1,5 +1,16 @@
 { pkgs, ... }:
 {
+  imports = [
+    ./java.nix
+  ];
+
+  programs.gamescope = {
+    enable = true;
+    capSysNice = true;
+  };
+  programs.gamemode.enable = true;
+  hardware.steam-hardware.enable = true;
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -33,13 +44,4 @@
       proton-ge-bin
     ];
   };
-
-  hardware.steam-hardware.enable = true;
-
-  programs.gamescope = {
-    enable = true;
-    capSysNice = true;
-  };
-  programs.java.enable = true;
-  programs.gamemode.enable = true;
 }
