@@ -110,11 +110,15 @@ in
       # change bitrate
       # chbr [input file] [value]
       # (higher the value = less bitrate)
-      chbr() ${lib.getExe pkgs.ffmpeg} -i $1 -c:v libsvtav1 -crf $2 "''${1//.mp4/}-lowerbitrate.mp4"
+      chbr() ${lib.getExe pkgs.ffmpeg} -i $1 -crf $2 "''${1//.mp4/}-lowerbitrate.mp4"
 
       # cutvid [input file] [cut from 00:00] [to 00:00]
       # e.g. cutvid porras.mp4 20 40
       cutvid() ${lib.getExe pkgs.ffmpeg} -ss $2 -to $3 -i $1 -c copy "''${1//.mp4/}-cut.mp4"
+
+      # chcodecs [input file]
+      # changes the video and audio codec of file to av1 and opus
+      chcodecs() ${lib.getExe pkgs.ffmpeg} -i $1 -c:v libsvtav1 -c:a libopus "''${1//.mp4/}-av1+opus.mp4"
     '';
   };
 }
