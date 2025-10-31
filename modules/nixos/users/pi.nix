@@ -10,16 +10,13 @@
     ../services/tsih-robo-ktx.nix
   ];
 
-  boot.loader = {
-    efi.canTouchEfiVariables = lib.mkForce false;
-    limine.enable = lib.mkForce false;
-  };
-
-  users.users.marisa.shell = lib.mkForce pkgs.bash;
-
   environment.systemPackages = [
     inputs.tsih-robo-ktx.packages.aarch64-linux.default
   ];
 
+  # override configs for the raspberry pi host
+  boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
+  boot.loader.limine.enable = lib.mkForce false;
   i18n.extraLocales = lib.mkForce [ ];
+  users.users.marisa.shell = lib.mkForce pkgs.bash;
 }
