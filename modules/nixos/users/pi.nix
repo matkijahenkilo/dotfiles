@@ -20,4 +20,6 @@
   environment.systemPackages = [
     inputs.tsih-robo-ktx.packages.aarch64-linux.default
   ];
+
+  i18n.extraLocales = lib.mkForce [ ];
 }
