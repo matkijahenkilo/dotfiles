@@ -21,7 +21,7 @@
     package = pkgs.steam.override {
       extraPkgs =
         p: with p; [
-          glxinfo
+          mesa-demos
           jdk
           mangohud
         ];
