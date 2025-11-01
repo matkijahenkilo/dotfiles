@@ -107,15 +107,15 @@ in
       precmd_functions+=prompt
 
       # Functions
-      # change bitrate
-      # chbr [input file] [value]
+      # change quality
+      # chqlt [input file] [value]
       # Lower values correspond to higher quality and greater file size.
-      # Changing bitrate defaults to h264 and aac,
+      # Using this without codec options will default to h264 and aac,
       # so this function will also convert to av1. Audio codec is expected to be opus
-      chbr() ${lib.getExe pkgs.ffmpeg} -i $1 -c:v libsvtav1 -crf $2 -c:a copy "''${1//.mp4/}-lowerbitrate.mp4"
+      chqlt() ${lib.getExe pkgs.ffmpeg} -i $1 -c:v libsvtav1 -crf $2 -c:a copy "''${1//.mp4/}-lowerbitrate.mp4"
 
       # cutvid [input file] [cut from 00:00] [to 00:00]
-      # e.g. cutvid porras.mp4 20 40
+      # e.g. cutvid porras.mp4 20 2:40
       cutvid() ${lib.getExe pkgs.ffmpeg} -ss $2 -to $3 -i $1 -c copy "''${1//.mp4/}-cut.mp4"
 
       # chcodecs [input file]
