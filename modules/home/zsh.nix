@@ -109,8 +109,10 @@ in
       # Functions
       # change bitrate
       # chbr [input file] [value]
-      # (higher the value = less bitrate)
-      chbr() ${lib.getExe pkgs.ffmpeg} -i $1 -crf $2 "''${1//.mp4/}-lowerbitrate.mp4"
+      # Lower values correspond to higher quality and greater file size.
+      # Changing bitrate defaults to h264 and aac,
+      # so this function will also convert to av1. Audio codec is expected to be opus
+      chbr() ${lib.getExe pkgs.ffmpeg} -i $1 -c:v libsvtav1 -crf $2 -c:a copy "''${1//.mp4/}-lowerbitrate.mp4"
 
       # cutvid [input file] [cut from 00:00] [to 00:00]
       # e.g. cutvid porras.mp4 20 40
