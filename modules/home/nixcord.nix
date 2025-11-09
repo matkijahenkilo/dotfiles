@@ -2,6 +2,7 @@
 { inputs, pkgs, ... }:
 {
   imports = [ inputs.nixcord.homeModules.nixcord ];
+  home.sessionVariables.NIXOS_OZONE_WL = "1";
   programs.nixcord = {
     enable = true;
     discord = {
