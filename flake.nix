@@ -69,6 +69,7 @@
           allowUnfree = true;
           rocmSupport = true;
         };
+        overlays = import ./overlays/nixosOverlays.nix { pkgs = nixosPkgs; };
       };
       homePkgs = import nixpkgs {
         system = "x86_64-linux";
@@ -77,14 +78,8 @@
         };
         overlays = [
           nixgl.overlay
-          (final: prev: {
-            kitty = (
-              homePkgs.writeShellScriptBin "kitty" ''
-                ${final.nixgl.nixGLIntel}/bin/nixGLIntel ${prev.kitty}/bin/kitty "$@"
-              ''
-            );
-          })
-        ];
+        ]
+        ++ import ./overlays/homeOverlays.nix { pkgs = homePkgs; };
       };
       piPkgs = import nixpkgs {
         system = "aarch64-linux";
