@@ -16,18 +16,21 @@
   libXcursor,
   libglvnd,
   libpulseaudio,
+  libdrm,
+  wayland,
+  wayland-scanner,
   wrapperDir ? "/run/wrappers/bin",
   gitUpdater,
 }:
 
 stdenv.mkDerivation rec {
   pname = "gpu-screen-recorder-ui";
-  version = "1.2.1";
+  version = "1.8.0";
 
   src = fetchgit {
-    url = "https://repo.dec05eba.com/${pname}";
+    url = "https://repo.dec05eba.com/gpu-screen-recorder-ui";
     tag = version;
-    hash = "sha256-RROgvuq6Z05M4aClEpGSI+pYhdMSTU1EXaJvmpMQgaE=";
+    hash = "sha256-5ifMFwsgDNq6yHnI/YAnS1thHyufaYNKeCXd7RdN6/o=";
   };
 
   postPatch = ''
@@ -56,6 +59,9 @@ stdenv.mkDerivation rec {
     libXcursor
     libglvnd
     libpulseaudio
+    libdrm
+    wayland
+    wayland-scanner
   ];
 
   mesonFlags = [
@@ -84,7 +90,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Fullscreen overlay UI for GPU Screen Recorder in the style of ShadowPlay";
-    homepage = "https://git.dec05eba.com/${pname}/about/";
+    homepage = "https://git.dec05eba.com/gpu-screen-recorder-ui/about/";
     license = lib.licenses.gpl3Only;
     mainProgram = "gsr-ui";
     maintainers = with lib.maintainers; [ js6pak ];
