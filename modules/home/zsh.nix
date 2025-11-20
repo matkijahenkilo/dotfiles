@@ -107,12 +107,21 @@ in
       precmd_functions+=prompt
 
       # Functions
-      # change quality
-      # chqlt [input file] [value]
-      # Lower values correspond to higher quality and greater file size.
+      # chsize [input file] [target size in MB]
+      # Renders the video to the target size
       # Using this without codec options will default to h264 and aac,
-      # so this function will also convert to av1. Audio codec is expected to be opus
-      chqlt() ${lib.getExe pkgs.ffmpeg} -i $1 -c:v libsvtav1 -crf $2 -c:a copy "''${1//.mp4/}-lowerbitrate.mp4"
+      # so this function will also convert to av1. Audio codec is expected to be opus.
+      # stolen from https://unix.stackexchange.com/questions/520597/how-to-reduce-the-size-of-a-video-to-a-target-size
+      chsize() {
+        target_size_mb=$2 # target size in MB
+        target_size=$(($target_size_mb * 1000 * 1000 * 8)) # target size in bits
+        length=`ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 $1`
+        length_round_up=$((''${length%.*} + 1))
+        total_bitrate=$(($target_size / $length_round_up))
+        audio_bitrate=$((128 * 1000)) # 128k bit rate
+        video_bitrate=$(($total_bitrate - $audio_bitrate))
+        ${lib.getExe pkgs.ffmpeg} -i $1 -c:v libsvtav1 -c:a copy -b:v $video_bitrate -b:a $audio_bitrate "''${1//.mp4/}-smaller.mp4"
+      }
 
       # cutvid [input file] [cut from 00:00] [to 00:00]
       # e.g. cutvid porras.mp4 20 2:40
