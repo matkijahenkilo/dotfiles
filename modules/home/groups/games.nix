@@ -11,7 +11,7 @@
     with pkgs;
     [
       (pkgs.callPackage (path + /dtkit-patch) { }) # for darktide mods
-      inputs.switch-emulators.packages.${pkgs.system}.suyu
+      inputs.switch-emulators.packages.${pkgs.stdenv.hostPlatform.system}.suyu
       wine
       pyfa
       pcsx2

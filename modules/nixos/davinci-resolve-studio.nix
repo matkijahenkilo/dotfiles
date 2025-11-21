@@ -10,7 +10,7 @@
   ...
 }:
 let
-  pkgs-davinci = inputs.nixpkgs-davinci.legacyPackages.${pkgs.system};
+  pkgs-davinci = inputs.nixpkgs-davinci.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 let
   ffmpeg-encoder-plugin = pkgs.stdenv.mkDerivation (finalAttrs: {

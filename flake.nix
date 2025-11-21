@@ -98,13 +98,13 @@
       };
 
       devShells = {
-        ${nixosPkgs.system}.default = import ./shell.nix { pkgs = nixosPkgs; };
-        ${piPkgs.system}.default = import ./shell.nix { pkgs = piPkgs; };
+        ${nixosPkgs.stdenv.hostPlatform.system}.default = import ./shell.nix { pkgs = nixosPkgs; };
+        ${piPkgs.stdenv.hostPlatform.system}.default = import ./shell.nix { pkgs = piPkgs; };
       };
 
-      formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
+      formatter = eachSystem (pkgs: treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper);
       checks = eachSystem (pkgs: {
-        formatting = treefmtEval.${pkgs.system}.config.build.check self;
+        formatting = treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.check self;
       });
     };
 }
