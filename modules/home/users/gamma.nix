@@ -14,7 +14,6 @@
     ../groups/games.nix
     ../fcitx5.nix
     ../idea.nix
-    ../winapps.nix
   ];
 
   home.packages = with pkgs; [

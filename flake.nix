@@ -33,14 +33,7 @@
       flake = false;
     };
 
-    nixcord = {
-      url = "github:kaylorben/nixcord";
-    };
-
-    winapps = {
-      url = "github:winapps-org/winapps";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixcord.url = "github:kaylorben/nixcord";
 
     tsih-robo-ktx.url = "github:matkijahenkilo/tsih-robo-ktx";
   };
