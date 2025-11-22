@@ -115,7 +115,7 @@ in
       chsize() {
         target_size_mb=$2 # target size in MB
         target_size=$(($target_size_mb * 1000 * 1000 * 8)) # target size in bits
-        length=`ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 $1`
+        length=`${pkgs.ffmpeg}/bin/ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 $1`
         length_round_up=$((''${length%.*} + 1))
         total_bitrate=$(($target_size / $length_round_up))
         audio_bitrate=$((128 * 1000)) # 128k bit rate
