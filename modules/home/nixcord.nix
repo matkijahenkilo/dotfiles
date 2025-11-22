@@ -2,12 +2,15 @@
 { inputs, pkgs, ... }:
 {
   imports = [ inputs.nixcord.homeModules.nixcord ];
-  home.sessionVariables.NIXOS_OZONE_WL = "1";
+  # home.sessionVariables.NIXOS_OZONE_WL = "1"; # only enable if discord bitches about fcitx5
   programs.nixcord = {
     enable = true;
     discord = {
       enable = true;
       branch = "stable";
+      # openASAR seems to break newer discord versions that never got executed.
+      # usually happens during a flake update
+      # if that happend, disable it, rebuild, open discord, enable it, rebuild and you're good to go ( ` ω ´ )
       openASAR.enable = true;
       autoscroll.enable = true;
       vencord.enable = true;
