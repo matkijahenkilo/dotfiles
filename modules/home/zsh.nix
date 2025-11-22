@@ -107,29 +107,37 @@ in
       precmd_functions+=prompt
 
       # Functions
-      # chsize [input file] [target size in MB]
-      # Renders the video to the target size
-      # Using this without codec options will default to h264 and aac,
-      # so this function will also convert to av1. Audio codec is expected to be opus.
-      # stolen from https://unix.stackexchange.com/questions/520597/how-to-reduce-the-size-of-a-video-to-a-target-size
-      chsize() {
-        target_size_mb=$2 # target size in MB
+      # chcodecs [input file]
+      # changes the video and audio codec of file to av1 and opus
+      chcodecs() ${lib.getExe pkgs.ffmpeg} -i $1 -c:v libsvtav1 -c:a libopus "''${1//.mp4/}-av1+opus.mp4"
+
+      # cutvid [input file] [from 00:00] [to 00:00] [size in mb (optional)]
+      # cuts a video and reenders it, shrinking it's size to 10mb by default or a custom target value
+      cutvid() {
+        cutVideoName="''${1//.mp4/}-cut.mp4"
+        shrinkVideoName="''${cutVideoName//.mp4/}-shrinked.mp4"
+
+        # first, cut the video
+        ${lib.getExe pkgs.ffmpeg} -y -ss $2 -to $3 -i $1 -c copy $cutVideoName
+
+        # proceed with bitrate calculation
+        target_size_mb=10 # discord size limit is 10mb
+        if [ ! -z $4 ]; then # check if fourth argument was specified
+          target_size_mb=$4
+        fi
         target_size=$(($target_size_mb * 1000 * 1000 * 8)) # target size in bits
-        length=`${pkgs.ffmpeg}/bin/ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 $1`
+        length=`${pkgs.ffmpeg}/bin/ffprobe -v error -i $cutVideoName -show_entries format=duration -of default=noprint_wrappers=1:nokey=1`
         length_round_up=$((''${length%.*} + 1))
         total_bitrate=$(($target_size / $length_round_up))
         audio_bitrate=$((128 * 1000)) # 128k bit rate
         video_bitrate=$(($total_bitrate - $audio_bitrate))
-        ${lib.getExe pkgs.ffmpeg} -i $1 -c:v libsvtav1 -c:a copy -b:v $video_bitrate -b:a $audio_bitrate "''${1//.mp4/}-smaller.mp4"
+
+        # then shrink the video size, with av1 and opus codecs
+        ${lib.getExe pkgs.ffmpeg} -y -i $cutVideoName -c:v libsvtav1 -c:a libopus -b:v $video_bitrate -b:a $audio_bitrate $shrinkVideoName
+
+        # delete intermediate video
+        rm $cutVideoName
       }
-
-      # cutvid [input file] [cut from 00:00] [to 00:00]
-      # e.g. cutvid porras.mp4 20 2:40
-      cutvid() ${lib.getExe pkgs.ffmpeg} -ss $2 -to $3 -i $1 -c copy "''${1//.mp4/}-cut.mp4"
-
-      # chcodecs [input file]
-      # changes the video and audio codec of file to av1 and opus
-      chcodecs() ${lib.getExe pkgs.ffmpeg} -i $1 -c:v libsvtav1 -c:a libopus "''${1//.mp4/}-av1+opus.mp4"
     '';
   };
 }
