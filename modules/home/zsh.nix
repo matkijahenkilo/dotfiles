@@ -107,33 +107,41 @@ in
       precmd_functions+=prompt
 
       # Functions
-      # chcodecs [input file]
+      # chcodecs [file]
       # changes the video and audio codec of file to av1 and opus
       chcodecs() ${lib.getExe pkgs.ffmpeg} -i $1 -c:v libsvtav1 -c:a libopus "''${1//.mp4/}-av1+opus.mp4"
 
-      # cutvid [input file] [from 00:00] [to 00:00] [size in mb (optional)]
-      # cuts a video and reenders it, shrinking it's size to 10mb by default or a custom target value
-      cutvid() {
-        cutVideoName="''${1//.mp4/}-cut.mp4"
-        shrinkVideoName="''${cutVideoName//.mp4/}-shrinked.mp4"
+      # cutvid [file] [start] [end]
+      # e.g. cutvid MGR姉貴かわいい.mp4 1:30 3:00
+      cutvid() ${lib.getExe pkgs.ffmpeg} -y -ss $2 -to $3 -i $1 -c copy "''${1//.mp4/}-cut.mp4"
 
-        # first, cut the video
-        ${lib.getExe pkgs.ffmpeg} -y -ss $2 -to $3 -i $1 -c copy $cutVideoName
-
-        # proceed with bitrate calculation
+      # shrinkvid [file] [size in mb (optional)]
+      # e.g. NYN姉貴ｗ.mp4 5
+      chvidsize() {
         target_size_mb=10 # discord size limit is 10mb
-        if [ ! -z $4 ]; then # check if fourth argument was specified
-          target_size_mb=$4
+        if [ ! -z $2 ]; then # check if argument was specified
+          target_size_mb=$2
         fi
         target_size=$(($target_size_mb * 1000 * 1000 * 8)) # target size in bits
-        length=`${pkgs.ffmpeg}/bin/ffprobe -v error -i $cutVideoName -show_entries format=duration -of default=noprint_wrappers=1:nokey=1`
+        length=`${pkgs.ffmpeg}/bin/ffprobe -v error -i $1 -show_entries format=duration -of default=noprint_wrappers=1:nokey=1`
         length_round_up=$((''${length%.*} + 1))
         total_bitrate=$(($target_size / $length_round_up))
         audio_bitrate=$((128 * 1000)) # 128k bit rate
         video_bitrate=$(($total_bitrate - $audio_bitrate))
 
-        # then shrink the video size, with av1 and opus codecs
-        ${lib.getExe pkgs.ffmpeg} -y -i $cutVideoName -c:v libsvtav1 -c:a libopus -b:v $video_bitrate -b:a $audio_bitrate $shrinkVideoName
+        ${lib.getExe pkgs.ffmpeg} -y -i $1 -c:v libsvtav1 -c:a libopus -b:v $video_bitrate -b:a $audio_bitrate "''${1//.mp4/}-shrinked.mp4"
+      }
+
+      # cutvid [file] [start] [end] [size in mb (optional)]
+      # cuts a video and reenders it, shrinking it's size to 10mb by default or a custom target value
+      cutdiscordclip() {
+        cutVideoName="''${1//.mp4/}-cut.mp4"
+
+        echo 'cutting video'
+        cutvid "$1" "$2" "$3"
+
+        echo 'changing video size to $4mb'
+        chvidsize "$cutVideoName" "$4"
 
         # delete intermediate video
         rm $cutVideoName
