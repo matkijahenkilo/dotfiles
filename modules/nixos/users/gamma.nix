@@ -7,6 +7,7 @@
     ../groups/games.nix
 
     ../sessions/plasma.nix
+    ../stylix.nix
 
     ../amdgpu-fullrgb-patcher.nix
     ../zerotierone.nix

@@ -5,7 +5,9 @@
     ../groups/archivers.nix
     ../groups/desktop.nix
     ../groups/games.nix
+
     ../sessions/plasma.nix
+    ../stylix.nix
 
     ../gnupg-agent.nix
     ../zerotierone.nix

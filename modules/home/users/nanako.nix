@@ -1,5 +1,11 @@
 { pkgs, ... }:
 {
+  home = {
+    username = "nanako";
+    homeDirectory = "/home/nanako";
+    stateVersion = "23.11";
+  };
+
   imports = [
     ../groups/essentials.nix
 

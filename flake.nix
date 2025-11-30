@@ -83,18 +83,50 @@
     in
     {
       nixosConfigurations = {
-        gamma = mkHost nixosPkgs ./hosts/gamma/configuration.nix [ ];
-        quirera = mkHost nixosPkgs ./hosts/quirera/configuration.nix [ ];
+        gamma = mkHost nixosPkgs ./hosts/gamma/configuration.nix [
+          inputs.home-manager.nixosModules.home-manager
+          inputs.stylix.nixosModules.stylix
+          {
+            home-manager = {
+              useUserPackages = true;
+              useGlobalPkgs = true;
+              backupFileExtension = "backup";
+              backupCommand = "rm";
+              extraSpecialArgs = { inherit inputs nixpkgs self; };
+              users.marisa = import ./modules/home/users/gamma.nix;
+            };
+          }
+        ];
+        quirera = mkHost nixosPkgs ./hosts/quirera/configuration.nix [
+          inputs.home-manager.nixosModules.home-manager
+          inputs.stylix.nixosModules.stylix
+          {
+            home-manager = {
+              useUserPackages = true;
+              useGlobalPkgs = true;
+              backupFileExtension = "backup";
+              backupCommand = "rm";
+              extraSpecialArgs = { inherit inputs nixpkgs self; };
+              users = {
+                marisa = import ./modules/home/users/quirera.nix;
+                nanako = import ./modules/home/users/nanako.nix;
+              };
+            };
+          }
+        ];
         pi = mkHost piPkgs ./hosts/pi/configuration.nix [
           nixos-hardware.nixosModules.raspberry-pi-3
+          inputs.home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              useUserPackages = true;
+              useGlobalPkgs = true;
+              backupFileExtension = "backup";
+              extraSpecialArgs = { inherit inputs nixpkgs self; };
+              users.marisa = import ./modules/home/users/pi.nix;
+            };
+          }
         ];
-      };
-
-      homeConfigurations = {
-        gamma = mkHome nixosPkgs "marisa" "gamma.nix";
-        quirera = mkHome nixosPkgs "marisa" "quirera.nix";
-        quireraNana = mkHome nixosPkgs "nanako" "quireraNana.nix";
-        tau = mkHome homePkgs "marisa" "tau.nix";
       };
 
       devShells = {

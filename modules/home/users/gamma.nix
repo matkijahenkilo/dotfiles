@@ -1,5 +1,11 @@
 { pkgs, libs, ... }:
 {
+  home = {
+    username = "marisa";
+    homeDirectory = "/home/marisa";
+    stateVersion = "23.11";
+  };
+
   imports = [
     ../groups/essentials.nix
 

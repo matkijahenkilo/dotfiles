@@ -1,7 +1,6 @@
 {
   inputs,
   lib,
-  pkgs,
   ...
 }:
 {
@@ -18,5 +17,4 @@
   boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
   boot.loader.limine.enable = lib.mkForce false;
   i18n.extraLocales = lib.mkForce [ ];
-  users.users.marisa.shell = lib.mkForce pkgs.bash;
 }
