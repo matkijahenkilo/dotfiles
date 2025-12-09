@@ -115,8 +115,8 @@ in
       # e.g. cutvid MGR姉貴かわいい.mp4 1:30 3:00
       cutvid() ${lib.getExe pkgs.ffmpeg} -y -ss $2 -to $3 -i $1 -c copy "''${1//.mp4/}-cut.mp4"
 
-      # shrinkvid [file] [size in mb (optional)]
-      # e.g. NYN姉貴ｗ.mp4 5
+      # chvidsize [file] [size in mb (optional)]
+      # e.g. chvidsize NYN姉貴ｗ.mp4 5
       chvidsize() {
         target_size_mb=10 # discord size limit is 10mb
         if [ ! -z $2 ]; then # check if argument was specified
@@ -132,8 +132,9 @@ in
         ${lib.getExe pkgs.ffmpeg} -y -i $1 -c:v libsvtav1 -c:a libopus -b:v $video_bitrate -b:a $audio_bitrate "''${1//.mp4/}-shrinked.mp4"
       }
 
-      # cutvid [file] [start] [end] [size in mb (optional)]
+      # cutdiscordclip [file] [start] [end] [size in mb (optional)]
       # cuts a video and reenders it, shrinking it's size to 10mb by default or a custom target value
+      # e.g. cutdiscordclip 'MUSIC 22 11 2025.mp4' 1:30 2:00 16
       cutdiscordclip() {
         cutVideoName="''${1//.mp4/}-cut.mp4"
 
