@@ -514,6 +514,7 @@
       "original": {
         "owner": "liberodark",
         "repo": "my-flakes",
+        "rev": "a955f26403edd2a625c2e875770f130a74c8f6b5",
         "type": "github"
       }
     },
