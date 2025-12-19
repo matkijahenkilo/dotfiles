@@ -33,8 +33,6 @@
       flake = false;
     };
 
-    nixcord.url = "github:kaylorben/nixcord";
-
     tsih-robo-ktx.url = "github:matkijahenkilo/tsih-robo-ktx";
   };
 

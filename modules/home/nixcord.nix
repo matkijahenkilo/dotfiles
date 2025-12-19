@@ -1,36 +1,19 @@
-# https://github.com/KaylorBen/nixcord
-{ inputs, pkgs, ... }:
+{ pkgs, ... }:
 {
-  imports = [ inputs.nixcord.homeModules.nixcord ];
-  # home.sessionVariables.NIXOS_OZONE_WL = "1"; # only enable if discord bitches about fcitx5
-  programs.nixcord = {
-    enable = true;
-    discord = {
-      enable = true;
-      branch = "stable";
-      # openASAR seems to break newer discord versions that never got executed.
-      # usually happens during a flake update
-      # if that happend, disable it, rebuild, open discord, enable it, rebuild and you're good to go ( ` ω ´ )
-      openASAR.enable = true;
-      autoscroll.enable = true;
-      vencord.enable = true;
-    };
-    config = {
-      frameless = false;
-      plugins = {
-        youtubeAdblock.enable = true;
-        fakeNitro.enable = true;
-        noF1.enable = true;
-        alwaysAnimate.enable = true;
-        favoriteGifSearch.enable = true;
-        whoReacted.enable = true;
-        callTimer.enable = true;
-        petpet.enable = true;
-      };
-    };
-  };
+  # cool plugins to use with vencord:
+  #
+  # youtubeAdblock
+  # fakeNitro
+  # noF1
+  # alwaysAnimate
+  # favoriteGifSearch
+  # whoReacted
+  # callTimer
+  # petpet
 
   home.packages = [
     (pkgs.callPackage (../../pkgs/krisp-patcher) { })
+    # (pkgs.discord.override { withVencord = true; nss = pkgs.nss_latest; })
+    pkgs.discord
   ];
 }
