@@ -5,7 +5,8 @@
   ...
 }:
 let
-  pkgZshGitPrompt = inputs.nixpkgs-zsh-git-prompt.legacyPackages.${pkgs.stdenv.hostPlatform.system}.zsh-git-prompt;
+  pkgZshGitPrompt =
+    inputs.nixpkgs-zsh-git-prompt.legacyPackages.${pkgs.stdenv.hostPlatform.system}.zsh-git-prompt;
 in
 {
   home.packages = with pkgs; [

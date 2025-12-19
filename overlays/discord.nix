@@ -1,9 +1,11 @@
 final: prev:
 let
-  discord = (prev.discord.override {
-    withVencord = true;
-    nss = prev.nss_latest;
-  });
+  discord = (
+    prev.discord.override {
+      withVencord = true;
+      nss = prev.nss_latest;
+    }
+  );
 in
 {
   discord = final.symlinkJoin {
