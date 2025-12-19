@@ -9,7 +9,6 @@
     ../sessions/plasma.nix
     ../stylix.nix
 
-    ../amdgpu-fullrgb-patcher.nix
     ../zerotierone.nix
     ../gnupg-agent.nix
     ../docker.nix

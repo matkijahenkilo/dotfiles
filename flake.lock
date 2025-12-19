@@ -1,22 +1,5 @@
 {
   "nodes": {
-    "amdgpu-fullrgb-patch": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1747627563,
-        "narHash": "sha256-DmSced629eu4bgJlFVjjGYRYak9/F1POxt5ZPilAdcA=",
-        "ref": "refs/tags/v6.14",
-        "rev": "c6de2f2bd7cc97d6fd791288d155337c32b2c06b",
-        "revCount": 10,
-        "type": "git",
-        "url": "https://gist.github.com/rafaelrc7/0270037dbe86205365ec8b7a4f339f82"
-      },
-      "original": {
-        "ref": "refs/tags/v6.14",
-        "type": "git",
-        "url": "https://gist.github.com/rafaelrc7/0270037dbe86205365ec8b7a4f339f82"
-      }
-    },
     "base16": {
       "inputs": {
         "fromYaml": "fromYaml"
@@ -469,7 +452,6 @@
     },
     "root": {
       "inputs": {
-        "amdgpu-fullrgb-patch": "amdgpu-fullrgb-patch",
         "home-manager": "home-manager",
         "nixgl": "nixgl",
         "nixos-hardware": "nixos-hardware",
