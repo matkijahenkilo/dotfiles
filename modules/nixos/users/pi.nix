@@ -1,16 +1,8 @@
-{
-  inputs,
-  lib,
-  ...
-}:
+{ lib, ... }:
 {
   imports = [
     ../groups/essentials.nix
     ../services/tsih-robo-ktx.nix
-  ];
-
-  environment.systemPackages = [
-    inputs.tsih-robo-ktx.packages.aarch64-linux.default
   ];
 
   # override configs for the raspberry pi host
