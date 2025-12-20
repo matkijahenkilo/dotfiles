@@ -13,7 +13,7 @@
 
   home.packages = [
     (pkgs.callPackage (../../pkgs/krisp-patcher) { })
-    # (pkgs.discord.override { withVencord = true; nss = pkgs.nss_latest; })
+    # (pkgs.discord.override { withVencord = true; nss = pkgs.nss_latest; }) # already overrided by overlay
     pkgs.discord
   ];
 }

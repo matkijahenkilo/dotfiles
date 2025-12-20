@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
-    ../nixcord.nix
+    ../discord.nix
     ../firefox.nix
     ../kitty.nix
     # ../stylix.nix # will break DE when using home-manager as NixOS module
