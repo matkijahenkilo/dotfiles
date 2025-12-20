@@ -19,10 +19,10 @@
     ../sessions/plasma
     ../groups/games.nix
     ../fcitx5.nix
-    ../idea.nix
   ];
 
   home.packages = with pkgs; [
     dbeaver-bin
+    jetbrains.idea-oss
   ];
 }
