@@ -128,6 +128,8 @@
         ${piPkgs.stdenv.hostPlatform.system}.default = import ./shell.nix { pkgs = piPkgs; };
       };
 
+      templates = import ./templates { };
+
       formatter = eachSystem (pkgs: treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.wrapper);
       checks = eachSystem (pkgs: {
         formatting = treefmtEval.${pkgs.stdenv.hostPlatform.system}.config.build.check self;

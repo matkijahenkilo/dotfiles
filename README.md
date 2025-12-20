@@ -33,10 +33,16 @@ align="right" alt="Nix logo" width="150">
 >
 > — [NixOS User's Creed](https://github.com/ners/NixOS)
 
-#### In case of amnesia:
+#### Most frequently used commands that I easily forget.:
 
-build in machine A, deploy config to machine B via ssh
+Build in machine A, deploy config to machine B via ssh
 
 ```
 nixos-rebuild switch --sudo --ask-sudo-password --build-host localhost --target-host remote.server --flake /path/to/flake#that-server-config
+```
+
+Templates for projects
+
+```
+nix flake init --template /path/to/flake#template
 ```
