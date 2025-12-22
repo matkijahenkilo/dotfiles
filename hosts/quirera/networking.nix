@@ -6,5 +6,6 @@
     hosts = {
       "127.0.0.1" = [ "quirera" ];
     };
+    firewall.enable = true;
   };
 }
