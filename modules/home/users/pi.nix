@@ -12,4 +12,8 @@
     ../fastfetch.nix
     ../syncthing.nix
   ];
+
+  home.packages = with pkgs; [
+    btop
+  ];
 }
