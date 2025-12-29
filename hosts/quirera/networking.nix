@@ -1,5 +1,6 @@
 { ... }:
 {
+  systemd.network.wait-online.enable = false;
   networking = {
     networkmanager.enable = true;
     hostName = "quirera";
