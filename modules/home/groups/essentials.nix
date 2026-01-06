@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 {
   imports = [
     ../nix.nix
@@ -6,4 +6,6 @@
     ../zsh.nix
     ../direnv.nix
   ];
+
+  home.packages = with pkgs; [ speedtest-cli ];
 }
