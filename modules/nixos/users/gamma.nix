@@ -25,7 +25,10 @@
     "aarch64-linux"
   ];
 
-  programs.adb.enable = true;
+  environment.systemPackages = with pkgs; [
+    android-tools
+  ];
+
   users.users.marisa.extraGroups = [
     "adbusers"
     "kvm"
