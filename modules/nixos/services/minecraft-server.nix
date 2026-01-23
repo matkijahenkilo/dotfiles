@@ -10,14 +10,27 @@ let
   dataDir = "/srv/${folderName}";
   runDir = "/run/${folderName}";
   runServerJar = pkgs.writeShellScript "minecraft-server-run-jar" ''
-    if [ -z "$1" ]; then
-        echo "Server JAR was not supplied"
-        exit 1
-    fi
     ${lib.optionalString pkgs.stdenvNoCC.hostPlatform.isLinux "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${
       lib.makeLibraryPath [ pkgs.udev ]
     }"}
-    exec ${lib.getExe pkgs.jre} -server ''${@:2} -jar ''$1 nogui
+
+    if [ -f "$FORGE_INSTALLER" ]; then
+        echo "Forge installer found"
+        if [ ! -f "$FORGE_SCRIPT" ]; then
+            echo "Installing Forge"
+            ${lib.getExe pkgs.jre} -jar "$FORGE_INSTALLER" --installServer
+        fi
+
+        echo "Extracting arguments from $FORGE_SCRIPT and running"
+        command=$(sed -e '/#/d' -e 's/java //g' -e 's/"\$@"//g' "$FORGE_SCRIPT")
+        exec ${lib.getExe pkgs.jre} $command nogui
+    elif [ -f "$JAR_NAME" ]; then
+        echo "No Forge installer found, running JAR instead"
+        exec ${lib.getExe pkgs.jre} -server "$@" -jar "$JAR_NAME" nogui
+    else
+        echo "No Server JAR or Forge installer was found"
+        exit 1
+    fi
   '';
   stopScript = pkgs.writeShellScript "minecraft-server-stop" ''
     if [ -z "$1" ]; then
@@ -61,13 +74,6 @@ in
         ''${lib.getExe pkgs.papermc} -server -Xms''${MEM} -Xmx''${MEM} $JVM_OPTS''
       ];
     };
-    "minecraft-server@forge" = {
-      overrideStrategy = "asDropin";
-      serviceConfig.ExecStart = [
-        ""
-        "${lib.getExe pkgs.jre} @user_jvm_args.txt @libraries/net/minecraftforge/forge/1.20.1-47.4.15/unix_args.txt '$@' nogui"
-      ];
-    };
   };
 
   systemd.timers = {
@@ -92,7 +98,7 @@ in
       };
 
       serviceConfig = {
-        ExecStart = ''${runServerJar} ''${JAR_NAME} -Xms''${MEM} -Xmx''${MEM} $JVM_OPTS'';
+        ExecStart = ''${runServerJar} -Xms''${MEM} -Xmx''${MEM} $JVM_OPTS'';
         ExecStop = ''${stopScript} "%i"'';
         Restart = "on-failure";
         RestartSec = "60s";
@@ -142,6 +148,8 @@ in
         # Set default variables
         Environment = [
           "JAR_NAME=server.jar"
+          "FORGE_INSTALLER=forge.jar"
+          "FORGE_SCRIPT=run.sh"
           "MEM=6144M"
           ''"JVM_OPTS=-Djava.net.preferIPv6Addresses=true -XX:+AlwaysPreTouch -XX:+DisableExplicitGC -XX:+ParallelRefProcEnabled -XX:+PerfDisableSharedMem -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -XX:G1HeapRegionSize=8M -XX:G1HeapWastePercent=5 -XX:G1MaxNewSizePercent=40 -XX:G1MixedGCCountTarget=4 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1NewSizePercent=30 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:G1ReservePercent=20 -XX:InitiatingHeapOccupancyPercent=15 -XX:MaxGCPauseMillis=200 -XX:MaxTenuringThreshold=1 -XX:SurvivorRatio=32 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true"''
         ];
