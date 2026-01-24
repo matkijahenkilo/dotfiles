@@ -21,7 +21,7 @@
     name = "Alacritty";
     genericName = "Terminal emulator";
     exec = "alacritty";
-    icon = ../../assets + /cat.png;
+    icon = ../../assets/cat.png;
     terminal = false;
   };
 }
