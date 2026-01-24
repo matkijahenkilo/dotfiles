@@ -6,10 +6,10 @@
     ../alacritty.nix
     # ../stylix.nix # will break DE when using home-manager as NixOS module
     ../thunderbird.nix
+    ../mpv.nix
   ];
 
   home.packages = with pkgs; [
-    mpv
     vlc
     krita
     ferdium
