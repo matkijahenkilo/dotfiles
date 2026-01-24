@@ -3,24 +3,7 @@
   stylix = {
     enable = true;
     polarity = "dark";
-    base16Scheme = {
-      base00 = "190c0b"; # ----
-      base01 = "331816"; # ---
-      base02 = "4c2421"; # --
-      base03 = "66302c"; # -
-      base04 = "ffc9c5"; # +
-      base05 = "ffd6d4"; # ++
-      base06 = "ffe4e2"; # +++
-      base07 = "fff1f0"; # ++++
-      base08 = "ff7870"; # red, accent color
-      base09 = "ffc070"; # orange
-      base0A = "f7ff70"; # yellow
-      base0B = "70ff78"; # green
-      base0C = "70f7ff"; # cyan
-      base0D = "7870ff"; # blue
-      base0E = "ff70b0"; # purple
-      base0F = "7f3430"; # brown
-    };
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
 
     cursor = {
       size = 32;
