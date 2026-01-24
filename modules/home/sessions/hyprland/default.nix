@@ -60,7 +60,7 @@
       "$mainMod" = "SUPER";
       bind = [
         # Example binds, see https://wiki.hyprland.org/Configuring/Binds/ for more
-        "$mainMod, Return, exec, kitty"
+        "$mainMod, Return, exec, alacritty"
         "$mainMod SHIFT, C, killactive, "
         # "$mainMod SHIFT, Q, exec, wlogout -p layer-shell"
         "$mainMod SHIFT, Q, exit, "
@@ -71,7 +71,7 @@
         "$mainMod, tab, togglespecialworkspace"
         "$mainMod SHIFT, tab, movetoworkspace, special"
         "$mainMod SHIFT, X, movetoworkspace, 1"
-        "$mainMod, backslash, exec, kitty -e ranger"
+        "$mainMod, backslash, exec, alacritty -e ranger"
         "$mainMod, E, exec, dolphin"
         "$mainMod, V, togglefloating, "
         "$mainMod, D, exec, wofi --show run"
