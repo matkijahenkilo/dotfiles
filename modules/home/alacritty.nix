@@ -17,7 +17,7 @@
     TERMINAL = lib.mkDefault "alacritty";
   };
 
-  xdg.desktopEntries.alacritty = {
+  xdg.desktopEntries.Alacritty = {
     name = "Alacritty";
     genericName = "Terminal emulator";
     exec = "alacritty";
