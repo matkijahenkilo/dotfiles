@@ -37,9 +37,5 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    wget
-    killall
-    micro
-  ];
+  environment.systemPackages = with pkgs; [ wget ];
 }
