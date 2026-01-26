@@ -64,14 +64,14 @@ in
       overrideStrategy = "asDropin";
       serviceConfig.ExecStart = [
         ""
-        ''${lib.getExe pkgs.papermc} -server -Xms''${MEM} -Xmx''${MEM} $JVM_OPTS''
+        "${lib.getExe pkgs.papermc} -server -Xms\${MEM} -Xmx\${MEM} $JVM_OPTS"
       ];
     };
     "minecraft-server@test" = {
       overrideStrategy = "asDropin";
       serviceConfig.ExecStart = [
         ""
-        ''${lib.getExe pkgs.papermc} -server -Xms''${MEM} -Xmx''${MEM} $JVM_OPTS''
+        "${lib.getExe pkgs.papermc} -server -Xms\${MEM} -Xmx\${MEM} $JVM_OPTS"
       ];
     };
   };
@@ -98,7 +98,7 @@ in
       };
 
       serviceConfig = {
-        ExecStart = ''${runServerJar} -Xms''${MEM} -Xmx''${MEM} $JVM_OPTS'';
+        ExecStart = "${runServerJar} -Xms\${MEM} -Xmx\${MEM} $JVM_OPTS";
         ExecStop = ''${stopScript} "%i"'';
         Restart = "on-failure";
         RestartSec = "60s";
@@ -172,7 +172,7 @@ in
       serviceConfig = {
         Type = "oneshot";
 
-        ExecStartPre = ''${pkgs.writeShellScript "minecraft-server-backup-pre" ''
+        ExecStartPre = "${pkgs.writeShellScript "minecraft-server-backup-pre" ''
           if [ $# -ne 2 ]; then
               echo "Must supply server name and backup path"
               exit 1
@@ -192,9 +192,9 @@ in
             stdbuf -oL tail -n2 -f "${dataDir}/$SERVER_NAME/logs/latest.log" \
               | sed '/Saved the game/q'
           fi
-        ''} %i ''${BACKUP_PATH}'';
+        ''} %i \${BACKUP_PATH}";
 
-        ExecStart = ''${
+        ExecStart = "${
           lib.getExe (
             pkgs.writeShellApplication {
               name = "minecraft-server-backup";
@@ -220,9 +220,9 @@ in
               '';
             }
           )
-        } %i ''${BACKUP_PATH}'';
+        } %i \${BACKUP_PATH}";
 
-        ExecStopPost = ''${pkgs.writeShellScript "minecraft-server-backup-post" ''
+        ExecStopPost = "${pkgs.writeShellScript "minecraft-server-backup-post" ''
           if [ $# -ne 2 ]; then
               echo "Must supply server name and backup path"
               exit 1
@@ -236,7 +236,7 @@ in
             echo "save-on" > "$SOCKET"
             echo "say Backup complete." > "$SOCKET"
           fi
-        ''} %i ''${BACKUP_PATH}'';
+        ''} %i \${BACKUP_PATH}";
 
         WorkingDirectory = "${dataDir}/%i";
 
