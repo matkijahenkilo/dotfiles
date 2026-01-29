@@ -10,7 +10,6 @@
   ];
 
   home.packages = with pkgs; [
-    vlc
     krita
     ferdium
     obsidian
