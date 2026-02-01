@@ -22,6 +22,8 @@
         whoReacted.enable = true;
         callTimer.enable = true;
         petpet.enable = true;
+        readAllNotificationsButton.enable = true;
+        ClearURLs.enable = true;
       };
     };
   };
