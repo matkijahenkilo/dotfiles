@@ -12,7 +12,6 @@
     [
       (pkgs.callPackage (path + /dtkit-patch) { }) # for darktide mods
       inputs.switch-emulators.packages.${pkgs.stdenv.hostPlatform.system}.suyu
-      wine
       # pyfa
       pcsx2
       rpcs3
@@ -21,8 +20,10 @@
       bottles
       etterna
       r2modman
+      opentrack
       archipelago
       xivlauncher
       prismlauncher
+      wineWowPackages.staging
     ];
 }
