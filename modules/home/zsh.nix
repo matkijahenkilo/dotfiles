@@ -148,6 +148,11 @@ in
         # delete intermediate video
         rm $cutVideoName
       }
+
+      # mkgif [file]
+      mkgif() {
+        ${lib.getExe pkgs.ffmpeg} -y -i $1 -vf 'setpts=1*PTS' -c:v libwebp -loop 0 -pix_fmt yuva420p "''${1//.mp4/}.webp"
+      }
     '';
   };
 }
