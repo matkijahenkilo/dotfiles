@@ -24,6 +24,7 @@
       archipelago
       xivlauncher
       prismlauncher
+      steamtinkerlaunch
       wineWowPackages.staging
     ];
 }
