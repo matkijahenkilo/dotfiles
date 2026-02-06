@@ -27,7 +27,7 @@
   swapDevices = [
     {
       device = "/var/swap";
-      size = 8 * 1024; # 8GB
+      size = 2 * 1024; # 2GB
     }
   ];
 
