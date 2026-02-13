@@ -1,5 +1,7 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 let
+  sound = ../../assets/sounds/yume-nikki-footstep.wav;
+
   flameshot-fast-ss = pkgs.writeShellScriptBin "flameshot-fast-ss" ''
     year=''$(date +"%Y")
     month=''$(date +"%m")
@@ -11,7 +13,7 @@ let
 
     flameshot gui --accept-on-select -c -p ''$filepath
 
-    ${pkgs.mpv}/bin/mpv ~/Documents/sounds/footstep.WAV
+    ${lib.getExe pkgs.mpv} --keep-open=no ${sound}
   '';
 
   flameshot-full-ss = pkgs.writeShellScriptBin "flameshot-full-ss" ''
@@ -25,7 +27,7 @@ let
 
     flameshot full -c -p ''$filepath
 
-    ${pkgs.mpv}/bin/mpv ~/Documents/sounds/footstep.WAV
+    ${lib.getExe pkgs.mpv} --keep-open=no ${sound}
   '';
 in
 {
