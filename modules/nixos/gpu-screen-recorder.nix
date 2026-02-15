@@ -8,17 +8,17 @@ let
 
   gsr-toggle-record = pkgs.writeShellScriptBin "gsr-toggle-record" ''
     gsr-ui-cli toggle-record
-    ${lib.getExe pkgs.mpv} ${sounds-path}/yume-nikki-jump2.wav
+    ${lib.getExe pkgs.mpv} --keep-open=no ${sounds-path}/yume-nikki-jump2.wav
   '';
 
   gsr-toggle-replay = pkgs.writeShellScriptBin "gsr-toggle-replay" ''
     gsr-ui-cli toggle-replay
-    ${lib.getExe pkgs.mpv} ${sounds-path}/yume-nikki-success2.wav
+    ${lib.getExe pkgs.mpv} --keep-open=no ${sounds-path}/yume-nikki-success2.wav
   '';
 
   gsr-replay-save = pkgs.writeShellScriptBin "gsr-replay-save" ''
     gsr-ui-cli replay-save
-    ${lib.getExe pkgs.mpv} ${sounds-path}/yume-nikki-select2.wav
+    ${lib.getExe pkgs.mpv} --keep-open=no ${sounds-path}/yume-nikki-select2.wav
   '';
 
   gsr-reminder-on-startup = pkgs.writeShellScriptBin "gsr-reminder-on-startup" ''

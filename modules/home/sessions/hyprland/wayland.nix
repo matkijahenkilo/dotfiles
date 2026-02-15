@@ -36,11 +36,11 @@ in
       # Volume controls
       (pkgs.writeShellScriptBin "script-volume-decrease" ''
         wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-
-        ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
+        ${lib.getExe pkgs.mpv} --keep-open=no ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
       '')
       (pkgs.writeShellScriptBin "script-volume-increase" ''
         wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+
-        ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
+        ${lib.getExe pkgs.mpv} --keep-open=no ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/audio-volume-change.oga
       '')
 
       # Screenshots
@@ -49,24 +49,24 @@ in
         FILE_PATH="${HOME}/Pictures/screenshots/$FILE_NAME"
         ${pkgs.grim}/bin/grim -t png "$FILE_PATH"
         if [[ $? != 0 ]]; then
-          ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/dialog-error.oga
+          ${lib.getExe pkgs.mpv} --keep-open=no ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/dialog-error.oga
           exit 1
         fi
         wl-copy < $FILE_PATH
         notify-send 'Screenshot' -i "$FILE_PATH" "$FILE_NAME"
-        ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/screen-capture.oga
+        ${lib.getExe pkgs.mpv} --keep-open=no ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/screen-capture.oga
       '')
       (pkgs.writeShellScriptBin "script-screenshot-selection" ''
         FILE_NAME="screenshot-$(date +%F_%H-%M-%S).png"
         FILE_PATH="${HOME}/Pictures/screenshots/$FILE_NAME"
         ${pkgs.grim}/bin/grim -t png -g "$(${pkgs.slurp}/bin/slurp)" "$FILE_PATH"
         if [[ $? != 0 ]]; then
-          ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/dialog-error.oga
+          ${lib.getExe pkgs.mpv} --keep-open=no ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/dialog-error.oga
           exit 1
         fi
         wl-copy < $FILE_PATH
         notify-send 'Screenshot' -i "$FILE_PATH" "$FILE_NAME"
-        ${pkgs.mpv}/bin/mpv ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/screen-capture.oga 
+        ${lib.getExe pkgs.mpv} --keep-open=no ${pkgs.sound-theme-freedesktop}/share/sounds/freedesktop/stereo/screen-capture.oga
       '')
     ];
 
