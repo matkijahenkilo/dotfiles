@@ -5,7 +5,7 @@
     ./gpu.nix
     ./networking.nix
     ./printer.nix
-    ../../modules/nixos/users/quirera.nix
+    ../../modules/nixos/users/xi.nix
   ];
 
   # Enable touchpad support (enabled default in most desktopManager).

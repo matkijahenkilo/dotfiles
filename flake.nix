@@ -93,7 +93,7 @@
             };
           }
         ];
-        quirera = mkHost nixosPkgs ./hosts/quirera/configuration.nix [
+        xi = mkHost nixosPkgs ./hosts/xi/configuration.nix [
           inputs.home-manager.nixosModules.home-manager
           inputs.stylix.nixosModules.stylix
           {
@@ -104,7 +104,7 @@
               backupCommand = "rm";
               extraSpecialArgs = { inherit inputs nixpkgs self; };
               users = {
-                marisa = import ./modules/home/users/quirera.nix;
+                marisa = import ./modules/home/users/xi.nix;
                 nanako = import ./modules/home/users/nanako.nix;
               };
             };
