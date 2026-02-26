@@ -35,6 +35,12 @@ let
   gpu-screen-recorder-ui = pkgs.callPackage (path + /gpu-screen-recorder-ui) {
     inherit gpu-screen-recorder-notification;
   };
+
+  start-gsr-replay-if-not-running = pkgs.writeShellScriptBin "start-gsr-replay-if-not-running" ''
+    if ! pidof gpu-screen-recorder > /dev/null; then
+      gsr-ui-cli toggle-replay
+    fi
+  '';
 in
 {
   programs.gpu-screen-recorder.enable = true;
@@ -47,4 +53,26 @@ in
     gsr-replay-save
     gsr-reminder-on-startup
   ];
+
+  systemd.user.services.gsr-replay-auto-restarter = {
+    description = "Auto-restart gpu-screen-recorder's replay";
+    after = [ "graphical-session.target" ];
+    requires = [ "graphical-session.target" ];
+
+    path = [
+      gpu-screen-recorder-ui
+      pkgs.procps
+      pkgs.coreutils
+    ];
+
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${lib.getExe start-gsr-replay-if-not-running}";
+    };
+  };
+
+  # run service when the monitor is plugged or wakes up
+  services.udev.extraRules = ''
+    ACTION=="change", SUBSYSTEM=="drm", TAG+="systemd", ENV{SYSTEMD_USER_WANTS}+="gsr-replay-auto-restarter.service"
+  '';
 }
