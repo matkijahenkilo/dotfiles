@@ -37,6 +37,10 @@ let
   };
 
   start-gsr-replay-if-not-running = pkgs.writeShellScriptBin "start-gsr-replay-if-not-running" ''
+    # when the monitor is waking back up
+    # the process might still be exiting
+    # so it's better to wait a few seconds to be sure it's doesn't exist
+    sleep 10
     if ! pidof gpu-screen-recorder > /dev/null; then
       gsr-ui-cli toggle-replay
     fi
