@@ -16,5 +16,6 @@
     qbittorrent
     libreoffice
     telegram-desktop
+    jetbrains.idea-oss
   ];
 }

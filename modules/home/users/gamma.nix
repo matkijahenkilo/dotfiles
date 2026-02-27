@@ -23,6 +23,5 @@
 
   home.packages = with pkgs; [
     dbeaver-bin
-    jetbrains.idea-oss
   ];
 }

@@ -19,8 +19,4 @@
     ../sessions/plasma
     ../fcitx5.nix
   ];
-
-  home.packages = with pkgs; [
-    jetbrains.idea-oss
-  ];
 }
