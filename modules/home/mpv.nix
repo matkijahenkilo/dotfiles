@@ -3,10 +3,10 @@
   programs.mpv = {
     enable = true;
     config = {
-      geometry = "800x600";
+      geometry = "1280x720";
       gpu-api = "vulkan";
       hwdec = "auto";
-      keep-open = "yes";
+      keep-open = "no";
       profile = "high-quality";
       save-position-on-quit = "yes";
       target-colorspace-hint = "no";
@@ -17,10 +17,5 @@
       sponsorblock
       webtorrent-mpv-hook
     ];
-  };
-
-  home.file.".mozilla/native-messaging-hosts/ff2mpv.json" = {
-    enable = config.programs.firefox.enable;
-    source = "${pkgs.ff2mpv}/lib/mozilla/native-messaging-hosts/ff2mpv.json";
   };
 }

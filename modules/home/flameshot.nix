@@ -13,7 +13,7 @@ let
 
     flameshot gui --accept-on-select -c -p ''$filepath
 
-    ${lib.getExe pkgs.mpv} --keep-open=no ${sound}
+    ${lib.getExe pkgs.mpv} ${sound}
   '';
 
   flameshot-full-ss = pkgs.writeShellScriptBin "flameshot-full-ss" ''
@@ -27,7 +27,7 @@ let
 
     flameshot full -c -p ''$filepath
 
-    ${lib.getExe pkgs.mpv} --keep-open=no ${sound}
+    ${lib.getExe pkgs.mpv} ${sound}
   '';
 in
 {
