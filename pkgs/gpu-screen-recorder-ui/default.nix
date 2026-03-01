@@ -8,35 +8,30 @@
   makeWrapper,
   gpu-screen-recorder,
   gpu-screen-recorder-notification,
-  libx11,
-  libxrender,
-  libxrandr,
-  libxcomposite,
-  libxi,
-  libxcursor,
+  libX11,
+  libXrender,
+  libXrandr,
+  libXcomposite,
+  libXi,
+  libXcursor,
   libglvnd,
   libpulseaudio,
   libdrm,
-  dbus,
   wayland,
   wayland-scanner,
   wrapperDir ? "/run/wrappers/bin",
   gitUpdater,
 }:
 
-stdenv.mkDerivation (finalAttrs: {
+stdenv.mkDerivation rec {
   pname = "gpu-screen-recorder-ui";
-  version = "1.10.8";
+  version = "1.8.0";
 
   src = fetchgit {
     url = "https://repo.dec05eba.com/gpu-screen-recorder-ui";
-    tag = finalAttrs.version;
-    hash = "sha256-x7MBTUWDKCzClq4ukgtFazOD/RLkX5lgmm9slN5BjVk=";
+    tag = version;
+    hash = "sha256-5ifMFwsgDNq6yHnI/YAnS1thHyufaYNKeCXd7RdN6/o=";
   };
-
-  patches = [
-    ./remove-gnome-postinstall.patch
-  ];
 
   postPatch = ''
     substituteInPlace depends/mglpp/depends/mgl/src/gl.c \
@@ -45,10 +40,7 @@ stdenv.mkDerivation (finalAttrs: {
       --replace-fail "libEGL.so.1" "${lib.getLib libglvnd}/lib/libEGL.so.1"
 
     substituteInPlace extra/gpu-screen-recorder-ui.service \
-      --replace-fail "ExecStart=gsr-ui" "ExecStart=$out/bin/gsr-ui"
-
-    substituteInPlace gpu-screen-recorder.desktop \
-      --replace-fail "Exec=gsr-ui" "Exec=$out/bin/gsr-ui"
+      --replace-fail "ExecStart=${meta.mainProgram}" "ExecStart=$out/bin/${meta.mainProgram}"
   '';
 
   nativeBuildInputs = [
@@ -59,16 +51,15 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   buildInputs = [
-    libx11
-    libxrender
-    libxrandr
-    libxcomposite
-    libxi
-    libxcursor
+    libX11
+    libXrender
+    libXrandr
+    libXcomposite
+    libXi
+    libXcursor
     libglvnd
     libpulseaudio
     libdrm
-    dbus
     wayland
     wayland-scanner
   ];
@@ -85,7 +76,7 @@ stdenv.mkDerivation (finalAttrs: {
       };
     in
     ''
-      wrapProgram "$out/bin/gsr-ui" \
+      wrapProgram "$out/bin/${meta.mainProgram}" \
         --prefix PATH : "${wrapperDir}" \
         --suffix PATH : "${
           lib.makeBinPath [
@@ -105,4 +96,4 @@ stdenv.mkDerivation (finalAttrs: {
     maintainers = with lib.maintainers; [ js6pak ];
     platforms = lib.platforms.linux;
   };
-})
+}
