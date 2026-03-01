@@ -3,6 +3,9 @@ let
   sounds-path = ../../assets/sounds;
 
   gsr-toggle-show = pkgs.writeShellScriptBin "gsr-toggle-show" ''
+    if ! pidof .gsr-ui-wrapped > /dev/null; then
+      exec gsr-ui
+    fi
     gsr-ui-cli toggle-show
   '';
 
