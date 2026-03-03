@@ -1,5 +1,4 @@
 {
-  lib,
   inputs,
   pkgs,
   config,
@@ -7,15 +6,6 @@
 }:
 let
   tsih-robo-path = "/srv/tsih-robo-ktx";
-  runScript = pkgs.writeShellScript "runTsihRoboScript" ''
-    if [ -f "tsih-robo-ktx.jar" ]; then
-      echo "Running from JAR file"
-      exec ${lib.getExe pkgs.jre} -jar tsih-robo-ktx.jar
-    else
-      echo "Running from derivation"
-      exec ${inputs.tsih-robo-ktx.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/tsih-robo-ktx
-    fi
-  '';
 in
 {
   users.users.tsih = {
@@ -42,7 +32,7 @@ in
         User = config.users.users.tsih.name;
         Group = config.users.users.tsih.group;
         WorkingDirectory = tsih-robo-path;
-        ExecStart = "${runScript}";
+        ExecStart = "${inputs.tsih-robo-ktx.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/tsih-robo-ktx";
         Restart = "on-failure";
         RestartSec = "5s";
       };
