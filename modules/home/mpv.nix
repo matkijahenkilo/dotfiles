@@ -11,6 +11,7 @@
       save-position-on-quit = "yes";
       target-colorspace-hint = "no";
       vo = "gpu-next";
+      ao = "pulse";
     };
     scripts = with pkgs.mpvScripts; [
       mpris
