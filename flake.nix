@@ -56,7 +56,6 @@
         system = "x86_64-linux";
         config = {
           allowUnfree = true;
-          rocmSupport = true;
         };
         overlays = import ./overlays/nixosOverlays.nix { pkgs = nixosPkgs; };
       };
