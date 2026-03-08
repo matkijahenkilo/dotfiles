@@ -32,7 +32,9 @@ in
         User = config.users.users.tsih.name;
         Group = config.users.users.tsih.group;
         WorkingDirectory = tsih-robo-path;
-        ExecStart = "${inputs.tsih-robo-ktx.packages.${pkgs.stdenv.hostPlatform.system}.default}/bin/tsih-robo-ktx";
+        ExecStart = "${
+          inputs.tsih-robo-ktx.packages.${pkgs.stdenv.hostPlatform.system}.default
+        }/bin/tsih-robo-ktx";
         Restart = "on-failure";
         RestartSec = "5s";
       };
