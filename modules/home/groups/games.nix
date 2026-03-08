@@ -25,6 +25,6 @@
       xivlauncher
       prismlauncher
       steamtinkerlaunch
-      wineWowPackages.staging
+      wineWow64Packages.stable
     ];
 }

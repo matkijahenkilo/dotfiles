@@ -1,5 +1,5 @@
 # Tested on Davinci 20.0.1. It works for loading videos and exporting in H264/5 & AV1
-# This module doesn't seems to crack Davinci 20.2.1
+# This module doesn't seems to crack Davinci 20.2.1 and crashes 20.3.2
 # Even if following this guide https://www.reddit.com/r/LinuxCrackSupport/comments/1nfqhld/davinci_resolve_studio_202_fix_linux_crack_guide/
 # nixpkgs rev used for this tests: 59e69648d345d6e8fef86158c555730fa12af9de
 
@@ -15,13 +15,13 @@ in
 let
   ffmpeg-encoder-plugin = pkgs.stdenv.mkDerivation (finalAttrs: {
     pname = "ffmpeg-encoder-plugin";
-    version = "1.1.0";
+    version = "1.2.1";
 
     src = pkgs.fetchFromGitHub {
       owner = "EdvinNilsson";
       repo = "ffmpeg_encoder_plugin";
       tag = "v${finalAttrs.version}";
-      hash = "sha256-orghLIzz9rUnUwka9C71Z2nj+qxHuggrKNlYjLKswQw=";
+      hash = "sha256-F4Q8YCXD5UldTwLbWK4nHacNPQ/B+4yLL96sq7xZurM=";
     };
 
     nativeBuildInputs = with pkgs; [
@@ -43,7 +43,8 @@ let
 
   davinci-resolve-studio-cracked =
     let
-      davinci-patched = pkgs-davinci.davinci-resolve-studio.davinci.overrideAttrs (old: {
+      studioVariant = true; # lazy way to decrease code maintenance
+      davinci = pkgs-davinci.davinci-resolve-studio.davinci.overrideAttrs (old: {
         # script based on https://www.reddit.com/r/LinuxCrackSupport/comments/1nfqhld/davinci_resolve_studio_202_fix_linux_crack_guide/
         #
         # Additionally, it will install ffmpeg_encoder_plugin to enable H264/5 & AV1 exports:
@@ -67,17 +68,15 @@ let
 
     # the following was copied from davinci's derivation from nixpkgs.
     # if davinci updates, this should be updated too
-    # but remember to replace "davinci" with "davinci-patched"
     pkgs.buildFHSEnv {
-      inherit (davinci-patched) pname version;
+      inherit (davinci) pname version;
 
       targetPkgs =
-        pkgs:
-        with pkgs;
-        [
+        pkgs: with pkgs; [
           alsa-lib
           aprutil
           bzip2
+          davinci
           dbus
           expat
           fontconfig
@@ -99,82 +98,70 @@ let
           python3.pkgs.numpy
           udev
           xdg-utils # xdg-open needed to open URLs
-          xorg.libICE
-          xorg.libSM
-          xorg.libX11
-          xorg.libXcomposite
-          xorg.libXcursor
-          xorg.libXdamage
-          xorg.libXext
-          xorg.libXfixes
-          xorg.libXi
-          xorg.libXinerama
-          xorg.libXrandr
-          xorg.libXrender
-          xorg.libXt
-          xorg.libXtst
-          xorg.libXxf86vm
-          xorg.libxcb
-          xorg.xcbutil
-          xorg.xcbutilimage
-          xorg.xcbutilkeysyms
-          xorg.xcbutilrenderutil
-          xorg.xcbutilwm
-          xorg.xkeyboardconfig
+          libice
+          libsm
+          libx11
+          libxcomposite
+          libxcursor
+          libxdamage
+          libxext
+          libxfixes
+          libxi
+          libxinerama
+          libxrandr
+          libxrender
+          libxt
+          libxtst
+          libxxf86vm
+          libxcb
+          libxcb-util
+          libxcb-image
+          libxcb-keysyms
+          libxcb-render-util
+          libxcb-wm
+          xkeyboard-config
           zlib
-        ]
-        ++ [ davinci-patched ];
+        ];
 
-      extraPreBwrapCmds = ''
+      extraPreBwrapCmds = lib.optionalString studioVariant ''
         mkdir -p ~/.local/share/DaVinciResolve/license || exit 1
         mkdir -p ~/.local/share/DaVinciResolve/Extras || exit 1
       '';
 
-      extraBwrapArgs = [
-        ''--bind "$HOME"/.local/share/DaVinciResolve/license ${davinci-patched}/.license''
-        ''--bind "$HOME"/.local/share/DaVinciResolve/Extras ${davinci-patched}/Extras''
+      extraBwrapArgs = lib.optionals studioVariant [
+        ''--bind "$HOME"/.local/share/DaVinciResolve/license ${davinci}/.license''
+        ''--bind "$HOME"/.local/share/DaVinciResolve/Extras ${davinci}/Extras''
       ];
 
-      runScript = "${lib.getExe pkgs.bash} ${pkgs.writeText "davinci-wrapper" ''
+      runScript = "${pkgs.bash}/bin/bash ${pkgs.writeText "davinci-wrapper" ''
         export QT_XKB_CONFIG_ROOT="${pkgs.xkeyboard_config}/share/X11/xkb"
-        export QT_PLUGIN_PATH="${davinci-patched}/libs/plugins:$QT_PLUGIN_PATH"
-        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib:/usr/lib32:${davinci-patched}/libs
-        ${davinci-patched}/bin/resolve
+        export QT_PLUGIN_PATH="${davinci}/libs/plugins:$QT_PLUGIN_PATH"
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib:/usr/lib32:${davinci}/libs
+        ${davinci}/bin/resolve
       ''}";
 
       extraInstallCommands = ''
         mkdir -p $out/share/applications $out/share/icons/hicolor/128x128/apps
-        ln -s ${davinci-patched}/share/applications/*.desktop $out/share/applications/
-        ln -s ${davinci-patched}/graphics/DV_Resolve.png $out/share/icons/hicolor/128x128/apps/davinci-resolve-studio.png
+        ln -s ${davinci}/share/applications/*.desktop $out/share/applications/
+        ln -s ${davinci}/graphics/DV_Resolve.png $out/share/icons/hicolor/128x128/apps/davinci-resolve${lib.optionalString studioVariant "-studio"}.png
       '';
 
       passthru = {
-        inherit davinci-patched;
-        updateScript = lib.getExe (
-          pkgs.writeShellApplication {
-            name = "update-davinci-resolve";
-            runtimeInputs = [
-              pkgs.curl
-              pkgs.jq
-              pkgs.common-updater-scripts
-            ];
-            text = ''
-              set -o errexit
-              drv=pkgs/by-name/da/davinci-resolve/package.nix
-              currentVersion=${lib.escapeShellArg davinci-patched.version}
-              downloadsJSON="$(curl --fail --silent https://www.blackmagicdesign.com/api/support/us/downloads.json)"
+        inherit davinci;
+      };
 
-              latestLinuxVersion="$(echo "$downloadsJSON" | jq '[.downloads[] | select(.urls.Linux) | .urls.Linux[] | select(.downloadTitle | test("DaVinci Resolve")) | .downloadTitle]' | grep -oP 'DaVinci Resolve \K\d+\.\d+(\.\d+)?' | sort | tail -n 1)"
-              update-source-version davinci-resolve "$latestLinuxVersion" --source-key=davinci.src
-
-              # Since the standard and studio both use the same version we need to reset it before updating studio
-              sed -i -e "s/""$latestLinuxVersion""/""$currentVersion""/" "$drv"
-
-              latestStudioLinuxVersion="$(echo "$downloadsJSON" | jq '[.downloads[] | select(.urls.Linux) | .urls.Linux[] | select(.downloadTitle | test("DaVinci Resolve")) | .downloadTitle]' | grep -oP 'DaVinci Resolve Studio \K\d+\.\d+(\.\d+)?' | sort | tail -n 1)"
-              update-source-version davinci-resolve-studio "$latestStudioLinuxVersion" --source-key=davinci.src
-            '';
-          }
-        );
+      meta = {
+        description = "Professional video editing, color, effects and audio post-processing";
+        homepage = "https://www.blackmagicdesign.com/products/davinciresolve";
+        license = lib.licenses.unfree;
+        maintainers = with lib.maintainers; [
+          amarshall
+          XBagon
+          toXel
+        ];
+        platforms = [ "x86_64-linux" ];
+        sourceProvenance = with lib.sourceTypes; [ binaryNativeCode ];
+        mainProgram = "davinci-resolve${lib.optionalString studioVariant "-studio"}";
       };
     };
 in
