@@ -19,7 +19,7 @@
     ../sessions/plasma
     ../groups/games.nix
     ../fcitx5.nix
-    ../qtcreator.nix
+    ../clion.nix
   ];
 
   home.packages = with pkgs; [

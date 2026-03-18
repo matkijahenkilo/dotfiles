@@ -1,11 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
-    qtcreator
-    qt6.qtbase
+    jetbrains.clion
     cmake
-    gnumake
-    gcc
-    gdb
   ];
 }
