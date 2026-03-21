@@ -6,8 +6,8 @@
   programs.nixcord = {
     enable = true;
     discord = {
-      enable = true;
-      vencord.enable = true;
+      equicord.enable = true;
+      vencord.enable = false;
       branch = "stable";
       autoscroll.enable = true;
     };
@@ -24,6 +24,9 @@
         petpet.enable = true;
         readAllNotificationsButton.enable = true;
         ClearURLs.enable = true;
+        # equicord plugins
+        forwardAnywhere.enable = true;
+        noTypingAnimation.enable = true;
       };
     };
   };
