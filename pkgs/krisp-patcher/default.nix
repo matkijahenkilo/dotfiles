@@ -20,4 +20,6 @@ stdenv.mkDerivation {
       ]
     ))
   ];
+
+  meta.mainProgram = "krisp-patcher";
 }
