@@ -20,4 +20,6 @@
       ];
     };
   };
+
+  services.ollama.package = pkgs.ollama-rocm;
 }
