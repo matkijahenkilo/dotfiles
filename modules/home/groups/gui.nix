@@ -3,7 +3,7 @@
   imports = [
     ../discord.nix
     ../firefox.nix
-    ../alacritty.nix
+    ../kitty.nix
     # ../stylix.nix # will break DE when using home-manager as NixOS module
     ../thunderbird.nix
     ../mpv.nix

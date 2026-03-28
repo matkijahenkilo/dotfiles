@@ -1,4 +1,4 @@
 { pkgs, ... }:
 [
-  (import ./alacritty.nix)
+  (import ./kitty.nix)
 ]
