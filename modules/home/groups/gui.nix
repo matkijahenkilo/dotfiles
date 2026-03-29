@@ -15,6 +15,9 @@
     obsidian
     qbittorrent
     libreoffice
+    (stoat-desktop.override {
+      electron_38 = pkgs.electron;
+    })
     telegram-desktop
     jetbrains.idea-oss
   ];
