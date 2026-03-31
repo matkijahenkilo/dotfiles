@@ -65,6 +65,7 @@
     signing = {
       key = "A1F1B36F06AB29ECA2C85BA2523C357756BA411C";
       signByDefault = true;
+      format = null; # The default value of `programs.git.signing.format` has changed from `"openpgp"` to `null`.
     };
   };
 
