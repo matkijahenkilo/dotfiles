@@ -52,18 +52,8 @@
             };
           };
           classicui = {
-            # replace with stylix when possible
             globalSection = {
-              Font = "DejaVu Sans 18";
-              MenuFont = "DejaVu Sans 10";
-              Theme = "plasma";
-              DarkTheme = "plasma";
-              TrayFont = "DejaVu Sans 10";
-              UseAccentColor = "False";
-              UseDarkTheme = "False";
               "Vertical Candidate List" = "True";
-              ForceWaylandDPI = 0;
-              EnableFractionalScale = "True";
             };
           };
         };

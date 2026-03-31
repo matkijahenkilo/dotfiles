@@ -74,7 +74,9 @@
           "tsih"
           "nanako"
         ];
-        fcitx5.enable = false; # disabled until options to customize it specifically are made
+        fcitx5.fonts.override = {
+          sizes.popups = 18;
+        };
       };
     }
   ];
