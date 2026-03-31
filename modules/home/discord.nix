@@ -1,4 +1,9 @@
-{ lib, inputs, pkgs, ... }:
+{
+  lib,
+  inputs,
+  pkgs,
+  ...
+}:
 {
   # https://github.com/FlameFlag/nixcord
   imports = [ inputs.nixcord.homeModules.nixcord ];
@@ -32,10 +37,10 @@
   };
 
   home.packages =
-  let
-    krisp-patcher = pkgs.callPackage (../../pkgs/krisp-patcher) { };
-  in
-  [
-    (pkgs.writeShellScriptBin "discord-patch-krisp" "find ~/.config/discord -name 'discord_krisp.node' -exec ${lib.getExe krisp-patcher} {} \\;")
-  ];
+    let
+      krisp-patcher = pkgs.callPackage (../../pkgs/krisp-patcher) { };
+    in
+    [
+      (pkgs.writeShellScriptBin "discord-patch-krisp" "find ~/.config/discord -name 'discord_krisp.node' -exec ${lib.getExe krisp-patcher} {} \\;")
+    ];
 }
