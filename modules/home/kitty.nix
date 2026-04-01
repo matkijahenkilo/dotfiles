@@ -8,11 +8,11 @@
     TERMINAL = lib.mkDefault "kitty";
   };
 
-  xdg.desktopEntries.Kitty = {
+  xdg.desktopEntries.kitty = {
     name = "Kitty";
     genericName = "Terminal emulator";
     exec = "kitty";
-    icon = ../../assets/cat.png;
+    icon = ../../assets/tsih.png;
     terminal = false;
   };
 }
