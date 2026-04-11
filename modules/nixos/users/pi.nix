@@ -9,4 +9,9 @@
   boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
   boot.loader.limine.enable = lib.mkForce false;
   i18n.extraLocales = lib.mkForce [ ];
+
+  services.earlyoom = {
+    enable = true;
+    freeMemThreshold = 20;
+  };
 }
