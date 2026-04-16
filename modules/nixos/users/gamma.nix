@@ -17,7 +17,7 @@
     ../services/minecraft-server.nix
     ../services/palserver.nix
     ../llm.nix
-    ../virtualization.nix
+    # ../virtualization.nix
     ../davinci-resolve-studio.nix
   ];
 
