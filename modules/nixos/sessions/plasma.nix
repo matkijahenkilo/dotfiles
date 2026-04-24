@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   services = {
     # sddm and plasma-login-manager degrades everything when starting up plasma from them
@@ -17,4 +17,7 @@
   ];
 
   programs.partition-manager.enable = true;
+
+  # force gtk apps to use kde file picker
+  environment.sessionVariables.GTK_USE_PORTAL = "1";
 }
