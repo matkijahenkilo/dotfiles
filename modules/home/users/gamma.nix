@@ -20,6 +20,7 @@
     ../groups/games.nix
     ../fcitx5.nix
     ../clion.nix
+    ../alcom.nix
   ];
 
   home.packages = with pkgs; [
