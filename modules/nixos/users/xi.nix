@@ -11,6 +11,7 @@
 
     ../gnupg-agent.nix
     ../zerotierone.nix
+    ../virtualisation.nix
 
     ../services/palserver.nix
     ../services/minecraft-server.nix
