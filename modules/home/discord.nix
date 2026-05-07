@@ -14,6 +14,7 @@
       equicord.enable = true;
       vencord.enable = false;
       branch = "stable";
+      krisp.enable = true;
       autoscroll.enable = true;
     };
     config = {
