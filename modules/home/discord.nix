@@ -36,12 +36,4 @@
       };
     };
   };
-
-  home.packages =
-    let
-      krisp-patcher = pkgs.callPackage (../../pkgs/krisp-patcher) { };
-    in
-    [
-      (pkgs.writeShellScriptBin "discord-patch-krisp" "find ~/.config/discord -name 'discord_krisp.node' -exec ${lib.getExe krisp-patcher} {} \\;")
-    ];
 }
