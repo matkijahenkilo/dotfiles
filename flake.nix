@@ -7,7 +7,7 @@
     nixpkgs-zsh-git-prompt.url = "github:nixos/nixpkgs/4f0dadbf38ee4cf4cc38cbc232b7708fddf965bc";
     # recent versions of davinci doesn't work, keep on v20.0.1
     nixpkgs-davinci.url = "github:nixos/nixpkgs/d457818da697aa7711ff3599be23ab8850573a46";
-    switch-emulators.url = "github:liberodark/my-flakes";
+    switch-emulators.url = "github:liberodark/my-flakes/a6959099643d14b3c5d357afdcaa099570c5b6fe"; # 26.05 is broken
 
     home-manager = {
       url = "github:nix-community/home-manager";

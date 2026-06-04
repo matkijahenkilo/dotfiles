@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, lib, ... }:
 let
   preferences = {
     "widget.use-xdg-desktop-portal.file-picker" = 1;
@@ -8,6 +8,7 @@ in
   programs.firefox = {
     enable = true;
     nativeMessagingHosts = [ ];
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
     profiles = {
       tsih = {
         id = 0;

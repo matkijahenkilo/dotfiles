@@ -15,7 +15,9 @@
       vencord.enable = false;
       branch = "stable";
       krisp.enable = true;
-      autoscroll.enable = true;
+      commandLineArgs = [
+        "--enable-blink-features=MiddleClickAutoscroll"
+      ];
     };
     config = {
       frameless = false;

@@ -9,20 +9,22 @@
   libxrender,
   libxrandr,
   libxext,
+  libxkbcommon,
   libglvnd,
   wayland,
   wayland-scanner,
+  pango,
   gitUpdater,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gpu-screen-recorder-notification";
-  version = "1.1.0";
+  version = "1.3.2";
 
   src = fetchgit {
     url = "https://repo.dec05eba.com/gpu-screen-recorder-notification";
     tag = finalAttrs.version;
-    hash = "sha256-ODifZ046DEBNiGT3+S6pQyF8ekrb6LIHWton8nv1MBo=";
+    hash = "sha256-N2sBD6OhBByuoKz8SIsEsYxaw/IUeQWHOVRuItBQH28=";
   };
 
   postPatch = ''
@@ -43,12 +45,19 @@ stdenv.mkDerivation (finalAttrs: {
     libxrender
     libxrandr
     libxext
+    libxkbcommon
     libglvnd
     wayland
     wayland-scanner
+    pango
   ];
 
+  mesonBuildType = "release";
+
   passthru.updateScript = gitUpdater { };
+
+  strictDeps = true;
+  __structuredAttrs = true;
 
   meta = {
     description = "Notification in the style of ShadowPlay";
