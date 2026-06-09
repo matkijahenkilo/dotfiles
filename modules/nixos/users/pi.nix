@@ -3,6 +3,7 @@
   imports = [
     ../groups/essentials.nix
     ../services/tsih-robo-ktx.nix
+    ../radicale.nix
   ];
 
   # override configs for the raspberry pi host
