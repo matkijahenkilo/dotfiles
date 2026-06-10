@@ -16,6 +16,15 @@
     elisa
   ];
 
+  environment.systemPackages = with pkgs.kdePackages; [
+    korganizer
+    # required stuff for syncing CalDAV with kde's calendar
+    # requires a password manager like kwallet too, it seems
+    akonadi-calendar
+    kdepim-addons
+    kdepim-runtime
+  ];
+
   programs.partition-manager.enable = true;
 
   # force gtk apps to use kde file picker
