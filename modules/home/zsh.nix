@@ -31,7 +31,7 @@ in
       asd = "yt-dlp -t mp4 $argv[$]";
       asdx = "yt-dlp -x --audio-format opus $argv[$]";
       asdxx = "yt-dlp -t mp3 $argv[$]";
-      qwe = "gallery-dl -D ./ --ugoira-conv $argv[$]";
+      qwe = "gallery-dl --cookies ~/gallery-dl/cookies.txt -D ./ --ugoira-conv $argv[$]";
       nanakofetch = "command fastfetch --logo-width 42 --logo-height 25 --logo ~/Pictures/.fastfetch.jpg";
       ls = "ls -l --color=auto";
       la = "ls -la --color=auto";
