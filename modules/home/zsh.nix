@@ -119,6 +119,7 @@ in
       # chvidsize [file] [size in mb (optional)]
       # e.g. chvidsize NYN姉貴ｗ.mp4 5
       chvidsize() {
+        local target_size_mb target_size length length_round_up total_bitrate audio_bitrate video_bitrate
         target_size_mb=10 # discord size limit is 10mb
         if [ ! -z $2 ]; then # check if argument was specified
           target_size_mb=$2
@@ -137,6 +138,7 @@ in
       # cuts a video and reenders it, shrinking it's size to 10mb by default or a custom target value
       # e.g. cutdiscordclip 'MUSIC 22 11 2025.mp4' 1:30 2:00 16
       cutdiscordclip() {
+        local cutVideoName
         cutVideoName="''${1//.mp4/}-cut.mp4"
 
         echo 'cutting video'
@@ -151,17 +153,45 @@ in
 
       # mkgif [files]
       mkgif() {
-        for file in $argv
+        local file
+        for file in $@
         do
           ${lib.getExe pkgs.ffmpeg} -y -i $file -vf 'setpts=1*PTS' -c:v libwebp -loop 0 -pix_fmt yuva420p "''${file//.mp4/}.webp"
         done
       }
 
       # tojpg [files]
+      #
+      # when converting vrchat screenshots to jpg to upload on steam,
+      # it might as well change the file name
+      # and copy it to the thumbnails folder
+      #
+      # (but that only works if screenshots are taken from
+      # vrchat's camera and the function is being
+      # run inside steam's screenshots folder)
       tojpg() {
-        for file in $argv
+        local fullFilePath dir file temp cleanDigits steamScreenshotName
+        for fullFilePath in "$@"
         do
-          ${lib.getExe pkgs.ffmpeg} -y -i $file "''${file//.png/}.jpg"
+          dir="''${fullFilePath%/*}/"
+          file="''${fullFilePath##*/}"
+          if [[ -d "thumbnails" && "$file" == VRChat_* ]]; then
+            temp="''${file#VRChat_}"
+
+            temp=''${temp[1,19]}
+
+            cleanDigits="''${temp//[-_]/}"
+
+            steamScreenshotName="''${cleanDigits}_1.jpg"
+
+            echo "Converting $fullFilePath to $steamScreenshotName"
+            ${lib.getExe pkgs.ffmpeg} -hide_banner -loglevel error -y -i $fullFilePath $steamScreenshotName
+
+            echo "Copying $steamScreenshotName into thumbnails folder"
+            cp "$steamScreenshotName" thumbnails
+          else
+            ${lib.getExe pkgs.ffmpeg} -y -i $fullFilePath "''${file%.*}.jpg"
+          fi
         done
       }
     '';
