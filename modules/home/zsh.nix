@@ -149,9 +149,12 @@ in
         rm $cutVideoName
       }
 
-      # mkgif [file]
+      # mkgif [files]
       mkgif() {
-        ${lib.getExe pkgs.ffmpeg} -y -i $1 -vf 'setpts=1*PTS' -c:v libwebp -loop 0 -pix_fmt yuva420p "''${1//.mp4/}.webp"
+        for file in $argv
+        do
+          ${lib.getExe pkgs.ffmpeg} -y -i $file -vf 'setpts=1*PTS' -c:v libwebp -loop 0 -pix_fmt yuva420p "''${file//.mp4/}.webp"
+        done
       }
 
       # tojpg [files]
