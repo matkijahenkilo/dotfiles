@@ -21,7 +21,11 @@
     };
   };
 
-  services.ollama.package = pkgs.ollama-rocm;
+  # gfx1102 - Radeon RX 7600
+  services.ollama = {
+    package = pkgs.ollama-rocm;
+    rocmOverrideGfx = "11.0.2";
+  };
 
   # fix monitor not using full rgb in tty screens
   hardware.display = {
