@@ -153,6 +153,14 @@ in
       mkgif() {
         ${lib.getExe pkgs.ffmpeg} -y -i $1 -vf 'setpts=1*PTS' -c:v libwebp -loop 0 -pix_fmt yuva420p "''${1//.mp4/}.webp"
       }
+
+      # tojpg [files]
+      tojpg() {
+        for file in $argv
+        do
+          ${lib.getExe pkgs.ffmpeg} -y -i $file "''${file//.png/}.jpg"
+        done
+      }
     '';
   };
 }
