@@ -110,11 +110,11 @@ in
       # Functions
       # chcodecs [file]
       # changes the video and audio codec of file to av1 and opus
-      chcodecs() ${lib.getExe pkgs.ffmpeg} -i $1 -c:v libsvtav1 -c:a libopus "''${1//.mp4/}-av1+opus.mp4"
+      chcodecs() ${lib.getExe pkgs.ffmpeg} -i $1 -c:v libsvtav1 -c:a libopus "''${1%.*}-av1+opus.mp4"
 
       # cutvid [file] [start] [end]
       # e.g. cutvid MGR姉貴かわいい.mp4 1:30 3:00
-      cutvid() ${lib.getExe pkgs.ffmpeg} -y -ss $2 -to $3 -i $1 -c copy "''${1//.mp4/}-cut.mp4"
+      cutvid() ${lib.getExe pkgs.ffmpeg} -y -ss $2 -to $3 -i $1 -c copy "''${1%.*}-cut.mp4"
 
       # chvidsize [file] [size in mb (optional)]
       # e.g. chvidsize NYN姉貴ｗ.mp4 5
@@ -131,7 +131,7 @@ in
         audio_bitrate=$((128 * 1000)) # 128k bit rate
         video_bitrate=$(($total_bitrate - $audio_bitrate))
 
-        ${lib.getExe pkgs.ffmpeg} -y -i $1 -c:v libsvtav1 -c:a libopus -b:v $video_bitrate -b:a $audio_bitrate "''${1//.mp4/}-shrinked.mp4"
+        ${lib.getExe pkgs.ffmpeg} -y -i $1 -c:v libsvtav1 -c:a libopus -b:v $video_bitrate -b:a $audio_bitrate "''${1%.*}-shrinked.mp4"
       }
 
       # cutdiscordclip [file] [start] [end] [size in mb (optional)]
@@ -156,7 +156,7 @@ in
         local file
         for file in $@
         do
-          ${lib.getExe pkgs.ffmpeg} -y -i $file -vf 'setpts=1*PTS' -c:v libwebp -loop 0 -pix_fmt yuva420p "''${file//.mp4/}.webp"
+          ${lib.getExe pkgs.ffmpeg} -y -i $file -vf 'setpts=1*PTS' -c:v libwebp -loop 0 -pix_fmt yuva420p "''${file%.*}.webp"
         done
       }
 
@@ -185,12 +185,12 @@ in
             steamScreenshotName="''${cleanDigits}_1.jpg"
 
             echo "Converting $fullFilePath to $steamScreenshotName"
-            ${lib.getExe pkgs.ffmpeg} -hide_banner -loglevel error -y -i $fullFilePath $steamScreenshotName
+            ${lib.getExe pkgs.ffmpeg} -hide_banner -loglevel error -y -i $fullFilePath -q:v 2 -pix_fmt yuv444p $steamScreenshotName
 
-            echo "Copying $steamScreenshotName into thumbnails folder"
-            cp "$steamScreenshotName" thumbnails
+            echo "Resizing $steamScreenshotName for the thumbnails folder"
+            ${lib.getExe pkgs.ffmpeg} -hide_banner -loglevel error -y -i $steamScreenshotName -vf "scale=200:-2" "thumbnails/$steamScreenshotName"
           else
-            ${lib.getExe pkgs.ffmpeg} -y -i $fullFilePath "''${file%.*}.jpg"
+            ${lib.getExe pkgs.ffmpeg} -y -i $fullFilePath -q:v 2 -pix_fmt yuv444p "''${file%.*}.jpg"
           fi
         done
       }
