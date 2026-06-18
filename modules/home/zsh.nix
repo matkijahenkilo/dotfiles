@@ -114,7 +114,7 @@ in
 
       # cutvid [file] [start] [end]
       # e.g. cutvid MGR姉貴かわいい.mp4 1:30 3:00
-      cutvid() ${lib.getExe pkgs.ffmpeg} -y -ss $2 -to $3 -i $1 -c copy "''${1%.*}-cut.mp4"
+      cutvid() ${lib.getExe pkgs.ffmpeg} -hide_banner -loglevel error -y -ss $2 -to $3 -i $1 -c copy "''${1%.*}-cut.mp4"
 
       # chvidsize [file] [size in mb (optional)]
       # e.g. chvidsize NYN姉貴ｗ.mp4 5
@@ -131,7 +131,7 @@ in
         audio_bitrate=$((128 * 1000)) # 128k bit rate
         video_bitrate=$(($total_bitrate - $audio_bitrate))
 
-        ${lib.getExe pkgs.ffmpeg} -y -i $1 -c:v libsvtav1 -c:a libopus -b:v $video_bitrate -b:a $audio_bitrate "''${1%.*}-shrinked.mp4"
+        ${lib.getExe pkgs.ffmpeg} -hide_banner -loglevel error -y -i $1 -c:v libsvtav1 -c:a libopus -b:v $video_bitrate -b:a $audio_bitrate "''${1%.*}-shrinked.mp4"
       }
 
       # cutdiscordclip [file] [start] [end] [size in mb (optional)]
@@ -139,12 +139,16 @@ in
       # e.g. cutdiscordclip 'MUSIC 22 11 2025.mp4' 1:30 2:00 16
       cutdiscordclip() {
         local cutVideoName
-        cutVideoName="''${1//.mp4/}-cut.mp4"
+        cutVideoName="''${1%.*}-cut.mp4"
 
-        echo 'cutting video'
+        echo 'cutting video...'
         cutvid "$1" "$2" "$3"
 
-        echo 'changing video size to $4mb'
+        if [ -z $4 ]; then
+          echo 'changing video size to 10mb...'
+        else
+          echo 'changing video size to '$4'mb...'
+        fi
         chvidsize "$cutVideoName" "$4"
 
         # delete intermediate video
@@ -190,7 +194,7 @@ in
             echo "Resizing $steamScreenshotName for the thumbnails folder"
             ${lib.getExe pkgs.ffmpeg} -hide_banner -loglevel error -y -i $steamScreenshotName -vf "scale=200:-2" "thumbnails/$steamScreenshotName"
           else
-            ${lib.getExe pkgs.ffmpeg} -y -i $fullFilePath -q:v 2 -pix_fmt yuv444p "''${file%.*}.jpg"
+            ${lib.getExe pkgs.ffmpeg} -hide_banner -loglevel error -y -i $fullFilePath -q:v 2 -pix_fmt yuv444p "''${file%.*}.jpg"
           fi
         done
       }
