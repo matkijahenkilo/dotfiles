@@ -20,11 +20,9 @@
       bottles
       etterna
       r2modman
-      opentrack
-      archipelago
       xivlauncher
       prismlauncher
-      # steamtinkerlaunch
+      deadlock-mod-manager
       wineWow64Packages.stable
     ];
 }
