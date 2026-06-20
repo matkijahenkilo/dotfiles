@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-26.05";
     # zsh-git-prompt was removed from nixpkgs by accident
     nixpkgs-zsh-git-prompt.url = "github:nixos/nixpkgs/4f0dadbf38ee4cf4cc38cbc232b7708fddf965bc";
     # recent versions of davinci doesn't work, keep on v20.0.1
