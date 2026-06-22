@@ -1,4 +1,12 @@
 # script taken from https://gist.github.com/nil-vr/09f6ebf470701d007553cf0de7c2c3ee
+# when creating a new project, run:
+#
+# sudo bindfs --perms=u+w --multithreaded "$(dirname "$(dirname "$(readlink "$(which unity)")")")/Editor/2022.3.22f1/Editor/Data/Resources/PackageManager" "$(dirname "$(dirname "$(readlink "$(which unity)")")")/Editor/2022.3.22f1/Editor/Data/Resources/PackageManager"
+#
+# inside of the project folder.
+#
+# to link Unity into alcom:
+# copy result of `whereis unity` (see line 70) and apply the path into alcom's config
 { pkgs, ... }:
 let
   # Define a unityhub that includes fonts.
