@@ -1,0 +1,27 @@
+[Shortcuts]
+BrushesAndStuff=none
+Cycle selection tools=Z
+KisToolCrop=none
+KritaFill/KisToolGradient=none
+KritaShape/KisToolBrush=none
+KritaShape/KisToolMultiBrush=none
+KritaTransform/KisToolMove=none
+Pick brush presets (blue)=A
+Pick brush presets (green)=E
+Pick brush presets (red)=B
+Pick misc tools=G
+Pick painting blending modes=S
+Pick transform tool modes=D
+add_new_paint_layer=Ctrl+W
+create_quick_clipping_group=none
+erase_action=C
+file_close=none
+file_close_all=none
+fill_selection_foreground_color=Alt+Del
+mainToolBar=none
+mirror_canvas=F
+mutate=;\s
+pathsegment-line=none
+quick_ungroup=Ctrl+Shift+G
+reset_fg_bg=none
+toggle_layer_inherit_alpha=Ctrl+Shift+W
