@@ -31,7 +31,7 @@
         callTimer.enable = true;
         petpet.enable = true;
         readAllNotificationsButton.enable = true;
-        ClearURLs.enable = true;
+        clearUrls.enable = true;
         # equicord plugins
         forwardAnywhere.enable = true;
         noTypingAnimation.enable = true;
