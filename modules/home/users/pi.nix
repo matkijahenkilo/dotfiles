@@ -13,6 +13,8 @@
     ../syncthing.nix
   ];
 
+  zsh.ffmpegFunctions.enable = false;
+
   home.packages = with pkgs; [
     btop
   ];
