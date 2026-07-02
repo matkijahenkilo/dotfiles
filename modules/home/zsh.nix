@@ -142,15 +142,19 @@
             echo "$(green Media cut and saved to \"''${final_name}\")"
           }
 
-          # chvidsize [file] [size in mb (optional)]
-          # e.g. chvidsize NYN姉貴ｗ.mp4 5
+          # chvidsize [file] [size in mb (optional)] [ffmpeg preset (optional)]
+          # e.g. chvidsize NYN姉貴ｗ.mp4 5 5
           chvidsize() {
             local start_time=$SECONDS
-            local target_size_mb target_size length length_round_up total_bitrate audio_bitrate video_bitrate max_video_bitrate
+            local target_size_mb target_size length length_round_up total_bitrate audio_bitrate video_bitrate max_video_bitrate preset
 
             target_size_mb=10 # discord size limit
             if [ ! -z $2 ]; then
               target_size_mb=$2
+            fi
+            preset=6
+            if [ ! -z $3 ]; then
+              preset=$3
             fi
 
             target_size=$(($target_size_mb * 1000 * 1000 * 8))
@@ -173,14 +177,12 @@
 
             # 2 pass encoding is not worth it, it takes too much time
             # and doesn't make the quality better. So I'll use 1 pass instead.
-            # A preset lower than 7 would take too long and any higher than 7 would make it too blurry
-            # (though 7 is already blurry enough).
-            echo "$(cyan Encoding video with bitrate arguments:) $(yellow -b:v $video_bitrate -b:a $audio_bitrate)"
+            echo "$(cyan Encoding video with bitrate and preset arguments:) $(yellow -b:v $video_bitrate -b:a $audio_bitrate -preset $preset)"
             ${lib.getExe pkgs.python314Packages.ffmpeg-progress-yield} -p -x ${lib.getExe pkgs.ffmpeg} -hide_banner -loglevel error -y \
               -i $1 \
               -c:v libsvtav1 \
               -b:v $video_bitrate \
-              -preset 7 \
+              -preset $preset \
               -c:a libopus \
               -b:a $audio_bitrate \
               "''${1%.*}-shrinked.''${1##*.}"
@@ -190,9 +192,9 @@
             (${lib.getExe pkgs.mpv} --no-terminal ${sounds-path}/yume-nikki-music8.wav > /dev/null 2>&1 &)
           }
 
-          # cutdiscordclip [file] [start] [end] [size in mb (optional)]
+          # cutdiscordclip [file] [start] [end] [size in mb (optional)] [ffmpeg preset (optional)]
           # cuts a video and encode it, shrinking it's size below 10mb by default or a custom target value
-          # e.g. cutdiscordclip 'MUSIC 22 11 2025.webm' 1:30 2:00 8
+          # e.g. cutdiscordclip 'MUSIC 22 11 2025.webm' 1:30 2:00 8 6
           cutdiscordclip() {
             local cutVideoName="''${1%.*}-cut.''${1##*.}"
 
@@ -204,7 +206,7 @@
             else
               echo "$(cyan Trying to not let the video size go past) $(magenta ''${4}mb)$(cyan ...)"
             fi
-            chvidsize "$cutVideoName" "$4"
+            chvidsize "$cutVideoName" "$4" "$5"
 
             # delete intermediate video
             rm $cutVideoName
