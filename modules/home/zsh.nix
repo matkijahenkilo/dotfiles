@@ -78,6 +78,7 @@
       initContent =
         let
           sounds-path = ../../assets/sounds;
+          ffmpeg-with-progress = "${lib.getExe pkgs.python314Packages.ffmpeg-progress-yield} -p -x ${lib.getExe pkgs.ffmpeg}";
         in
         ''
           zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
@@ -130,13 +131,15 @@
           # chcodecs [file]
           # changes the video and audio codec of file to av1 and opus
           chcodecs() {
-            ${lib.getExe pkgs.python314Packages.ffmpeg-progress-yield} -p -x ${lib.getExe pkgs.ffmpeg} -i $1 -c:v libsvtav1 -c:a libopus "''${1%.*}-av1+opus.''${1##*.}"
+            setopt local_options err_return
+            ${ffmpeg-with-progress} -i $1 -c:v libsvtav1 -c:a libopus "''${1%.*}-av1+opus.''${1##*.}"
             (${lib.getExe pkgs.mpv} --no-terminal ${sounds-path}/yume-nikki-music8.wav > /dev/null 2>&1 &)
           }
 
           # cutmedia [file] [start] [end]
           # e.g. cutmedia MGR姉貴かわいい.mp4 1:30 3:00
           cutmedia() {
+            setopt local_options err_return
             local final_name="''${1%.*}-cut.''${1##*.}"
             ${lib.getExe pkgs.ffmpeg} -hide_banner -loglevel error -y -ss $2 -to $3 -i $1 -c copy $final_name
             echo "$(green Media cut and saved to \"''${final_name}\")"
@@ -145,6 +148,7 @@
           # chvidsize [file] [size in mb (optional)] [ffmpeg preset (optional)]
           # e.g. chvidsize NYN姉貴ｗ.mp4 5 5
           chvidsize() {
+            setopt local_options err_return
             local start_time=$SECONDS
             local target_size_mb target_size length length_round_up total_bitrate audio_bitrate video_bitrate max_video_bitrate preset
 
@@ -178,7 +182,7 @@
             # 2 pass encoding is not worth it, it takes too much time
             # and doesn't make the quality better. So I'll use 1 pass instead.
             echo "$(cyan Encoding video with bitrate and preset arguments:) $(yellow -b:v $video_bitrate -b:a $audio_bitrate -preset $preset)"
-            ${lib.getExe pkgs.python314Packages.ffmpeg-progress-yield} -p -x ${lib.getExe pkgs.ffmpeg} -hide_banner -loglevel error -y \
+            ${ffmpeg-with-progress} -hide_banner -loglevel error -y \
               -i $1 \
               -c:v libsvtav1 \
               -b:v $video_bitrate \
@@ -196,6 +200,7 @@
           # cuts a video and encode it, shrinking it's size below 10mb by default or a custom target value
           # e.g. cutdiscordclip 'MUSIC 22 11 2025.webm' 1:30 2:00 8 6
           cutdiscordclip() {
+            setopt local_options err_return
             local cutVideoName="''${1%.*}-cut.''${1##*.}"
 
             echo "$(cyan Cutting video...)"
@@ -214,10 +219,11 @@
 
           # mkgif [files]
           mkgif() {
+            setopt local_options err_return
             local file
             for file in $@
             do
-              ${lib.getExe pkgs.python314Packages.ffmpeg-progress-yield} -p -x ${lib.getExe pkgs.ffmpeg} -hide_banner -loglevel error -y -i $file -vf 'setpts=1*PTS' -c:v libwebp -loop 0 -pix_fmt yuva420p "''${file%.*}.webp"
+              ${ffmpeg-with-progress} -hide_banner -loglevel error -y -i $file -vf 'setpts=1*PTS' -c:v libwebp -loop 0 -pix_fmt yuva420p "''${file%.*}.webp"
             done
           }
 
@@ -231,6 +237,7 @@
           # vrchat's camera and the function is being
           # run inside steam's screenshots folder)
           tojpg() {
+            setopt local_options err_return
             local fullFilePath dir file temp cleanDigits steamScreenshotName
             for fullFilePath in "$@"
             do
