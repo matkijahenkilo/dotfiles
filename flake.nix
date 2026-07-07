@@ -57,17 +57,21 @@
         config = {
           allowUnfree = true;
         };
-        overlays = import ./overlays/nixosOverlays.nix { pkgs = nixosPkgs; };
+        overlays = [
+          (import ./overlays/micro.nix)
+        ];
       };
       homePkgs = import nixpkgs {
         system = "x86_64-linux";
         config = {
           allowUnfree = true;
         };
+        # try finding a way to make these imports less ugly
         overlays = [
           nixgl.overlay
-        ]
-        ++ import ./overlays/homeOverlays.nix { pkgs = homePkgs; };
+          (import ./overlays/micro.nix)
+          (import ./overlays/kitty.nix)
+        ];
       };
       piPkgs = import nixpkgs {
         system = "aarch64-linux";
