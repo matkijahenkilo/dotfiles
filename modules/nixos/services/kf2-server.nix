@@ -5,6 +5,7 @@
   ...
 }:
 let
+  # TODO: find a way to add custom mods from workshops in the server
   kf2server_path = "/srv/KF2Server";
   kf2server_update = pkgs.writeShellScriptBin "kf2server_update" ''
     set -eo pipefail
@@ -13,29 +14,33 @@ let
     [[ ! -a ~/.steam/sdk64 ]] && ln -s ~/.local/share/Steam/linux64 ~/.steam/sdk64
     exit 0
   '';
-  steam-run-args = lib.concatStrings [
-    "./Binaries/Win64/KFGameSteamServer.bin.x86_64 "
-    "'"
-    "KF-Nuked"
-    # mutators separated by comma
-    "?Mutator=UnofficialKFPatch.UKFPMutator,LTI.Mut"
-    "?LinuxCrashHack=1"
+  kf2server_start = pkgs.writeShellScriptBin "kf2server_start" ''
+    set -eo pipefail
+    ${lib.getExe pkgs.steam-run} ${
+      lib.concatStrings [
+        "./Binaries/Win64/KFGameSteamServer.bin.x86_64 "
+        "'"
+        "KF-Nuked"
+        # mutators separated by comma
+        "?Mutator=UnofficialKFPatch.UKFPMutator,LTI.Mut"
+        "?LinuxCrashHack=1"
 
-    # enabling LTI settings
-    "?DisableTraderLocking=1"
+        # enabling LTI settings
+        "?DisableTraderLocking=1"
 
-    # customize the rest of the game
-    "?BroadcastPickups=1"
-    "?DropAllWepsOnDeath=1"
-    "?NoEDARs=1"
+        # customize the rest of the game
+        "?BroadcastPickups=1"
+        "?DropAllWepsOnDeath=1"
+        "?NoEDARs=1"
 
-    # admin options
-    " -AdminName=nanako"
-    "'"
-  ];
+        # admin options
+        " -AdminName=nanako"
+        "'"
+      ]
+    };
+  '';
 in
 {
-  # User/Group
   users.users.kf2 = {
     description = "Killing Floor 2 server service user";
     home = kf2server_path;
@@ -50,7 +55,6 @@ in
   };
 
   systemd.services = {
-    # Main server service
     kf2server = {
       unitConfig = {
         Description = "Killing Floor 2 Server";
@@ -63,27 +67,10 @@ in
         User = config.users.users.kf2.name;
         Group = config.users.users.kf2.group;
         WorkingDirectory = kf2server_path;
-        ExecStart = "${pkgs.steam-run}/bin/steam-run ${steam-run-args}";
+        ExecStartPre = "${lib.getExe kf2server_update}";
+        ExecStart = "${lib.getExe kf2server_start}";
         Restart = "always";
         RestartSec = "15s";
-      };
-    };
-
-    # Manual update service
-    kf2server-update = {
-      unitConfig = {
-        Description = "Killing Floor 2 Server Update";
-        Documentation = [
-          "https://wiki.killingfloor2.com/index.php?title=Dedicated_Server_(Killing_Floor_2)"
-        ];
-      };
-
-      serviceConfig = {
-        User = config.users.users.kf2.name;
-        Group = config.users.users.kf2.group;
-        Type = "oneshot";
-        WorkingDirectory = kf2server_path;
-        ExecStart = "${kf2server_update}/bin/kf2server_update";
       };
     };
   };
