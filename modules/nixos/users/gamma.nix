@@ -14,8 +14,8 @@
     ../docker.nix
 
     ../services/kf2-server.nix
-    ../services/minecraft-server.nix
     ../services/palserver.nix
+
     ../llm.nix
     ../virtualisation.nix
     ../davinci-resolve-studio.nix

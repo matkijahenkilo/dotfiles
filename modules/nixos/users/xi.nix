@@ -14,7 +14,6 @@
     ../virtualisation.nix
 
     ../services/palserver.nix
-    ../services/minecraft-server.nix
 
     ../extra-users.nix
   ];

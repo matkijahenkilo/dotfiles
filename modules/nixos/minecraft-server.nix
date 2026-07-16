@@ -1,0 +1,28 @@
+{ pkgs, ... }:
+{
+  services.nix-minecraft-servers = {
+    enable = true;
+    sudoRules = true;
+
+    servers.test = {
+      enable = true;
+      autoStart = false;
+      eula = true;
+      openFirewall = true;
+
+      server = pkgs.papermc;
+    };
+
+    servers.createmodpack = {
+      enable = true;
+      autoStart = false;
+      eula = true;
+      openFirewall = true;
+
+      javaPackage = pkgs.jre_headless;
+      jvmOpts = [
+        "-XX:+UseZGC"
+      ];
+    };
+  };
+}

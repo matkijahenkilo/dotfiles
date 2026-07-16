@@ -265,6 +265,21 @@
         "type": "github"
       }
     },
+    "nix-minecraft-servers": {
+      "locked": {
+        "lastModified": 1782956290,
+        "narHash": "sha256-pbGE97umOORAQhtI3WVfL8jKSUf3xwDAEYxu1lSpz3s=",
+        "owner": "rafaelrc7",
+        "repo": "nix-minecraft-servers",
+        "rev": "a96a6574d08dc396ad61192ef00fb63cea39e9d2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rafaelrc7",
+        "repo": "nix-minecraft-servers",
+        "type": "github"
+      }
+    },
     "nixcord": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -571,6 +586,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "nix-minecraft-servers": "nix-minecraft-servers",
         "nixcord": "nixcord",
         "nixgl": "nixgl",
         "nixos-hardware": "nixos-hardware",

@@ -29,6 +29,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-minecraft-servers.url = "github:rafaelrc7/nix-minecraft-servers";
+
     nixcord.url = "github:kaylorben/nixcord";
 
     tsih-robo-ktx.url = "github:matkijahenkilo/tsih-robo-ktx";
@@ -99,6 +101,7 @@
         xi = mkHost nixosPkgs ./hosts/xi/configuration.nix [
           inputs.home-manager.nixosModules.home-manager
           inputs.stylix.nixosModules.stylix
+          inputs.nix-minecraft-servers.nixosModules.default
           {
             home-manager = {
               useUserPackages = true;
