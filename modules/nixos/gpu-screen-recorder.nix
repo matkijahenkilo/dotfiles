@@ -21,7 +21,11 @@ let
 
   gsr-replay-save = pkgs.writeShellScriptBin "gsr-replay-save" ''
     gsr-ui-cli replay-save
-    ${lib.getExe pkgs.mpv} ${sounds-path}/yume-nikki-select2.wav
+    if pidof gsr-kms-server > /dev/null; then
+      ${lib.getExe pkgs.mpv} ${sounds-path}/yume-nikki-select2.wav
+    else
+      ${lib.getExe pkgs.mpv} ${sounds-path}/yume-nikki-are2.wav
+    fi
   '';
 
   path = ../../pkgs;
