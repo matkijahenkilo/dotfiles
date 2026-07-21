@@ -211,6 +211,12 @@
             else
               echo "$(cyan Trying to not let the video size go past) $(magenta ''${4}mb)$(cyan ...)"
             fi
+
+            if (($(${pkgs.ffmpeg}/bin/ffprobe -i "$cutVideoName" -show_entries format=size -v quiet -of csv="p=0") < 10000000 )); then
+              echo "$(green Surprisingly, the video is already smaller than 10mb.)"
+              return 0
+            fi
+
             chvidsize "$cutVideoName" "$4" "$5"
 
             # delete intermediate video
