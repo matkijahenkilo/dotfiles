@@ -11,7 +11,7 @@
 
     ../gnupg-agent.nix
     ../zerotierone.nix
-    ../virtualisation.nix
+    # ../virtualisation.nix
 
     ../services/palserver.nix
 

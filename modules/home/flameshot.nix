@@ -37,7 +37,6 @@ in
       General = {
         contrastOpacity = 188;
         filenamePattern = "%F_%T";
-        disabledGrimWarning = true;
         showStartupLaunchMessage = false;
         showDesktopNotification = false;
       };

@@ -31,7 +31,7 @@
 
     nix-minecraft-servers.url = "github:rafaelrc7/nix-minecraft-servers";
 
-    nixcord.url = "github:kaylorben/nixcord";
+    nixcord.url = "github:4evy/nixcord";
 
     tsih-robo-ktx.url = "github:matkijahenkilo/tsih-robo-ktx";
   };

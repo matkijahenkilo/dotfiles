@@ -5,7 +5,7 @@
   ...
 }:
 {
-  # https://github.com/FlameFlag/nixcord
+  # https://github.com/4evy/nixcord
   imports = [ inputs.nixcord.homeModules.nixcord ];
 
   programs.nixcord = {
@@ -26,14 +26,13 @@
         fakeNitro.enable = true;
         noF1.enable = true;
         alwaysAnimate.enable = true;
-        favoriteGifSearch.enable = true;
         whoReacted.enable = true;
         callTimer.enable = true;
         petpet.enable = true;
         readAllNotificationsButton.enable = true;
         clearUrls.enable = true;
         # equicord plugins
-        forwardAnywhere.enable = true;
+        betterForwards.enable = true;
         noTypingAnimation.enable = true;
       };
     };

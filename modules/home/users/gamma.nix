@@ -1,4 +1,9 @@
-{ pkgs, libs, ... }:
+{
+  inputs,
+  pkgs,
+  libs,
+  ...
+}:
 {
   home = {
     username = "marisa";
@@ -19,7 +24,6 @@
     ../sessions/plasma
     ../groups/games.nix
     ../fcitx5.nix
-    ../clion.nix
     ../alcom.nix
   ];
 

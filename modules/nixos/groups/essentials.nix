@@ -2,7 +2,6 @@
 {
   imports = [
     ../boot.nix
-    ../journald.nix
     ../nix.nix
     ../git.nix
     ../i18n.nix

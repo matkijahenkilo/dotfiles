@@ -28,12 +28,12 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "gpu-screen-recorder-ui";
-  version = "1.12.4";
+  version = "1.13.2";
 
   src = fetchgit {
     url = "https://repo.dec05eba.com/gpu-screen-recorder-ui";
     tag = finalAttrs.version;
-    hash = "sha256-/YTV2nLhsg1AdgmWsVppEuQaEAaNMy7pmzsVB85HFa4=";
+    hash = "sha256-aYD+efjfGEmLmc+fxpSguwpdL82iyF3OoHFJBUe7Kms=";
   };
 
   patches = [

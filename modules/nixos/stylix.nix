@@ -53,21 +53,13 @@
       stylix.targets = {
         mangohud.enable = false;
         vscode.profileNames = [ "marisa" ];
-        firefox = {
-          colorTheme.enable = true;
-          profileNames = [
-            "tsih"
-            "nanako"
-          ];
-        };
+        firefox.profileNames = [
+          "tsih"
+          "nanako"
+        ];
         fcitx5.fonts.override = {
           sizes.popups = 18;
         };
-      };
-      # required for stylix.targets.firefox.colorTheme.enable
-      programs.firefox.profiles = {
-        tsih.extensions.force = true;
-        nanako.extensions.force = true;
       };
     }
   ];

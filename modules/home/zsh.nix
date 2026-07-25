@@ -206,6 +206,16 @@
             echo "$(cyan Cutting video...)"
             cutmedia "$1" "$2" "$3"
 
+            # Discord can't embed mkvs, so this kinda fixes it
+            if [[ "''${cutVideoName##*.}" != "mp4" ]]; then
+              echo "$(cyan Changing ''${file:t} to mp4)"
+              local cutVideoNameMp4="''${cutVideoName%.*}.mp4"
+              ${lib.getExe pkgs.ffmpeg} -hide_banner -loglevel error -y -i $cutVideoName -c copy $cutVideoNameMp4
+              rm $cutVideoName
+              cutVideoName=$cutVideoNameMp4
+              echo "$(green Done)"
+            fi
+
             if [ -z $4 ]; then
               echo "$(cyan Trying to not let the video size go past) $(magenta 10mb)$(cyan ...)"
             else
