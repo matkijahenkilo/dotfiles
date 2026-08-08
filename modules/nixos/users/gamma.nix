@@ -16,6 +16,7 @@
     ../services/kf2-server.nix
     ../services/palserver.nix
 
+    ../virtualisation.nix
     # ../virtualisation.nix
     # ../davinci-resolve-studio.nix
     ../alvr.nix
