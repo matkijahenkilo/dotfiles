@@ -20,6 +20,7 @@
     # ../virtualisation.nix
     # ../davinci-resolve-studio.nix
     ../alvr.nix
+    ../llama-cpp.nix
   ];
 
   boot.binfmt.emulatedSystems = [
