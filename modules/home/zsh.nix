@@ -79,6 +79,7 @@
         let
           sounds-path = ../../assets/sounds;
           ffmpeg-with-progress = "${lib.getExe pkgs.python314Packages.ffmpeg-progress-yield} -p -x ${lib.getExe pkgs.ffmpeg}";
+          ffprobe-size-fetch = "${pkgs.ffmpeg}/bin/ffprobe -i \"$cutVideoName\" -show_entries format=size -v quiet -of csv=\"p=0\"";
         in
         ''
           zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
@@ -150,9 +151,9 @@
           chvidsize() {
             setopt local_options err_return
             local start_time=$SECONDS
-            local target_size_mb target_size length length_round_up total_bitrate audio_bitrate video_bitrate max_video_bitrate preset
+            local target_size length length_round_up total_bitrate audio_bitrate video_bitrate max_video_bitrate preset
+            local target_size_mb=20 # discord size limit
 
-            target_size_mb=10 # discord size limit
             if [ ! -z $2 ]; then
               target_size_mb=$2
             fi
@@ -168,7 +169,7 @@
             total_bitrate=$(($target_size / $length_round_up))
             audio_bitrate=$((128 * 1000))
             video_bitrate=$(($total_bitrate - $audio_bitrate))
-            max_video_bitrate=$((2500 * 1000))
+            max_video_bitrate=$((3000 * 1000))
 
             if (( video_bitrate > max_video_bitrate )); then
               video_bitrate=$max_video_bitrate
@@ -197,11 +198,12 @@
           }
 
           # cutdiscordclip [file] [start] [end] [size in mb (optional)] [ffmpeg preset (optional)]
-          # cuts a video and encode it, shrinking it's size below 10mb by default or a custom target value
+          # cuts a video and encode it, shrinking it's size below 20mb by default or a custom target value
           # e.g. cutdiscordclip 'MUSIC 22 11 2025.webm' 1:30 2:00 8 6
           cutdiscordclip() {
             setopt local_options err_return
             local cutVideoName="''${1%.*}-cut.''${1##*.}"
+            local target_size_mb=$((20 * 1000 * 1000))
 
             echo "$(cyan Cutting video...)"
             cutmedia "$1" "$2" "$3"
@@ -217,14 +219,16 @@
             fi
 
             if [ -z $4 ]; then
-              echo "$(cyan Trying to not let the video size go past) $(magenta 10mb)$(cyan ...)"
+              echo "$(cyan Trying to not let the video size go past) $(magenta $(((target_size_mb/1000)/1000))mb)$(cyan ...)"
             else
               echo "$(cyan Trying to not let the video size go past) $(magenta ''${4}mb)$(cyan ...)"
             fi
 
-            if (($(${pkgs.ffmpeg}/bin/ffprobe -i "$cutVideoName" -show_entries format=size -v quiet -of csv="p=0") < 10000000 )); then
-              echo "$(green Surprisingly, the video is already smaller than 10mb.)"
-              return 0
+            if [[ -z $4 ]]; then
+              if (($(${ffprobe-size-fetch}) < target_size_mb)); then
+                echo "$(green Surprisingly, the video is already smaller than $(((target_size_mb/1000)/1000))mb.)"
+                return 0
+              fi
             fi
 
             chvidsize "$cutVideoName" "$4" "$5"
