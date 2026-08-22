@@ -13,7 +13,7 @@
     discord = {
       equicord.enable = true;
       vencord.enable = false;
-      branch = "stable";
+      branches  = [ "stable" ];
       krisp.enable = true;
       commandLineArgs = [
         "--enable-blink-features=MiddleClickAutoscroll"
