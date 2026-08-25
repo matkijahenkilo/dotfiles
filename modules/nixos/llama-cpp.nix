@@ -8,6 +8,7 @@
         models-dir = "/media/WD/models"; # switch to a better place lol
         sleep-idle-seconds = 1800;
         ui-mcp-proxy = true;
+        port = 1773;
       };
     };
   };
