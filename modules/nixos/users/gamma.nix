@@ -13,7 +13,6 @@
     ../gnupg-agent.nix
     ../docker.nix
 
-    ../services/kf2-server.nix
     ../services/palserver.nix
 
     ../virtualisation.nix
