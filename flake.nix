@@ -98,7 +98,7 @@
             };
           }
         ];
-        xi = mkHost nixosPkgs ./hosts/xi/configuration.nix [
+        kotputer = mkHost nixosPkgs ./hosts/kotputer/configuration.nix [
           inputs.home-manager.nixosModules.home-manager
           inputs.stylix.nixosModules.stylix
           inputs.nix-minecraft-servers.nixosModules.default
@@ -110,7 +110,7 @@
               backupCommand = "rm";
               extraSpecialArgs = { inherit inputs nixpkgs self; };
               users = {
-                marisa = import ./modules/home/users/xi.nix;
+                marisa = import ./modules/home/users/kotputer.nix;
                 nanako = import ./modules/home/users/nanako.nix;
               };
             };

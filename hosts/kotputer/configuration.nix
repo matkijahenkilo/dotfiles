@@ -5,7 +5,7 @@
     ./gpu.nix
     ./networking.nix
     ./printer.nix
-    ../../modules/nixos/users/xi.nix
+    ../../modules/nixos/users/kotputer.nix
   ];
 
   # Enable touchpad support (enabled default in most desktopManager).
