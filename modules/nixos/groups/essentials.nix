@@ -25,6 +25,7 @@
   users.users = {
     root = {
       initialHashedPassword = lib.mkForce "$y$j9T$9jdDe/zfTWRi3sPvuupaX.$W/ALIOufPsH4IROVEjysb7FX126JLoiIINVT3oun9j2";
+      packages = [ pkgs.micro ];
     };
     marisa = {
       isNormalUser = true;
