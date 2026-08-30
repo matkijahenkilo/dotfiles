@@ -4,7 +4,7 @@
     enable = true;
     autoStart = false;
     capSysAdmin = true;
-    openFirewall = false;
+    openFirewall = true;
   };
 
   environment.systemPackages = with pkgs; [
