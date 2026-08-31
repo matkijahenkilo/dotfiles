@@ -33,12 +33,43 @@ align="right" alt="Nix logo" width="150">
 >
 > — [NixOS User's Creed](https://github.com/ners/NixOS)
 
-#### Most frequently used commands that I easily forget.:
+## Overview
 
-Build in machine A, deploy config to machine B via ssh
+This is my personal Nix flake.
+It was heavily organized and structured to be used mainly by me, though customizations are easy for those who understand Nix.
+
+It uses home-manager as a NixOS module.
+
+## Installation
 
 ```
-nixos-rebuild switch --sudo --ask-sudo-password --build-host localhost --target-host remote.server --flake /path/to/flake#that-server-config
+git clone https://github.com/matkijahenkilo/dotfiles
+cd dotfiles
+direnv allow
+```
+
+### Host configuration
+
+If building for the first time:
+
+```
+nixos-rebuild switch --flake .#hostname
+```
+
+If rebuilding a system, it uses the default hostname, so use `nh` because it's pretty:
+
+```
+nh os switch
+```
+
+## Cool commands for my usecase:
+
+Build in machine A, deploy config to machine B via ssh (requires `ssh-copy-id`)
+
+Useful for uploading configs to slow computers that can't build NixOS systems, like Raspberry Pi.
+
+```
+nixos-rebuild switch --sudo --ask-sudo-password --build-host localhost --target-host remote.server --flake /path/to/flake#remotehostname
 ```
 
 Templates for projects
