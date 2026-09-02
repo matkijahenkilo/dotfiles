@@ -22,6 +22,7 @@
     ../alvr.nix
     ../llama-cpp.nix
     ../sunshine.nix
+    ../android-tools.nix
   ];
 
   zabbix = {
@@ -33,12 +34,7 @@
     "aarch64-linux"
   ];
 
-  environment.systemPackages = with pkgs; [
-    android-tools
-  ];
-
   users.users.marisa.extraGroups = [
-    "adbusers"
     "kvm"
   ];
 }
