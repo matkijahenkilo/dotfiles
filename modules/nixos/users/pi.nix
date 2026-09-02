@@ -4,6 +4,7 @@
     ../groups/essentials.nix
     ../services/tsih-robo-ktx.nix
     ../radicale.nix
+    ../zabbix.nix
   ];
 
   environment.systemPackages = with pkgs; [

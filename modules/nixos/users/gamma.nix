@@ -12,6 +12,7 @@
     ../zerotierone.nix
     ../gnupg-agent.nix
     ../docker.nix
+    ../zabbix.nix
 
     ../services/palserver.nix
 
@@ -22,6 +23,11 @@
     ../llama-cpp.nix
     ../sunshine.nix
   ];
+
+  zabbix = {
+    agent.enable = false; # don car bout my own pc
+    web.enable = true;
+  };
 
   boot.binfmt.emulatedSystems = [
     "aarch64-linux"
