@@ -8,7 +8,7 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    libraspberrypi # can't use raspi-utils yet because flake it not updated
+    raspi-utils
   ];
 
   # override configs for the raspberry pi host
