@@ -6,23 +6,24 @@
     ../groups/desktop.nix
     ../groups/games.nix
 
+    # gui
     ../sessions/plasma.nix
     ../stylix.nix
 
+    # services
     ../zerotierone.nix
     ../gnupg-agent.nix
-    ../docker.nix
     ../zabbix.nix
 
-    ../services/palserver.nix
-
-    ../virtualisation.nix
-    # ../virtualisation.nix
+    # tools
     # ../davinci-resolve-studio.nix
+    ../docker.nix
+    ../virtualisation.nix
     ../alvr.nix
     ../llama-cpp.nix
     ../sunshine.nix
     ../android-tools.nix
+    ../qemu.nix
   ];
 
   zabbix = {
@@ -30,11 +31,5 @@
     web.enable = true;
   };
 
-  boot.binfmt.emulatedSystems = [
-    "aarch64-linux"
-  ];
-
-  users.users.marisa.extraGroups = [
-    "kvm"
-  ];
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 }
