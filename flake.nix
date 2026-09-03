@@ -129,6 +129,11 @@
             };
           }
         ];
+        # nix build .#nixosConfigurations.rpi-img.config.system.build.sdImage
+        rpi-img = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          modules = [ ./hosts/sd-image.nix ];
+        };
       };
 
       devShells = {
