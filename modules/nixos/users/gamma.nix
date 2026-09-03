@@ -23,7 +23,6 @@
     ../llama-cpp.nix
     ../sunshine.nix
     ../android-tools.nix
-    ../qemu.nix
   ];
 
   zabbix = {
