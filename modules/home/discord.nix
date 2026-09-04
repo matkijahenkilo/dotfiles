@@ -17,6 +17,10 @@
       krisp.enable = true;
       commandLineArgs = [
         "--enable-blink-features=MiddleClickAutoscroll"
+        # not using this flag will open discord with weird colors
+        # and will crash up to 3 times when loading videos
+        # before getting back to normal
+        "--ozone-platform=x11"
       ];
     };
     config = {
