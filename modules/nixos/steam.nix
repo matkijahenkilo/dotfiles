@@ -1,14 +1,15 @@
 { pkgs, ... }:
 let
+  readable-name = "Proton-RTSP-11.0";
   # Custom Proton made for using VRChat's
   # selfie expression with webcam
-  proton-ge-qcap-dshow-fixes = pkgs.stdenvNoCC.mkDerivation (finalAttrs: {
-    pname = "proton-ge-qcap-dshow-fixes-bin";
-    version = "ge-proton10-34-qcap-dshow-fixes";
+  proton-rtsp = pkgs.stdenvNoCC.mkDerivation (finalAttrs: {
+    pname = "proton-rtsp-11.0-20260609-1";
+    version = "proton-rtsp-11.0-20260609-1";
 
     src = pkgs.fetchzip {
-      url = "https://github.com/LilFishyChan/proton-ge-custom/releases/download/ge-proton10-34-qcap-dshow-fixes/ge-proton10-34-qcap-dshow-fixes.tar.gz";
-      hash = "sha256-W73txUHZOiLAAC4XX7V276LIFtoAAdGBsg3IXinh1VE=";
+      url = "https://github.com/SpookySkeletons/proton-rtsp/releases/download/proton-rtsp-11.0-20260609-1/proton-rtsp-11.0-20260609-1.tar.gz";
+      hash = "sha256-/YrUjR/Ynb0clNpXSaSlfpnqJ76ZfTYP9LR/WHHCMgk=";
     };
 
     dontUnpack = true;
@@ -37,7 +38,7 @@ let
 
     preFixup = ''
       substituteInPlace "$steamcompattool/compatibilitytool.vdf" \
-        --replace-fail "${finalAttrs.version}" "GE-Proton-10-34-qcap-dshow-fixes"
+        --replace-fail "${finalAttrs.version}" "${readable-name}"
     '';
   });
 in
@@ -84,7 +85,7 @@ in
     };
     extraCompatPackages = with pkgs; [
       proton-ge-bin
-      proton-ge-qcap-dshow-fixes
+      proton-rtsp
     ];
   };
 }
