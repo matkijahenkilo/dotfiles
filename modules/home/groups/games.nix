@@ -2,6 +2,7 @@
 {
   imports = [
     ../mangohud.nix
+    ../lutris.nix
   ];
 
   home.packages =
@@ -32,7 +33,7 @@
       # pyfa
       # pcsx2
       # rpcs3
-      lutris
+      # lutris
       # shadps4
       bottles
       etterna
@@ -40,6 +41,5 @@
       xivlauncher
       prismlauncher
       deadlock-mod-manager
-      wineWow64Packages.stable
     ];
 }
