@@ -4,12 +4,12 @@ let
   # Custom Proton made for using VRChat's
   # selfie expression with webcam
   proton-rtsp = pkgs.stdenvNoCC.mkDerivation (finalAttrs: {
-    pname = "proton-rtsp-11.0-20260609-1";
-    version = "proton-rtsp-11.0-20260609-1";
+    pname = "Proton-RTSP";
+    version = "proton-rtsp-11.0-20260609-4";
 
     src = pkgs.fetchzip {
-      url = "https://github.com/SpookySkeletons/proton-rtsp/releases/download/proton-rtsp-11.0-20260609-1/proton-rtsp-11.0-20260609-1.tar.gz";
-      hash = "sha256-/YrUjR/Ynb0clNpXSaSlfpnqJ76ZfTYP9LR/WHHCMgk=";
+      url = "https://github.com/SpookySkeletons/proton-rtsp/releases/download/proton-rtsp-11.0-20260609-4/proton-rtsp-11.0-20260609-4.tar.gz";
+      hash = "sha256-ENLAPkz6PhqBpGibwjnWJE8NEnUnmoM81IuPQB9Ufoc=";
     };
 
     dontUnpack = true;
@@ -62,6 +62,8 @@ in
     extest.enable = true;
     protontricks.enable = true;
     package = pkgs.steam.override {
+      # as mentioned in https://github.com/SpookySkeletons/proton-rtsp/releases/tag/proton-rtsp-11.0-20260609-4
+      extraArgs = "steam://unlockh264/";
       extraPkgs =
         p: with p; [
           mesa-demos
