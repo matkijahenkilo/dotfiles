@@ -49,35 +49,36 @@ let
   '';
 in
 {
-  programs.gpu-screen-recorder.enable = true;
+  programs.gpu-screen-recorder = {
+    enable = true;
+    ui.enable = true;
+  };
   environment.systemPackages = [
-    gpu-screen-recorder-notification
-    gpu-screen-recorder-ui
     gsr-toggle-show
     gsr-toggle-record
     gsr-toggle-replay
     gsr-replay-save
   ];
 
-  systemd.user.services.gsr-replay-auto-restarter = {
-    description = "Auto-restart gpu-screen-recorder's replay";
-    after = [ "graphical-session.target" ];
-    requires = [ "graphical-session.target" ];
-
-    path = [
-      gpu-screen-recorder-ui
-      pkgs.procps
-      pkgs.coreutils
-    ];
-
-    serviceConfig = {
-      Type = "oneshot";
-      ExecStart = "${lib.getExe start-gsr-replay-if-not-running}";
-    };
-  };
-
-  # run service when the monitor is plugged or wakes up
-  services.udev.extraRules = ''
-    ACTION=="change", SUBSYSTEM=="drm", TAG+="systemd", ENV{SYSTEMD_USER_WANTS}+="gsr-replay-auto-restarter.service"
-  '';
+#   systemd.user.services.gsr-replay-auto-restarter = {
+#     description = "Auto-restart gpu-screen-recorder's replay";
+#     after = [ "graphical-session.target" ];
+#     requires = [ "graphical-session.target" ];
+#
+#     path = [
+#       gpu-screen-recorder-ui
+#       pkgs.procps
+#       pkgs.coreutils
+#     ];
+#
+#     serviceConfig = {
+#       Type = "oneshot";
+#       ExecStart = "${lib.getExe start-gsr-replay-if-not-running}";
+#     };
+#   };
+#
+#   # run service when the monitor is plugged or wakes up
+#   services.udev.extraRules = ''
+#     ACTION=="change", SUBSYSTEM=="drm", TAG+="systemd", ENV{SYSTEMD_USER_WANTS}+="gsr-replay-auto-restarter.service"
+#   '';
 }
