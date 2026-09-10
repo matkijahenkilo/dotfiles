@@ -8,6 +8,7 @@
     ../thunderbird.nix
     ../mpv.nix
     ../krita
+    ../xmousepasteblock.nix
   ];
 
   home.packages = with pkgs; [

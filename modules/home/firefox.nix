@@ -2,6 +2,7 @@
 let
   preferences = {
     "widget.use-xdg-desktop-portal.file-picker" = 1;
+    "middlemouse.paste" = false;
   };
 in
 {
