@@ -18,7 +18,6 @@
     ../groups/hoardingcli.nix
     ../fastfetch.nix
     ../syncthing.nix
-    ../gschemas.nix
 
     ../groups/gui.nix
     ../sessions/plasma
