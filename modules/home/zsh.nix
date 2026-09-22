@@ -137,21 +137,22 @@
             (${lib.getExe pkgs.mpv} --no-terminal ${sounds-path}/yume-nikki-music8.wav > /dev/null 2>&1 &)
           }
 
-          # cutmedia [file] [start] [end]
-          # e.g. cutmedia MGR姉貴かわいい.mp4 1:30 3:00
+          # cutmedia [file] [start] [end] [audio track index (optional, default 0)]
+          # e.g. cutmedia MGR姉貴かわいい.mp4 1:30 3:00 2
           cutmedia() {
             setopt local_options err_return
             local final_name="''${1%.*}-cut.''${1##*.}"
-            ${lib.getExe pkgs.ffmpeg} -hide_banner -loglevel error -y -ss $2 -to $3 -i $1 -c copy $final_name
+            local audio_track=''${4:-0}
+            ${lib.getExe pkgs.ffmpeg} -hide_banner -loglevel error -y -ss $2 -to $3 -i $1 -map 0:v:0 -map 0:a:$audio_track -c copy $final_name
             echo "$(green Media cut and saved to \"''${final_name}\")"
           }
 
-          # chvidsize [file] [size in mb (optional)] [ffmpeg preset (optional)]
-          # e.g. chvidsize NYN姉貴ｗ.mp4 5 5
+          # chvidsize [file] [size in mb (optional)] [ffmpeg preset (optional)] [audio track index (optional, default 0)]
+          # e.g. chvidsize NYN姉貴ｗ.mp4 5 5 2
           chvidsize() {
             setopt local_options err_return
             local start_time=$SECONDS
-            local target_size length length_round_up total_bitrate audio_bitrate video_bitrate max_video_bitrate preset
+            local target_size length length_round_up total_bitrate audio_bitrate video_bitrate max_video_bitrate preset audio_track
             local target_size_mb=20 # discord size limit
 
             if [ ! -z $2 ]; then
@@ -161,6 +162,7 @@
             if [ ! -z $3 ]; then
               preset=$3
             fi
+            audio_track=''${4:-0}
 
             target_size=$(($target_size_mb * 1000 * 1000 * 8))
 
@@ -185,6 +187,7 @@
             echo "$(cyan Encoding video with bitrate and preset arguments:) $(yellow -b:v $video_bitrate -b:a $audio_bitrate -preset $preset)"
             ${ffmpeg-with-progress} -hide_banner -loglevel error -y \
               -i $1 \
+              -map 0:v:0 -map 0:a:$audio_track \
               -c:v libsvtav1 \
               -b:v $video_bitrate \
               -preset $preset \
@@ -197,16 +200,17 @@
             (${lib.getExe pkgs.mpv} --no-terminal ${sounds-path}/yume-nikki-music8.wav > /dev/null 2>&1 &)
           }
 
-          # cutdiscordclip [file] [start] [end] [size in mb (optional)] [ffmpeg preset (optional)]
+          # cutdiscordclip [file] [start] [end] [size in mb (optional)] [ffmpeg preset (optional)] [audio track index (optional, default 0)]
           # cuts a video and encode it, shrinking it's size below 20mb by default or a custom target value
-          # e.g. cutdiscordclip 'MUSIC 22 11 2025.webm' 1:30 2:00 8 6
+          # e.g. cutdiscordclip 'MUSIC 22 11 2025.webm' 1:30 2:00 8 6 2
           cutdiscordclip() {
             setopt local_options err_return
             local cutVideoName="''${1%.*}-cut.''${1##*.}"
             local target_size_mb=$((20 * 1000 * 1000))
+            local audio_track=''${6:-0}
 
             echo "$(cyan Cutting video...)"
-            cutmedia "$1" "$2" "$3"
+            cutmedia "$1" "$2" "$3" "$audio_track"
 
             # Discord can't embed mkvs, so this kinda fixes it
             if [[ "''${cutVideoName##*.}" != "mp4" ]]; then
