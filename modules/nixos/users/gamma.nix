@@ -19,7 +19,6 @@
     # ../davinci-resolve-studio.nix
     ../docker.nix
     ../virtualisation.nix
-    ../alvr.nix
     ../llama-cpp.nix
     ../sunshine.nix
     ../android-tools.nix
