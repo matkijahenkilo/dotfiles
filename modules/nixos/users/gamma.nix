@@ -20,7 +20,6 @@
     ../docker.nix
     ../virtualisation.nix
     ../llama-cpp.nix
-    ../sunshine.nix
     ../android-tools.nix
   ];
 
@@ -30,4 +29,10 @@
   };
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  networking.firewall.checkReversePath = false;
+  environment.systemPackages = with pkgs; [
+    wireguard-tools
+    proton-vpn
+  ];
 }
