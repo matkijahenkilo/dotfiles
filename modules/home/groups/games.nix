@@ -36,7 +36,7 @@
       # lutris
       # shadps4
       bottles
-      etterna
+      # etterna
       r2modman
       xivlauncher
       prismlauncher
