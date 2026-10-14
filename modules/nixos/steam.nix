@@ -62,8 +62,6 @@ in
     extest.enable = false;
     protontricks.enable = true;
     package = pkgs.steam.override {
-      # as mentioned in https://github.com/SpookySkeletons/proton-rtsp/releases/tag/proton-rtsp-11.0-20260609-4
-      extraArgs = "steam://unlockh264/";
       extraPkgs =
         p: with p; [
           mesa-demos
