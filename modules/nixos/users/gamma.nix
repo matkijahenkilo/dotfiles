@@ -18,7 +18,7 @@
     # tools
     # ../davinci-resolve-studio.nix
     ../docker.nix
-    ../virtualisation.nix
+    # ../virtualisation.nix
     ../llama-cpp.nix
     ../android-tools.nix
   ];
